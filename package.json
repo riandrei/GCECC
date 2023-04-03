@@ -1,0 +1,31 @@
+{
+  "name": "gcecc",
+  "version": "1.0.0",
+  "description": "School E-Commerce Project",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "server": "nodemon server.js",
+    "client": "cd client && npm start",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "author": "Riandrei",
+  "license": "ISC",
+  "dependencies": {
+    "@react-oauth/google": "^0.9.0",
+    "concurrently": "^5.3.0",
+    "config": "^3.3.3",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.17.1",
+    "google-auth-library": "^8.7.0",
+    "jsonwebtoken": "^8.5.1",
+    "jwt-decode": "^3.1.2",
+    "mongoose": "^5.11.11",
+    "validator": "^13.5.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}
