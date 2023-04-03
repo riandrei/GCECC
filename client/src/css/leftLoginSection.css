@@ -1,0 +1,66 @@
+.left {
+  visibility: hidden;
+  height: 30vh;
+  height: 30svh;
+}
+.left * {
+  width: 0;
+}
+
+@media screen and (min-width: 811px) {
+  .left {
+    all: unset;
+    width: 55%;
+    height: 100vh;
+  }
+  .left * {
+    width: unset;
+  }
+  .left-circle {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    background-image: linear-gradient(to left, #02aabd, #00cdac);
+    width: clamp(55rem, 55vw, 200rem);
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    box-shadow: 4rem 0rem 0 1rem #16927e;
+    transform: translate(-20%, -20%);
+    animation: slide-in 1s ease-in, slide-in-shadow 2s ease-in;
+  }
+  @keyframes slide-in {
+    from {
+      transform: translate(-100%, -20%);
+    }
+    to {
+      transform: translate(-20%, -20%);
+    }
+  }
+  @keyframes slide-in-shadow {
+    from {
+      box-shadow: 0rem 0rem 0 0 #16927e;
+    }
+    to {
+      box-shadow: 4rem 0rem 0 1rem #16927e;
+    }
+  }
+  .woman-shopping-img {
+    width: 55%;
+    transform: rotate(-90deg) translate(0, -15%);
+    transition: margin 1s ease-in-out;
+    z-index: 999;
+  }
+  .shopping-cart-img {
+    position: absolute;
+    width: 45%;
+    transform: rotate(-90deg) translate(-35%, 45%);
+    right: 0;
+    z-index: 999;
+    transition: margin 1s ease-in-out;
+  }
+  .woman-shopping-img:hover,
+  .shopping-cart-img:hover {
+    margin-bottom: 50px;
+  }
+}

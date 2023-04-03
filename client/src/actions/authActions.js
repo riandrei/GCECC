@@ -1,4 +1,4 @@
-import { LOGIN_SUCCESS, UNAUTHORIZED_ACCESS } from './types';
+import { LOGIN_SUCCESS, UNAUTHORIZED_ACCESS, SET_AUTHENTICATION } from './types';
 
 export const signIn = (credential) => (dispatch) => {
   fetch('http://localhost:4000/api/signIn', {
@@ -20,4 +20,8 @@ export const signIn = (credential) => (dispatch) => {
       dispatch({ type: LOGIN_SUCCESS, payload: data });
     })
     .catch((error) => {});
+};
+
+export const setAuthentication = (bool) => (dispatch) => {
+  dispatch({ type: SET_AUTHENTICATION, payload: true });
 };

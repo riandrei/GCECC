@@ -4,6 +4,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const path = require('path');
+const config = require('config');
 
 const authRoutes = require('./routes/authRoute');
 const itemRoutes = require('./routes/itemRoute');
@@ -37,6 +38,6 @@ if (process.env.NODE_ENV === 'production') {
 const dbURI = process.env.DB_URI;
 const port = process.env.PORT || 4000;
 mongoose
-  .connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
+  .connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then((result) => app.listen(port))
   .catch((err) => console.log(err));
