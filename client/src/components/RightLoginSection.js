@@ -1,22 +1,16 @@
-import '../css/rightLoginSection.css';
 import { useEffect } from 'react';
 
-const RightLoginSection = (props) => {
+import '../css/rightLoginSection.css';
+
+const RightLoginSection = ({ signIn }) => {
+  // dispatches the signIn action when google sends their JWT after user clicked log in
   const handleCredentialResponse = (response) => {
-    // Dispatch the signIn action
-    props.signIn(response.credential);
+    signIn(response.credential);
   };
 
+  // connects to google cloud project and renders the button
   useEffect(() => {
-    const brandingContainer = document.querySelector(`.right`);
-    const brandingChildren = [...brandingContainer.children];
     const google = window.google;
-
-    if (document.body.clientWidth < 810) {
-      brandingChildren.forEach((node) => {
-        node.style.height = `${brandingContainer.firstElementChild.clientHeight}px`;
-      });
-    }
 
     google.accounts.id.initialize({
       client_id: '654052078162-oee7b55pllvg568frjffnjkdmpelb9j7.apps.googleusercontent.com',
@@ -30,6 +24,18 @@ const RightLoginSection = (props) => {
     });
   });
 
+  // gives the same height to the children of the right section which makes sure the elements are vertically centered
+  useEffect(() => {
+    const brandingContainer = document.querySelector(`.right`);
+    const brandingChildren = [...brandingContainer.children];
+
+    if (document.body.clientWidth < 810) {
+      brandingChildren.forEach((node) => {
+        node.style.height = `${brandingContainer.firstElementChild.clientHeight}px`;
+      });
+    }
+  }, []);
+
   return (
     <section className="right">
       <div className="website-branding">
@@ -40,7 +46,6 @@ const RightLoginSection = (props) => {
         <p>Welcome Students!</p>
         <div id="buttonDiv"></div>
       </div>
-
       <p className="contact">Contact Us</p>
     </section>
   );

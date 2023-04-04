@@ -6,6 +6,7 @@ import Home from './components/Home';
 
 const App = () => {
   return (
+    // Gives all components access to the store
     <Provider store={store}>
       <Router>
         <Routes>

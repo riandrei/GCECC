@@ -13,6 +13,7 @@ const orderRoutes = require('./routes/orderRoute');
 
 const app = express();
 
+// allows request from port 3000 to the server
 app.use(
   cors({
     origin: 'http://localhost:3000',
@@ -20,13 +21,16 @@ app.use(
   })
 );
 
+// parses incoming JSON payload to the request object
 app.use(express.json());
 
+// opens API routes
 app.use('/api', authRoutes);
 app.use('/api', itemRoutes);
 app.use('/api', cartRoutes);
 app.use('/api', orderRoutes);
 
+// serves the static assets from the client's build folder (useless for now)
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'));
   app.get('*', (req, res) => {

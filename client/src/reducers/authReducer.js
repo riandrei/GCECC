@@ -1,7 +1,7 @@
 import { LOGIN_SUCCESS, UNAUTHORIZED_ACCESS, SET_AUTHENTICATION } from '../actions/types';
 
 const initialState = {
-  token: localStorage.getItem('token'),
+  token: sessionStorage.getItem('token'),
   isAuthenticated: null,
   isLoading: false,
   user: null
@@ -10,7 +10,8 @@ const initialState = {
 export default function authReducer(state = initialState, action) {
   switch (action.type) {
     case LOGIN_SUCCESS:
-      localStorage.setItem('token', action.payload.token);
+      sessionStorage.setItem('token', action.payload.token);
+      sessionStorage.setItem('email', action.payload.user.googleId);
       sessionStorage.setItem('isAuthenticated', true);
       return {
         ...state,

@@ -1,6 +1,8 @@
 import { LOGIN_SUCCESS, UNAUTHORIZED_ACCESS, SET_AUTHENTICATION } from './types';
 
+// dispatches an action and maybe a payload depending on server response
 export const signIn = (credential) => (dispatch) => {
+  // sends a POST request to the server to verify google JWT
   fetch('http://localhost:4000/api/signIn', {
     method: 'POST',
     headers: {
