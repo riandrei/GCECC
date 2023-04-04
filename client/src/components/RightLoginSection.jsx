@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import pageLogo from '../assets/logo.png';
 
 import '../css/rightLoginSection.css';
 
@@ -39,7 +40,7 @@ const RightLoginSection = ({ signIn }) => {
   return (
     <section className="right">
       <div className="website-branding">
-        <img className="logo" src="./pictures/logo.png" alt="" draggable="false" />
+        <img className="logo" src={pageLogo} alt="" draggable="false" />
         <h1>Student's Marketplace</h1>
       </div>
       <div className="login">
