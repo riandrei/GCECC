@@ -18,13 +18,13 @@ const Store = () => {
   }, [isAuthenticated, navigate]);
 
   return (
-    <div className="main-container">
-      <div className="category">
-        <div className="category-title">
+    <div className="store-main-container">
+      <div className="store-category">
+        <div className="store-category-title">
           <h1>School Uniforms</h1>
           <img src={uniformIcon} alt="uniform-icon" />
         </div>
-        <div className="category-contents">
+        <div className="store-category-contents">
           <a href="gcecc-products/GC-Uniform-Polo.html">
             <div className="product-contents"></div>
             <div className="container">
@@ -67,20 +67,20 @@ const Store = () => {
         </div>
       </div>
 
-      <div className="category">
-        <div className="category-title">
+      <div className="store-category">
+        <div className="store-category-title">
           <h1>ID Laces</h1>
           <img src={uniformIcon} alt="uniform-icon" />
         </div>
-        <div className="category-contents"></div>
+        <div className="store-category-contents"></div>
       </div>
 
-      <div className="category">
-        <div className="category-title">
+      <div className="store-category">
+        <div className="store-category-title">
           <h1>Sportfest Shirts</h1>
           <img src={uniformIcon} alt="uniform-icon" />
         </div>
-        <div className="category-contents"></div>
+        <div className="store-category-contents"></div>
       </div>
     </div>
   );

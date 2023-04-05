@@ -7,7 +7,6 @@
 }
 #root {
   display: flex;
-  grid-template-columns: 190px 1fr;
 }
 
 nav {

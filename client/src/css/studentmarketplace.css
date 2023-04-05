@@ -1,0 +1,125 @@
+.market-main-container {
+  float: right;
+  display: flex;
+  flex-direction: column;
+  margin: 50px 0 0 220px;
+  gap: 5rem;
+  animation: main-container-ani 1000ms 1 ease;
+}
+.market-category-title {
+  display: flex;
+}
+.market-category-title h1 {
+  font-size: 3.2rem;
+}
+
+@keyframes main-container-ani {
+  to {
+    clip-path: circle(115.9% at 5% 33%);
+  }
+  from {
+    clip-path: circle(0.01% at 0 28%);
+    background-color: #074a7d;
+  }
+}
+
+.product .product-description,
+main[role='main'] {
+  *zoom: 1;
+}
+.product .product-description:after,
+main[role='main']:after {
+  content: '';
+  display: table;
+  clear: both;
+}
+.marketplace-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.product {
+  background: #fff;
+  max-width: 300px;
+  position: relative;
+  margin: 1rem;
+  transition: 500ms;
+  -webkit-box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+  -o-box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+  -webkit-transition: 500ms;
+  -moz-transition: 500ms;
+  -ms-transition: 500ms;
+  -o-transition: 500ms;
+}
+.product:hover {
+  scale: 1.05;
+}
+.product .product-description {
+  position: relative;
+
+  background: #fff;
+}
+.product .product-description .info {
+  padding: 15px;
+  color: #aaa;
+  font-size: 0.85em;
+  width: 75%;
+  float: left;
+}
+.product .product-description .info h1 {
+  font-size: 20px;
+  margin: 0 0 5px;
+}
+.product .product-description .info p {
+  font-size: 13.6px;
+  margin-bottom: 15px;
+  line-height: 1.3em;
+}
+.product .product-description .price {
+  width: 25%;
+  background-color: #0165b2;
+  border-radius: 10px 0 0 10px;
+  padding-left: 5px;
+  float: left;
+  color: #fff;
+  font-size: 28.8px;
+  position: relative;
+  margin-top: 25px;
+  -webkit-border-radius: 10px 0 0 10px;
+  -moz-border-radius: 10px 0 0 10px;
+  -ms-border-radius: 10px 0 0 10px;
+  -o-border-radius: 10px 0 0 10px;
+}
+
+@media screen and (max-width: 480px) {
+  #content {
+    margin-top: 60px;
+  }
+
+  .product .product-sidebar {
+    width: 100%;
+    height: 50px;
+    bottom: 0px;
+    left: 0;
+    top: inherit;
+    -webkit-border-radius: 0 0px 2px 2px;
+    -moz-border-radius: 0 0px 2px 2px;
+    -o-border-radius: 0 0px 2px 2px;
+    border-radius: 0 0px 2px 2px;
+    -webkit-transition: bottom 0.3s ease;
+    -moz-transition: bottom 0.3s ease;
+    -o-transition: bottom 0.3s ease;
+    transition: bottom 0.3s ease;
+  }
+  .product:hover .product-sidebar {
+    bottom: -50px;
+  }
+}
+@media screen and (max-width: 360px) {
+  .product .product-sidebar {
+    bottom: -50px;
+  }
+}
