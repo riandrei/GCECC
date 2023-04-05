@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 import gcLogo from '../assets/gordoncollege.png';
 import helpIcon from '../assets/help.png';
@@ -32,7 +32,7 @@ const Nav = () => {
             backgroundPosition: 'left center'
           }}
         >
-          <a href="home.html">GCECC</a>
+          <Link to="/store">GCECC</Link>
         </li>
         <li
           style={{
@@ -41,7 +41,7 @@ const Nav = () => {
             backgroundPosition: 'left center'
           }}
         >
-          <a href="student-market.html">Student Market</a>
+          <Link to="/market">Student Market</Link>
         </li>
         <li
           style={{
@@ -50,7 +50,7 @@ const Nav = () => {
             backgroundPosition: 'left center'
           }}
         >
-          <a href="cart.html">Cart</a>
+          <Link to="/cart">Cart</Link>
         </li>
         <li
           style={{
@@ -59,7 +59,7 @@ const Nav = () => {
             backgroundPosition: 'left center'
           }}
         >
-          <a href="seller.html">Be a Seller</a>
+          <Link to="/seller">Be A Seller</Link>
         </li>
       </ul>
       <hr />

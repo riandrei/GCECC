@@ -1,9 +1,9 @@
-#root {
+/* #root {
   display: grid;
   grid-template-columns: 190px 1fr;
   height: 100vh;
   overflow: auto;
-}
+} */
 
 * {
   text-decoration: none;

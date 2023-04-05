@@ -26,37 +26,37 @@ const Store = () => {
         </div>
         <div className="category-contents">
           <a href="gcecc-products/GC-Uniform-Polo.html">
-            <div class="product-contents"></div>
-            <div class="container">
-              <div class="container page-wrapper">
-                <div class="page-inner">
-                  <div class="row">
-                    <div class="el-wrapper">
-                      <div class="box-up">
+            <div className="product-contents"></div>
+            <div className="container">
+              <div className="container page-wrapper">
+                <div className="page-inner">
+                  <div className="row">
+                    <div className="el-wrapper">
+                      <div className="box-up">
                         {/* THE CONTENTS HERE TO PULL FROM THE DATABASE */}
-                        <img src={femaleBlouse} height="300px" class="img" alt="" />
-                        <div class="img-info">
-                          <div class="info-inner">
-                            <span class="p-name">Male Polo</span>
-                            <span class="p-company">Gordon College</span>
+                        <img src={femaleBlouse} height="300px" className="img" alt="" />
+                        <div className="img-info">
+                          <div className="info-inner">
+                            <span className="p-name">Male Polo</span>
+                            <span className="p-company">Gordon College</span>
                           </div>
-                          <div class="a-size">
-                            Sizes : <span class="size">S , M , L , XL</span>
+                          <div className="a-size">
+                            Sizes : <span className="size">S , M , L , XL</span>
                           </div>
                         </div>
                       </div>
 
-                      <div class="box-down">
-                        <div class="h-bg">
-                          <div class="h-bg-inner"></div>
+                      <div className="box-down">
+                        <div className="h-bg">
+                          <div className="h-bg-inner"></div>
                         </div>
 
-                        <a class="cart" href="#">
-                          <span class="price">₱600.00</span>
-                          <span class="add-to-cart">
-                            <span class="txt">Add in cart</span>
+                        <p className="cart" href="#">
+                          <span className="price">₱600.00</span>
+                          <span className="add-to-cart">
+                            <span className="txt">Add in cart</span>
                           </span>
-                        </a>
+                        </p>
                       </div>
                     </div>
                   </div>
