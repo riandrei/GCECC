@@ -1,21 +1,16 @@
-#root {
-  height: 100%;
-}
-
 nav {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  position: fixed;
+  position: sticky;
+  top: 0;
   max-width: 190px;
   height: 100svh;
   background-color: #0165b2;
   border-radius: 0 10px 10px 0;
   box-shadow: 0 0 10px;
-  overflow-x: hidden;
-  overflow-y: hidden;
-  z-index: 2;
+  overflow: hidden;
   -webkit-border-radius: 0 10px 10px 0;
   -moz-border-radius: 0 10px 10px 0;
   -ms-border-radius: 0 10px 10px 0;
@@ -65,7 +60,7 @@ nav ul {
 }
 
 nav button {
-  margin-top: 2 rem;
+  margin-top: 2rem;
   padding: 10px 5px 0 5px;
   background: transparent;
   border-radius: 5px;

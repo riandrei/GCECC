@@ -3,8 +3,8 @@ import { Provider } from 'react-redux';
 import store from './store';
 
 import Login from './components/Login';
-import Home from './components/Home';
 import Nav from './components/Nav';
+import Store from './components/Store';
 
 const App = () => {
   return (
@@ -14,7 +14,7 @@ const App = () => {
         <Nav />
         <Routes>
           <Route path="/" element={<Login />} />
-          <Route path="/home" element={<Home />} />
+          <Route path="/store" element={<Store />} />
         </Routes>
       </Router>
     </Provider>

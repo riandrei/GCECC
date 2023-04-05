@@ -24,7 +24,7 @@ export const Login = (props) => {
   // redirects the user to the homepage if the user has authenticated
   useEffect(() => {
     if (isAuthenticated) {
-      navigate('/home');
+      navigate('/store');
     }
   }, [isAuthenticated, navigate]);
 
