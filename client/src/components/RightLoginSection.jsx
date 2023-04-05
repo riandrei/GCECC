@@ -47,7 +47,9 @@ const RightLoginSection = ({ signIn }) => {
         <p>Welcome Students!</p>
         <div id="buttonDiv"></div>
       </div>
-      <p className="contact">Contact Us</p>
+      <a href="mailto:202110056@gordoncollege.edu.ph">
+        <p className="contact">Contact Us</p>
+      </a>
     </section>
   );
 };

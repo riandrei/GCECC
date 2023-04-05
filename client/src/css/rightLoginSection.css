@@ -89,10 +89,12 @@
     font-weight: 600;
   }
   .contact {
+    width: 100%;
     align-items: center;
     justify-content: center;
     color: #979797;
     text-decoration: underline;
     font-size: clamp(1.2rem, 2vh, 5rem);
+    margin: 0;
   }
 }
