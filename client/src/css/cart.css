@@ -1,0 +1,72 @@
+/* Default styles */
+
+.cart-main-container {
+  display: flex;
+  flex-direction: column;
+  margin: 50px 0 0 220px;
+  gap: 5rem;
+}
+.cart-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 5vw;
+}
+.cart-header h1 {
+  font-size: clamp(2.3rem, 3vw, 40rem);
+}
+.cart-header button {
+  background-color: transparent;
+  color: crimson;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  font-size: clamp(1rem, 2.2vw, 40rem);
+}
+
+.shopping-cart {
+  display: flex;
+  flex-direction: column;
+  width: 75vw;
+  padding: 0 5vw;
+  gap: 2rem;
+}
+.cart-label {
+  display: grid;
+  grid-template-columns: 1fr 4fr 2fr 2fr;
+  place-items: center;
+}
+.cart-label :last-child {
+  justify-self: end;
+}
+.cart-label h2 {
+  font-size: clamp(0.8rem, 1.2vw, 4rem);
+  color: gray;
+}
+.cart-checkbox {
+  width: 1.5vw;
+  aspect-ratio: 1/1;
+}
+
+.cart-footer {
+  display: grid;
+  grid-template-columns: 1fr 4fr 2fr 2fr;
+  grid-template-areas: 't t t t' 'b b b b';
+  place-items: flex-end;
+}
+.total {
+  text-align: right;
+  grid-area: t;
+  border-top: 1px solid black;
+  padding: 2rem 0 2rem 0rem;
+  width: 12vw;
+  font-size: 1.5vw;
+}
+.cart-footer button {
+  background-color: black;
+  color: white;
+  padding: 1vw;
+  width: 11.2vw;
+  font-size: 1vw;
+  grid-area: b;
+}

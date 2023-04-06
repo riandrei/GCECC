@@ -1,0 +1,66 @@
+.item {
+  display: grid;
+  grid-template-columns: 1fr 4fr 2fr 2fr;
+  place-items: center;
+}
+.item :nth-child(2) {
+  justify-self: flex-start;
+}
+.item :last-child {
+  justify-self: end;
+}
+
+.cart-item {
+  display: flex;
+}
+.cart-item img {
+  width: 4vw;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  margin-right: 2rem;
+}
+.cart-item h3 {
+  font-size: 1.2vw;
+}
+.cart-item p {
+  font-size: 0.9vw;
+  color: gray;
+}
+.item-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.quantity {
+  display: flex;
+  align-items: center;
+}
+.quantity input {
+  width: 5vw;
+  height: 2vw;
+  font-size: 1.5vw;
+  text-align: center;
+}
+.quantity input::-webkit-outer-spin-button,
+.quantity input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  margin: 0;
+}
+.quantity input:focus {
+  outline: none;
+}
+.quantity button {
+  background-color: transparent;
+  width: 2vw;
+  aspect-ratio: 1/1;
+  font-size: 2vw;
+  color: gray;
+}
+
+.item-price {
+  font-size: 1.5vw;
+}

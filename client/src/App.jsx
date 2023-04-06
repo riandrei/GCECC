@@ -6,6 +6,7 @@ import Login from './components/Login';
 import Nav from './components/Nav';
 import Store from './components/Store';
 import StudentMarket from './components/StudentMarket';
+import Cart from './components/Cart';
 
 const App = () => {
   return (
@@ -17,6 +18,7 @@ const App = () => {
           <Route path="/" element={<Login />} />
           <Route path="/store" element={<Store />} />
           <Route path="/market" element={<StudentMarket />} />
+          <Route path="/cart" element={<Cart />} />
         </Routes>
       </Router>
     </Provider>

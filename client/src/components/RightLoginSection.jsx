@@ -8,7 +8,6 @@ const RightLoginSection = ({ signIn }) => {
   const handleCredentialResponse = (response) => {
     signIn(response.credential);
   };
-
   // connects to google cloud project and renders the button
   useEffect(() => {
     const google = window.google;
@@ -35,6 +34,14 @@ const RightLoginSection = ({ signIn }) => {
         node.style.height = `${brandingContainer.firstElementChild.clientHeight}px`;
       });
     }
+  }, []);
+
+  // gives the same width of the signIn button to the welcome student
+  useEffect(() => {
+    const signInButtonWidth = document.querySelector(`#buttonDiv`).children[0].clientWidth;
+    const welcome = document.querySelector(`.login`);
+    welcome.style.width = `${signInButtonWidth}px`;
+    console.log(signInButtonWidth);
   }, []);
 
   return (

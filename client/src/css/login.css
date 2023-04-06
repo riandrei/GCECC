@@ -16,5 +16,7 @@ img {
 @media screen and (min-width: 811px) {
   #root {
     display: flex;
+    width: 100vw;
+    height: 100vh;
   }
 }
