@@ -22,7 +22,7 @@ const Cart = () => {
 
   const toggleNav = (e) => {
     const nav = document.querySelector(`nav`);
-    console.log(e.target);
+
     if (e.target.className == `hamburger-icon`) {
       nav.className = `show-nav`;
       return;

@@ -1,9 +1,10 @@
 import { useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
+import LogoutButton from './LogoutButton';
+
 import gcLogo from '../assets/gordoncollege.png';
 import helpIcon from '../assets/help.png';
-import logoutIcon from '../assets/logout.png';
 import shoppingCartIcon from '../assets/shopping-cart.png';
 import uniformIcon from '../assets/uniform.png';
 import writeIcon from '../assets/write.png';
@@ -69,9 +70,7 @@ const Nav = () => {
           </li>
         </ul>
         <hr />
-        <button>
-          <img src={logoutIcon} alt="Logout button" title="Logout" />
-        </button>
+        <LogoutButton />
       </nav>
     </>
   );

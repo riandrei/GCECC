@@ -40,8 +40,8 @@ const RightLoginSection = ({ signIn }) => {
   useEffect(() => {
     const signInButtonWidth = document.querySelector(`#buttonDiv`).children[0].clientWidth;
     const welcome = document.querySelector(`.login`);
+
     welcome.style.width = `${signInButtonWidth}px`;
-    console.log(signInButtonWidth);
   }, []);
 
   return (
