@@ -24,6 +24,9 @@ export const Login = (props) => {
   // redirects the user to the homepage if the user has authenticated
   useEffect(() => {
     if (isAuthenticated) {
+      const root = document.querySelector(`#root`);
+      root.style.overflowY = 'unset';
+
       navigate('/store');
     }
   }, [isAuthenticated, navigate]);

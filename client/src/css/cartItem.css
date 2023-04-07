@@ -1,13 +1,10 @@
 .item {
   display: grid;
-  grid-template-columns: 1fr 4fr 2fr 2fr;
+  grid-template-columns: 0.75fr 1fr 1fr 1fr;
   place-items: center;
 }
 .item :nth-child(2) {
   justify-self: flex-start;
-}
-.item :last-child {
-  justify-self: end;
 }
 
 .cart-item {
@@ -19,11 +16,8 @@
   object-fit: cover;
   margin-right: 2rem;
 }
-.cart-item h3 {
-  font-size: 1.2vw;
-}
 .cart-item p {
-  font-size: 0.9vw;
+  font-size: clamp(0.75rem, 1vw, 6rem);
   color: gray;
 }
 .item-details {
@@ -40,7 +34,8 @@
 .quantity input {
   width: 5vw;
   height: 2vw;
-  font-size: 1.5vw;
+  font-size: clamp(1.5rem, 1.5vw, 8rem);
+
   text-align: center;
 }
 .quantity input::-webkit-outer-spin-button,
@@ -62,5 +57,20 @@
 }
 
 .item-price {
-  font-size: 1.5vw;
+  font-size: clamp(1rem, 1.5vw, 8rem);
+}
+.item-label {
+  font-size: clamp(1rem, 1.5vw, 8rem);
+}
+@media (max-width: 810px) {
+  .cart-item img {
+    width: 4vmin;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    margin-right: 2rem;
+  }
+  .quantity button {
+    width: 3.5vw;
+    font-size: 3.5vw;
+  }
 }

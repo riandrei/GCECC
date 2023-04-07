@@ -3,8 +3,12 @@
 .cart-main-container {
   display: flex;
   flex-direction: column;
-  margin: 50px 0 0 220px;
+  margin: 10vmin 0 0 30vmin;
   gap: 5rem;
+}
+.cart-category .cart-menu {
+  display: none;
+  padding: 0 5vw;
 }
 .cart-header {
   display: flex;
@@ -16,12 +20,24 @@
 }
 .cart-header button {
   background-color: transparent;
-  color: crimson;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 1rem;
-  font-size: clamp(1rem, 2.2vw, 40rem);
+  font-size: clamp(2rem, 2.2vw, 40rem);
+}
+.cart-header button:hover {
+  cursor: pointer;
+}
+.teal {
+  color: #07909c;
+}
+.crimson {
+  color: crimson;
+}
+.actions-wrapper {
+  display: flex;
+  gap: 2rem;
 }
 
 .shopping-cart {
@@ -32,41 +48,71 @@
   gap: 2rem;
 }
 .cart-label {
+  background-color: #07909c;
+  padding: 1rem 0;
   display: grid;
-  grid-template-columns: 1fr 4fr 2fr 2fr;
+  grid-template-columns: 0.75fr 1fr 1fr 1fr;
   place-items: center;
+  border-radius: 2rem;
 }
 .cart-label :last-child {
-  justify-self: end;
+  /* justify-self: end; */
 }
 .cart-label h2 {
   font-size: clamp(0.8rem, 1.2vw, 4rem);
-  color: gray;
+  color: white;
 }
 .cart-checkbox {
+  border: 1px solid black;
+  background-color: white;
   width: 1.5vw;
   aspect-ratio: 1/1;
 }
 
 .cart-footer {
   display: grid;
-  grid-template-columns: 1fr 4fr 2fr 2fr;
-  grid-template-areas: 't t t t' 'b b b b';
+  grid-template-columns: 1fr 3fr 2fr 2fr;
+  grid-template-areas: 'b b b t';
   place-items: flex-end;
+  align-items: center;
 }
 .total {
-  text-align: right;
+  text-align: center;
   grid-area: t;
   border-top: 1px solid black;
   padding: 2rem 0 2rem 0rem;
-  width: 12vw;
-  font-size: 1.5vw;
+  width: 100%;
+  font-size: clamp(1rem, 1.5vw, 8rem);
 }
-.cart-footer button {
-  background-color: black;
-  color: white;
-  padding: 1vw;
-  width: 11.2vw;
-  font-size: 1vw;
-  grid-area: b;
+
+@media (max-width: 810px) {
+  .cart-main-container {
+    margin: 2rem;
+    gap: 2rem;
+  }
+  .cart-category .cart-menu,
+  .shopping-cart,
+  .cart-header {
+    padding: 0;
+  }
+  .shopping-cart {
+    width: 100%;
+  }
+  .show-nav {
+    visibility: visible;
+    transform: translate(0%);
+  }
+  .hide-nav {
+    visibility: hidden;
+    transform: translate(-100%);
+  }
+  .cart-checkbox {
+    width: 2.5vw;
+    aspect-ratio: 1/1;
+  }
+
+  .cart-category .cart-menu {
+    display: block;
+    background-color: transparent;
+  }
 }
