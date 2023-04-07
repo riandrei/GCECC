@@ -1,4 +1,4 @@
-import { LOGIN_SUCCESS, LOGOUT_SUCCESS, UNAUTHORIZED_ACCESS, SET_AUTHENTICATION } from './types';
+import { LOGIN_SUCCESS, LOGOUT_SUCCESS, UNAUTHORIZED_ACCESS, SET_AUTHENTICATION, SET_ADMIN } from './types';
 
 // dispatches an action and maybe a payload depending on server response
 export const signIn = (credential) => (dispatch) => {
@@ -25,10 +25,12 @@ export const signIn = (credential) => (dispatch) => {
 };
 
 export const setAuthentication = (bool) => (dispatch) => {
-  dispatch({ type: SET_AUTHENTICATION, payload: true });
+  dispatch({ type: SET_AUTHENTICATION, payload: bool });
 };
 
+export const setAdmin = (bool) => (dispatch) => {
+  dispatch({ type: SET_ADMIN, payload: bool });
+};
 export const logOut = () => (dispatch) => {
-  console.log(`b`);
   dispatch({ type: LOGOUT_SUCCESS });
 };

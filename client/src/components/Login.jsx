@@ -5,31 +5,42 @@ import { useNavigate } from 'react-router-dom';
 import LeftLoginSection from './LeftLoginSection';
 import RightLoginSection from './RightLoginSection';
 
-import { signIn } from '../actions/authActions.js';
-import { setAuthentication } from '../actions/authActions.js';
+import { setAuthentication, setAdmin, signIn } from '../actions/authActions.js';
 
 import '../css/login.css';
 
 export const Login = (props) => {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const user = useSelector((state) => state.auth.user);
+  // const admin = user ? user.admin : false;
+  const admin = 'false';
   const navigate = useNavigate();
 
   // checks the sessionStorage if the user already authenticated before and just reloaded the site
   useEffect(() => {
-    if (sessionStorage.getItem('isAuthenticated')) {
+    const isAuthenticated = sessionStorage.getItem('isAuthenticated');
+    const admin = sessionStorage.getItem('admin');
+
+    if (isAuthenticated) {
       props.setAuthentication(true);
+      if (admin) {
+        props.setAdmin(true);
+      }
     }
   }, [props]);
 
   // redirects the user to the homepage if the user has authenticated
   useEffect(() => {
-    if (isAuthenticated) {
+    if (isAuthenticated && admin) {
+      navigate('/admin');
+    }
+    if (isAuthenticated && !admin) {
       const root = document.querySelector(`#root`);
       root.style.overflowY = 'unset';
 
       navigate('/store');
     }
-  }, [isAuthenticated, navigate]);
+  }, [isAuthenticated, navigate, user]);
 
   return (
     <>
@@ -39,6 +50,6 @@ export const Login = (props) => {
   );
 };
 
-const mapDispatchToProps = { signIn, setAuthentication };
+const mapDispatchToProps = { signIn, setAuthentication, setAdmin };
 
 export default connect(null, mapDispatchToProps)(Login); // allows the Login component to access the action creators and dispatch function

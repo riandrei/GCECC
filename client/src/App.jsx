@@ -8,6 +8,7 @@ import Store from './components/Store';
 import StudentMarket from './components/StudentMarket';
 import Cart from './components/Cart';
 import Seller from './components/Seller';
+import Admin from './components/Admin';
 
 const App = () => {
   return (
@@ -21,6 +22,7 @@ const App = () => {
           <Route path="/market" element={<StudentMarket />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/seller" element={<Seller />} />
+          <Route path="/admin" element={<Admin />} />
         </Routes>
       </Router>
     </Provider>

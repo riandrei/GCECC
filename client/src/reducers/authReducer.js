@@ -1,4 +1,4 @@
-import { LOGIN_SUCCESS, LOGOUT_SUCCESS, UNAUTHORIZED_ACCESS, SET_AUTHENTICATION } from '../actions/types';
+import { LOGIN_SUCCESS, LOGOUT_SUCCESS, UNAUTHORIZED_ACCESS, SET_AUTHENTICATION, SET_ADMIN } from '../actions/types';
 
 const initialState = {
   token: sessionStorage.getItem('token'),
@@ -12,7 +12,12 @@ export default function authReducer(state = initialState, action) {
     case SET_AUTHENTICATION:
       return {
         ...state,
-        isAuthenticated: true
+        isAuthenticated: action.payload.bool
+      };
+    case SET_ADMIN:
+      return {
+        ...state,
+        admin: action.payload.bool
       };
     case LOGIN_SUCCESS:
       sessionStorage.setItem('token', action.payload.token);

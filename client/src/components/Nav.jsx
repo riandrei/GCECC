@@ -14,14 +14,9 @@ import styles from '../css/nav.module.css';
 const Nav = () => {
   const location = useLocation();
 
-  if (location.pathname === '/') {
+  if (location.pathname === '/' || location.pathname === `/admin`) {
     return null;
   }
-
-  useEffect(() => {
-    const nav = document.querySelector(`nav`);
-    nav.className = `hide-nav`;
-  }, [location]);
 
   return (
     <>

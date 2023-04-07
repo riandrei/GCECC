@@ -38,7 +38,7 @@ const StudentMarket = () => {
         </div>
         <div className="market-category-contents">
           <a className="marketplace-item" href="#">
-            <div class="product">
+            <div className="product">
               <figure>
                 <img
                   src={sampleProductImage}
@@ -60,7 +60,7 @@ const StudentMarket = () => {
             </div>
           </a>
           <a className="marketplace-item" href="#">
-            <div class="product">
+            <div className="product">
               <figure>
                 <img
                   src={sampleProductImage}
@@ -82,7 +82,7 @@ const StudentMarket = () => {
             </div>
           </a>
           <a className="marketplace-item" href="#">
-            <div class="product">
+            <div className="product">
               <figure>
                 <img
                   src={sampleProductImage}
