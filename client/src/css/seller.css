@@ -46,8 +46,7 @@ form {
   -ms-border-radius: 15px;
   -o-border-radius: 15px;
   animation: form-ani 2000ms ease;
-  -webkit-animation: form-ani 3000ms ease forwards;
-  animation-delay: 200ms;
+  -webkit-animation: form-ani 1000ms ease forwards;
   font-size: 1.8rem;
   gap: 1rem;
 }
@@ -187,6 +186,9 @@ form p {
 @media (max-width: 810px) {
   .seller-category-contents {
     align-self: center;
+  }
+  .seller-menu {
+    display: block;
   }
   form {
     gap: 0;
