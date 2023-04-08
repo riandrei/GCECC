@@ -34,7 +34,7 @@ const Nav = () => {
               backgroundPosition: 'left center'
             }}
           >
-            <Link to="/user/store">GCECC</Link>
+            <Link to="/store">GCECC</Link>
           </li>
           <li
             style={{
@@ -43,7 +43,7 @@ const Nav = () => {
               backgroundPosition: 'left center'
             }}
           >
-            <Link to="/user/market">Student Market</Link>
+            <Link to="/market">Student Market</Link>
           </li>
           <li
             style={{
@@ -52,7 +52,7 @@ const Nav = () => {
               backgroundPosition: 'left center'
             }}
           >
-            <Link to="/user/cart">Cart</Link>
+            <Link to="/cart">Cart</Link>
           </li>
           <li
             style={{
@@ -61,7 +61,7 @@ const Nav = () => {
               backgroundPosition: 'left center'
             }}
           >
-            <Link to="/user/seller">Be A Seller</Link>
+            <Link to="/seller">Be A Seller</Link>
           </li>
         </ul>
         <hr />

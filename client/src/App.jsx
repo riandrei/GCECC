@@ -3,26 +3,33 @@ import { Provider } from 'react-redux';
 import store from './store';
 
 import Login from './components/Login';
-import Nav from './components/Nav';
-import Store from './components/Store';
-import StudentMarket from './components/StudentMarket';
-import Cart from './components/Cart';
-import Seller from './components/Seller';
 import Admin from './components/Admin';
+import User from './components/User';
 
 const App = () => {
   return (
     // Gives all components access to the store
+    // <Provider store={store}>
+    //   <Router>
+    //     <AdminNav />
+    //     <Nav />
+    //     <Routes>
+    //       <Route path="/" element={<Login />} />
+    //       <Route path="/store" element={<Store />} />
+    //       <Route path="/market" element={<StudentMarket />} />
+    //       <Route path="/cart" element={<Cart />} />
+    //       <Route path="/seller" element={<Seller />} />
+    //       <Route path="/admin-products" element={<AdminProducts />} />
+    //       <Route path="/admin-categories" element={<AdminCategories />} />
+    //       <Route path="/admin-orders" element={<AdminOrders />} />
+    //     </Routes>
+    //   </Router>
+    // </Provider>
     <Provider store={store}>
       <Router>
-        <Nav />
         <Routes>
           <Route path="/" element={<Login />} />
-          <Route path="/store" element={<Store />} />
-          <Route path="/market" element={<StudentMarket />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/seller" element={<Seller />} />
-          <Route path="/admin" element={<Admin />} />
+          <Route path="/user/*" element={<User />} />
         </Routes>
       </Router>
     </Provider>

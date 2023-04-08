@@ -12,8 +12,7 @@ import '../css/login.css';
 export const Login = (props) => {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const user = useSelector((state) => state.auth.user);
-  // const admin = user ? user.admin : false;
-  const admin = 'false';
+  const admin = user ? user.admin : false;
   const navigate = useNavigate();
 
   // checks the sessionStorage if the user already authenticated before and just reloaded the site
@@ -32,15 +31,16 @@ export const Login = (props) => {
   // redirects the user to the homepage if the user has authenticated
   useEffect(() => {
     if (isAuthenticated && admin) {
+      console.log(admin);
       navigate('/admin');
     }
     if (isAuthenticated && !admin) {
       const root = document.querySelector(`#root`);
       root.style.overflowY = 'unset';
 
-      navigate('/store');
+      navigate('/user/store');
     }
-  }, [isAuthenticated, navigate, user]);
+  }, [isAuthenticated, navigate, admin]);
 
   return (
     <>
