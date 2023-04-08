@@ -5,7 +5,6 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 import AdminProduct from './AdminProduct';
 import AdminOrder from './AdminOrder';
-import AdminUser from './AdminUser';
 import AdminNav from './AdminNav';
 
 import { retrieveSessionStorage } from '../actions/authActions.js';
@@ -33,7 +32,6 @@ const Admin = (props) => {
       <Routes>
         <Route path="/products" element={<AdminProduct />} />
         <Route path="/orders" element={<AdminOrder />} />
-        <Route path="/users" element={<AdminUser />} />
       </Routes>
     </>
   );

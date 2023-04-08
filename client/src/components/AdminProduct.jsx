@@ -22,8 +22,8 @@ const AdminProduct = () => {
 
         <div className="admin-product-header">
           <h1 className="admin-product-title">Admin Dashboard</h1>
-          <details class="admin-product-post">
-            <summary class="product-post-header">
+          <details className="admin-product-post">
+            <summary className="product-post-header">
               <h2>Post a product</h2>
             </summary>
             <form className="post-form" action="">
@@ -37,7 +37,7 @@ const AdminProduct = () => {
                 <input type="number" placeholder="Enter your desire price here..." min="1" />
               </label>
 
-              <label for="browser" id="admin-product-contact">
+              <label htmlFor="browser" id="admin-product-contact">
                 Product Category:
                 <input list="browsers" name="browser" />
               </label>
@@ -48,7 +48,7 @@ const AdminProduct = () => {
                 <option value="Sportsfest Shirt" />
               </datalist>
 
-              <label for="sizes" className="post-size">
+              <label htmlFor="sizes" className="post-size">
                 Sizes: &nbsp; S <input type="checkbox" name="" id="" />
                 M<input type="checkbox" name="" id="" />
                 L<input type="checkbox" name="" id="" />

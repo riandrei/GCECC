@@ -34,9 +34,7 @@ export default function authReducer(state = initialState, action) {
         isLoading: false
       };
     case LOGOUT_SUCCESS:
-      sessionStorage.removeItem('token');
-      sessionStorage.removeItem('email');
-      sessionStorage.removeItem('isAuthenticated');
+      sessionStorage.clear();
       return {
         ...state,
         isAuthenticated: false
