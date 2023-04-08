@@ -32,7 +32,7 @@
   }
 }
 
-form {
+.seller-form {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -67,7 +67,7 @@ form {
     -o-transform: translateY(-150px);
   }
 }
-form label {
+.seller-form label {
   display: block;
   font-size: 2rem;
   font-weight: 550;
@@ -75,18 +75,18 @@ form label {
   height: 15%;
   /* margin-bottom: 1rem; */
 }
-form input,
-textarea {
+.seller-form input,
+.seller-form textarea {
   width: 100%;
   height: 50%;
   padding: 0 20px;
   border-radius: 0.5rem;
 }
-form input:focus,
-textarea:focus {
+.seller-form input:focus,
+.seller-form textarea:focus {
   outline: 0;
 }
-input[type='file'] {
+.seller-form input[type='file'] {
   display: none;
 }
 #sell-product-upload {
@@ -103,11 +103,11 @@ input[type='file'] {
   width: 15%;
   height: 100%;
 }
-textarea {
+.seller-form textarea {
   height: 80%;
   resize: none;
 }
-textarea::-webkit-scrollbar {
+.seller-form textarea::-webkit-scrollbar {
   display: none;
 }
 #sell-terms {
@@ -126,7 +126,7 @@ textarea::-webkit-scrollbar {
   font-size: 1.5rem;
   text-decoration: underline;
 }
-form button {
+.seller-form button {
   cursor: pointer;
   padding: 5px;
   font-size: 1em;
@@ -146,17 +146,17 @@ form button {
   -ms-transition: 500ms;
   -o-transition: 500ms;
 }
-form button:hover {
+.seller-form button:hover {
   background-color: #c3613e;
 }
-form button:active {
+.seller-form button:active {
   background-color: #7d3f29;
 }
-form .terms {
+.seller-form .terms {
   display: flex;
   align-items: center;
 }
-form p {
+.seller-form p {
   color: white;
   font-size: 1.5rem;
 }
@@ -190,13 +190,13 @@ form p {
   .seller-menu {
     display: block;
   }
-  form {
+  .seller-form {
     gap: 0;
     width: 100%;
     padding-top: 0;
     padding-bottom: 0;
   }
-  form button {
+  .seller-form button {
     width: 50%;
     height: 8%;
     margin: 0;

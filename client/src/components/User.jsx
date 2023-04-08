@@ -7,6 +7,22 @@ import Cart from './Cart';
 import Seller from './Seller';
 
 const User = () => {
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const user = useSelector((state) => state.auth.user);
+  const admin = user ? user.admin : false;
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!isAuthenticated || admin) {
+      props.retrieveSessionStorage();
+    }
+
+    if (!isAuthenticated || admin) {
+      navigate(`/`);
+    }
+  }, [isAuthenticated, navigate]);
+  
   return (
     <>
       <Nav />

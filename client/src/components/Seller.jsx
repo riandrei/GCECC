@@ -50,7 +50,7 @@ const Seller = () => {
         </div>
       </div>
       <div className="seller-category-contents">
-        <form action="">
+        <form className="seller-form" action="">
           <label id="sell-product-name">
             Product Name:
             <input type="text" placeholder="Enter your product name here..." />

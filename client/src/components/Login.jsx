@@ -15,27 +15,15 @@ export const Login = (props) => {
   const admin = user ? user.admin : false;
   const navigate = useNavigate();
 
-  // checks the sessionStorage if the user already authenticated before and just reloaded the site
-  // useEffect(() => {
-  //   const isAuthenticated = sessionStorage.getItem('isAuthenticated');
-  //   const admin = sessionStorage.getItem('admin');
-
-  //   if (isAuthenticated) {
-  //     props.setAuthentication(true);
-  //     if (admin) {
-  //       props.setAdmin(true);
-  //     }
-  //   }
-  // }, [props]);
-
   // redirects the user to the homepage if the user has authenticated
   useEffect(() => {
+    const root = document.querySelector(`#root`);
     if (isAuthenticated && admin) {
-      console.log(admin);
-      navigate('/admin');
+      root.style.overflowY = 'unset';
+
+      navigate('/admin/products');
     }
     if (isAuthenticated && !admin) {
-      const root = document.querySelector(`#root`);
       root.style.overflowY = 'unset';
 
       navigate('/user/store');

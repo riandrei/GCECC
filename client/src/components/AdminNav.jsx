@@ -34,7 +34,7 @@ const Nav = () => {
               backgroundPosition: 'left center'
             }}
           >
-            <Link to="/store">GCECC</Link>
+            <Link to="/admin/products">Products</Link>
           </li>
           <li
             style={{
@@ -43,25 +43,7 @@ const Nav = () => {
               backgroundPosition: 'left center'
             }}
           >
-            <Link to="/market">Student Market</Link>
-          </li>
-          <li
-            style={{
-              backgroundImage: `url(${shoppingCartIcon})`,
-              backgroundRepeat: 'no-repeat',
-              backgroundPosition: 'left center'
-            }}
-          >
-            <Link to="/cart">Cart</Link>
-          </li>
-          <li
-            style={{
-              backgroundImage: `url(${helpIcon})`,
-              backgroundRepeat: 'no-repeat',
-              backgroundPosition: 'left center'
-            }}
-          >
-            <Link to="/seller">Be A Seller</Link>
+            <Link to="/admin/orders">Orders</Link>
           </li>
         </ul>
         <hr />
