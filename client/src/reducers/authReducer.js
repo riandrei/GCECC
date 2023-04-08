@@ -12,16 +12,20 @@ export default function authReducer(state = initialState, action) {
     case SET_AUTHENTICATION:
       return {
         ...state,
-        isAuthenticated: action.payload.bool
+        isAuthenticated: action.payload
       };
     case SET_ADMIN:
       return {
         ...state,
-        admin: action.payload.bool
+        user: {
+          ...state.user,
+          admin: action.payload
+        }
       };
     case LOGIN_SUCCESS:
       sessionStorage.setItem('token', action.payload.token);
       sessionStorage.setItem('email', action.payload.user.googleId);
+      sessionStorage.setItem('admin', action.payload.user.admin);
       sessionStorage.setItem('isAuthenticated', true);
       return {
         ...state,

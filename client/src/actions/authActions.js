@@ -28,8 +28,19 @@ export const setAuthentication = (bool) => (dispatch) => {
   dispatch({ type: SET_AUTHENTICATION, payload: bool });
 };
 
-export const setAdmin = (bool) => (dispatch) => {
-  dispatch({ type: SET_ADMIN, payload: bool });
+export const retrieveSessionStorage = () => (dispatch) => {
+  const isAuthenticated = sessionStorage.getItem('isAuthenticated') === `true`;
+  const admin = sessionStorage.getItem('admin') === `true`;
+
+  if (isAuthenticated) {
+    console.log(`test`);
+    dispatch({ type: SET_AUTHENTICATION, payload: true });
+    if (admin) {
+      console.log(`test 2`);
+
+      dispatch({ type: SET_ADMIN, payload: true });
+    }
+  }
 };
 export const logOut = () => (dispatch) => {
   dispatch({ type: LOGOUT_SUCCESS });

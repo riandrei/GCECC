@@ -8,28 +8,12 @@ import User from './components/User';
 
 const App = () => {
   return (
-    // Gives all components access to the store
-    // <Provider store={store}>
-    //   <Router>
-    //     <AdminNav />
-    //     <Nav />
-    //     <Routes>
-    //       <Route path="/" element={<Login />} />
-    //       <Route path="/store" element={<Store />} />
-    //       <Route path="/market" element={<StudentMarket />} />
-    //       <Route path="/cart" element={<Cart />} />
-    //       <Route path="/seller" element={<Seller />} />
-    //       <Route path="/admin-products" element={<AdminProducts />} />
-    //       <Route path="/admin-categories" element={<AdminCategories />} />
-    //       <Route path="/admin-orders" element={<AdminOrders />} />
-    //     </Routes>
-    //   </Router>
-    // </Provider>
     <Provider store={store}>
       <Router>
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/user/*" element={<User />} />
+          <Route path="/admin/*" element={<Admin />} />
         </Routes>
       </Router>
     </Provider>
