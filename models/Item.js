@@ -41,10 +41,12 @@ const ItemSchema = new Schema({
     type: Number,
     required: true
   },
-  size: {
-    type: Schema.Types.ObjectId,
-    ref: 'Size'
-  }
+  size: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Size'
+    }
+  ]
 });
 
 const Size = mongoose.model('Size', SizeSchema);

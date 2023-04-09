@@ -1,0 +1,19 @@
+.admin-order-item {
+  display: grid;
+  grid-template-columns: 0.75fr 1fr 1fr 2fr 1fr 1fr 1fr;
+  place-items: center;
+  font-size: clamp(1rem, 1.75vw, 8rem);
+}
+.admin-order-checkbox {
+  width: 1.3vw;
+}
+
+@media (max-width: 810px) {
+  .admin-order-contents {
+    padding-right: 5rem;
+  }
+  .admin-order-checkbox {
+    width: 1.8vw;
+    aspect-ratio: 1/1;
+  }
+}

@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 import AdminProduct from './AdminProduct';
-import AdminOrder from './AdminOrder';
+import AdminOrders from './AdminOrders';
 import AdminNav from './AdminNav';
 
 import { retrieveSessionStorage } from '../actions/authActions.js';
@@ -31,7 +31,7 @@ const Admin = (props) => {
       <AdminNav />
       <Routes>
         <Route path="/products" element={<AdminProduct />} />
-        <Route path="/orders" element={<AdminOrder />} />
+        <Route path="/orders" element={<AdminOrders />} />
       </Routes>
     </>
   );
