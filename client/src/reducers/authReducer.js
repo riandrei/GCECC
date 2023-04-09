@@ -19,7 +19,13 @@ export default function authReducer(state = initialState, action) {
     case SET_AUTHENTICATION:
       return {
         ...state,
-        isAuthenticated: action.payload
+        user: {
+          ...state.user,
+          name: action.payload.name,
+          email: action.payload.email,
+          userId: action.payload.userId
+        },
+        isAuthenticated: action.payload.bool
       };
     case SET_ADMIN:
       return {
