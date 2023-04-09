@@ -20,6 +20,7 @@ export const signIn = (credential) => (dispatch) => {
     })
     .then((data) => {
       dispatch({ type: LOGIN_SUCCESS, payload: data });
+      dispatch(getUser(data.token));
     })
     .catch((error) => {});
 };

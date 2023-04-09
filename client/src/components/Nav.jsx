@@ -11,10 +11,8 @@ import writeIcon from '../assets/write.png';
 
 import styles from '../css/nav.module.css';
 
-const Nav = () => {
-  const name = sessionStorage.getItem('name');
+const Nav = ({ name }) => {
   const location = useLocation();
-  console.log(name);
 
   if (location.pathname === '/' || location.pathname === `/admin`) {
     return null;
@@ -26,7 +24,7 @@ const Nav = () => {
         <div className={styles['nav-branding']}>
           <img className={styles['gc-logo']} src={gcLogo} alt="GC Logo" />
           <p title="Student's Online Marketplace">GCECC SOMP</p>
-          <p>Welcome {name}!</p>
+          {name && <p>Welcome {name}!</p>}
         </div>
         <hr />
         <ul>

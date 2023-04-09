@@ -16,6 +16,7 @@ const User = (props) => {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const user = useSelector((state) => state.auth.user);
   const token = useSelector((state) => state.auth.token);
+  const name = useSelector((state) => state.auth.user.name);
   const admin = user ? user.admin : false;
 
   const navigate = useNavigate();
@@ -35,7 +36,7 @@ const User = (props) => {
   }, [token]);
   return (
     <>
-      <Nav />
+      <Nav name={name} />
       <Routes>
         <Route path="/store" element={<Store />} />
         <Route path="/market" element={<StudentMarket />} />

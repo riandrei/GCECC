@@ -54,7 +54,10 @@ export default function authReducer(state = initialState, action) {
       sessionStorage.setItem('userId', action.payload._id);
       return {
         ...state,
-        ...action.payload
+        user: {
+          ...state.user,
+          ...action.payload
+        }
       };
     default:
       return state;
