@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import uniformIcon from '../assets/uniformH1.png';
 import femaleBlouse from '../assets/products/uniform/female-blouse.png';
@@ -41,7 +41,7 @@ const Store = () => {
           <img src={uniformIcon} alt="uniform-icon" />
         </div>
         <div className="store-category-contents">
-          <a className="product-contents" href="gcecc-products/GC-Uniform-Polo.html">
+          <Link to="/user/store/1234" className="product-contents">
             <div className="box-up">
               {/* PULL FROM THE DATABASE */}
               <img src={femaleBlouse} height="300px" className="img" alt="" />
@@ -68,7 +68,7 @@ const Store = () => {
                 </span>
               </p>
             </div>
-          </a>
+          </Link>
           <a className="product-contents" href="gcecc-products/GC-Uniform-Polo.html">
             <div className="box-up">
               {/* PULL FROM THE DATABASE */}

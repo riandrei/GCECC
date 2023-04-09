@@ -1,0 +1,10 @@
+.breadcrumbs {
+  margin-top: 5vmin;
+}
+.breadcrumbs > * {
+  text-decoration: none;
+  font-size: 1.3vw;
+}
+.breadcrumbs a {
+  color: #07909c;
+}
