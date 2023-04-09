@@ -1,4 +1,11 @@
-import { LOGIN_SUCCESS, LOGOUT_SUCCESS, UNAUTHORIZED_ACCESS, SET_AUTHENTICATION, SET_ADMIN } from '../actions/types';
+import {
+  LOGIN_SUCCESS,
+  LOGOUT_SUCCESS,
+  UNAUTHORIZED_ACCESS,
+  SET_AUTHENTICATION,
+  SET_ADMIN,
+  GET_USER
+} from '../actions/types';
 
 const initialState = {
   token: sessionStorage.getItem('token'),
@@ -24,7 +31,6 @@ export default function authReducer(state = initialState, action) {
       };
     case LOGIN_SUCCESS:
       sessionStorage.setItem('token', action.payload.token);
-      sessionStorage.setItem('email', action.payload.user.googleId);
       sessionStorage.setItem('admin', action.payload.user.admin);
       sessionStorage.setItem('isAuthenticated', true);
       return {
@@ -42,6 +48,14 @@ export default function authReducer(state = initialState, action) {
     case UNAUTHORIZED_ACCESS:
       alert(`Please use your GC domain.`);
       return state;
+    case GET_USER:
+      sessionStorage.setItem('name', action.payload.name);
+      sessionStorage.setItem('email', action.payload.email);
+      sessionStorage.setItem('userId', action.payload._id);
+      return {
+        ...state,
+        ...action.payload
+      };
     default:
       return state;
   }

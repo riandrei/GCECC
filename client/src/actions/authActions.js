@@ -1,4 +1,4 @@
-import { LOGIN_SUCCESS, LOGOUT_SUCCESS, UNAUTHORIZED_ACCESS, SET_AUTHENTICATION, SET_ADMIN } from './types';
+import { LOGIN_SUCCESS, LOGOUT_SUCCESS, UNAUTHORIZED_ACCESS, SET_AUTHENTICATION, SET_ADMIN, GET_USER } from './types';
 
 // dispatches an action and maybe a payload depending on server response
 export const signIn = (credential) => (dispatch) => {
@@ -38,7 +38,9 @@ export const getUser = (token) => (dispatch) => {
     credentials: 'include'
   })
     .then((response) => response.json())
-    .then((data) => console.log(data));
+    .then((data) => {
+      dispatch({ type: GET_USER, payload: data });
+    });
 };
 
 export const retrieveSessionStorage = () => (dispatch) => {

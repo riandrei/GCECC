@@ -42,7 +42,6 @@ module.exports.signIn = (req, res) => {
           res.json({
             token,
             user: {
-              googleId: user.googleId,
               admin: false
             }
           });
@@ -53,6 +52,5 @@ module.exports.signIn = (req, res) => {
 };
 
 module.exports.getUser = (req, res) => {
-  console.log(req.user.id);
   User.findById(req.user.id).then((user) => res.json(user));
 };
