@@ -221,10 +221,18 @@ input:checked + .slider {
 
 @media (max-width: 810px) {
   .admin-product-main-container {
+    padding: 0;
     margin: 2rem;
   }
 
   .admin-product-menu {
     display: block;
+    background-color: transparent;
+    width: 10%;
+  }
+  .admin-product-header,
+  .admin-product-category {
+    padding: 0;
+    width: 90%;
   }
 }

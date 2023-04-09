@@ -3,6 +3,7 @@
   flex-direction: column;
   margin: 10vmin 0 0 30vmin;
   gap: 2rem;
+  animation: main-container-ani 2500ms 1 ease;
 }
 .seller-category {
   padding: 0 5vw;

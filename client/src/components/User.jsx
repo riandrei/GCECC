@@ -1,4 +1,9 @@
+import { useEffect } from 'react';
+import { connect, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+
+import { retrieveSessionStorage } from '../actions/authActions.js';
 
 import Nav from './Nav';
 import Store from './Store';
@@ -6,7 +11,7 @@ import StudentMarket from './StudentMarket';
 import Cart from './Cart';
 import Seller from './Seller';
 
-const User = () => {
+const User = (props) => {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const user = useSelector((state) => state.auth.user);
   const admin = user ? user.admin : false;
@@ -22,7 +27,7 @@ const User = () => {
       navigate(`/`);
     }
   }, [isAuthenticated, navigate]);
-  
+
   return (
     <>
       <Nav />
@@ -35,5 +40,6 @@ const User = () => {
     </>
   );
 };
+const mapDispatchToProps = { retrieveSessionStorage };
 
-export default User;
+export default connect(null, mapDispatchToProps)(User);

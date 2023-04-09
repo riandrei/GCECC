@@ -3,7 +3,7 @@
   flex-direction: column;
   margin: 50px 0 0 220px;
   gap: 5rem;
-  animation: main-container-ani 1000ms 1 ease;
+  animation: main-container-ani 2500ms 1 ease;
 }
 .market-category-title {
   display: flex;

@@ -9,9 +9,6 @@
 }
 
 @media (max-width: 810px) {
-  .admin-order-contents {
-    padding-right: 5rem;
-  }
   .admin-order-checkbox {
     width: 1.8vw;
     aspect-ratio: 1/1;

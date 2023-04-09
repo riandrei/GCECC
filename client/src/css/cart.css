@@ -5,6 +5,7 @@
   flex-direction: column;
   margin: 10vmin 0 0 30vmin;
   gap: 5rem;
+  animation: main-container-ani 2500ms 1 ease;
 }
 .cart-category {
   padding: 0 5vw;
