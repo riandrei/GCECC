@@ -28,6 +28,19 @@ export const setAuthentication = (bool) => (dispatch) => {
   dispatch({ type: SET_AUTHENTICATION, payload: bool });
 };
 
+export const getUser = (token) => (dispatch) => {
+  fetch('http://localhost:4000/api/user', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'x-auth-token': token
+    },
+    credentials: 'include'
+  })
+    .then((response) => response.json())
+    .then((data) => console.log(data));
+};
+
 export const retrieveSessionStorage = () => (dispatch) => {
   const isAuthenticated = sessionStorage.getItem('isAuthenticated') === `true`;
   const admin = sessionStorage.getItem('admin') === `true`;

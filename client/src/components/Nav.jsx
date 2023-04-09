@@ -24,6 +24,7 @@ const Nav = () => {
         <div className={styles['nav-branding']}>
           <img className={styles['gc-logo']} src={gcLogo} alt="GC Logo" />
           <p title="Student's Online Marketplace">GCECC SOMP</p>
+          <p>Welcome Riandrei!</p>
         </div>
         <hr />
         <ul>

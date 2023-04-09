@@ -3,7 +3,7 @@ import { connect, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
-import { retrieveSessionStorage } from '../actions/authActions.js';
+import { getUser, retrieveSessionStorage } from '../actions/authActions.js';
 
 import Nav from './Nav';
 import Store from './Store';
@@ -15,6 +15,7 @@ import StoreItem from './StoreItem';
 const User = (props) => {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const user = useSelector((state) => state.auth.user);
+  const token = useSelector((state) => state.auth.token);
   const admin = user ? user.admin : false;
 
   const navigate = useNavigate();
@@ -29,6 +30,9 @@ const User = (props) => {
     }
   }, [isAuthenticated, navigate]);
 
+  useEffect(() => {
+    props.getUser(token);
+  }, [token]);
   return (
     <>
       <Nav />
@@ -42,6 +46,6 @@ const User = (props) => {
     </>
   );
 };
-const mapDispatchToProps = { retrieveSessionStorage };
+const mapDispatchToProps = { retrieveSessionStorage, getUser };
 
 export default connect(null, mapDispatchToProps)(User);
