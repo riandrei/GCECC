@@ -1,4 +1,5 @@
 import { LOGIN_SUCCESS, LOGOUT_SUCCESS, UNAUTHORIZED_ACCESS, SET_AUTHENTICATION, SET_ADMIN, GET_USER } from './types';
+import jwtDecode from 'jwt-decode';
 
 // dispatches an action and maybe a payload depending on server response
 export const signIn = (credential) => (dispatch) => {
@@ -17,6 +18,14 @@ export const signIn = (credential) => (dispatch) => {
       } else {
         return response.json();
       }
+    })
+    .then((data) => {
+      const decodedToken = jwtDecode(data.token);
+
+      return {
+        user: decodedToken,
+        token: data.token
+      };
     })
     .then((data) => {
       dispatch({ type: LOGIN_SUCCESS, payload: data });

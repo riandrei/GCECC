@@ -28,17 +28,11 @@ module.exports.signIn = (req, res) => {
       });
     } else {
       // creates a jwt that lasts for an hour which can be used to access other routes
-      jwt.sign({ id: user._id }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: 3600 }, (err, token) => {
-        if (err) throw err;
-        if (user.email === process.env.ADMIN_EMAIL) {
-          res.json({
-            token,
-            user: {
-              googleId: user.googleId,
-              admin: true
-            }
-          });
-        } else {
+      jwt.sign(
+        { id: user._id, admin: user.email === process.env.ADMIN_EMAIL },
+        process.env.ACCESS_TOKEN_SECRET,
+        { expiresIn: 3600 },
+        (err, token) => {
           res.json({
             token,
             user: {
@@ -46,7 +40,7 @@ module.exports.signIn = (req, res) => {
             }
           });
         }
-      });
+      );
     }
   });
 };
