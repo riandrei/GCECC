@@ -1,23 +1,12 @@
-// const mongoose = require('mongoose');
-// const Schema = mongoose.Schema;
-// const SizeSchema = require('./Size');
-
-// const ItemSchema = new Schema({
-//   label: {
-//     type: String,
-//     required: true
-//   },
-//   price: {
-//     type: Number,
-//     required: true
-//   },
-//   size: [SizeSchema]
-// });
-
-// module.exports = Item = mongoose.model(`item`, ItemSchema);
-
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+
+const ItemCategorySchema = new Schema({
+  category_name: {
+    type: String,
+    required: true
+  }
+});
 
 const SizeSchema = new Schema({
   size: {
@@ -41,15 +30,21 @@ const ItemSchema = new Schema({
     type: Number,
     required: true
   },
+  category: {
+    type: Schema.Types.ObjectId,
+    ref: 'ItemCategory'
+  },
   size: [
     {
       type: Schema.Types.ObjectId,
       ref: 'Size'
     }
-  ]
+  ],
+  img_url: String
 });
 
 const Size = mongoose.model('Size', SizeSchema);
+const ItemCategory = mongoose.model('ItemCategory', ItemCategorySchema);
 const Item = mongoose.model('Item', ItemSchema);
 
-module.exports = { Size, Item };
+module.exports = { Item, ItemCategory };

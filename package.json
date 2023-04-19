@@ -1,31 +1,22 @@
 {
   "name": "gcecc",
+  "private": true,
+  "workspaces": [
+    "client",
+    "server"
+  ],
   "version": "1.0.0",
   "description": "School E-Commerce Project",
-  "main": "server.js",
   "scripts": {
-    "start": "node server.js",
-    "server": "nodemon server.js",
+    "server": "cd server && yarn run dev",
     "client": "cd client && yarn run dev",
     "dev": "concurrently \"yarn run server\" \"yarn run client\""
   },
   "author": "Riandrei",
   "license": "ISC",
   "dependencies": {
-    "@react-oauth/google": "^0.9.0",
     "concurrently": "^8.0.1",
-    "config": "^3.3.9",
-    "cookie-parser": "^1.4.6",
-    "cors": "^2.8.5",
-    "dotenv": "^16.0.3",
-    "express": "^4.18.2",
-    "google-auth-library": "^8.7.0",
-    "jsonwebtoken": "^9.0.0",
-    "jwt-decode": "^3.1.2",
-    "mongoose": "^7.0.3",
-    "validator": "^13.9.0"
-  },
-  "devDependencies": {
-    "nodemon": "^2.0.22"
+    "jwt-decode": "^3.1.2"
   }
 }
+

@@ -20,10 +20,8 @@ app.use(
     credentials: true
   })
 );
-
 // parses incoming JSON payload to the request object
 app.use(express.json());
-
 // opens API routes
 app.use('/api', authRoutes);
 app.use('/api', itemRoutes);
