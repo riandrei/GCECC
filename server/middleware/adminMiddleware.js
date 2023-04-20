@@ -1,0 +1,15 @@
+require('dotenv').config();
+const jwt = require('jsonwebtoken');
+
+function adminMiddleware(req, res, next) {
+  const { admin } = req.user;
+
+  if (!admin) {
+    return res.status(401).json({ msg: 'Not admin, unauthorized action' });
+  }
+
+  req.formData = req.body.formData;
+  next();
+}
+
+module.exports = authMiddleware;

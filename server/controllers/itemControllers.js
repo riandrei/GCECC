@@ -1,4 +1,5 @@
 const Item = require('../models/Item');
+const cloudinary = require('cloudinary').v2;
 
 module.exports.getItems = (req, res) => {
   Item.find()
@@ -7,7 +8,27 @@ module.exports.getItems = (req, res) => {
 };
 
 module.exports.postItem = (req, res) => {
-  const newItem = new Item(req.body);
+  const { label, price, category, size, image } = req.formData;
+
+  cloudinary.uploader
+    .upload(image, {
+      unique_filename: true
+    })
+    .then((data) => {
+      const imageURL = data.secure_url;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+
+  const newItem = new Item({
+    label,
+    price,
+    category,
+    size,
+    imageURL
+  });
+
   newItem.save().then((item) => res.json(item));
 };
 

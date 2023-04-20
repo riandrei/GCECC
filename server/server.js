@@ -1,4 +1,5 @@
 require('dotenv').config();
+const cloudinary = require('cloudinary').v2;
 
 const express = require('express');
 const mongoose = require('mongoose');
@@ -43,3 +44,9 @@ mongoose
   .connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then((result) => app.listen(port))
   .catch((err) => console.log(err));
+
+cloudinary.config({
+  cloud_name: 'drcynbces',
+  api_key: '546869599516849',
+  api_secret: 'QzS1NuP_0G7okNUrKdzCrefzA2U'
+});
