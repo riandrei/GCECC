@@ -19,10 +19,7 @@ module.exports.signIn = (req, res) => {
         jwt.sign({ id: user._id }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: 3600 }, (err, token) => {
           if (err) throw err;
           res.json({
-            token,
-            user: {
-              googleId: user.googleId
-            }
+            token
           });
         });
       });
@@ -34,10 +31,7 @@ module.exports.signIn = (req, res) => {
         { expiresIn: 3600 },
         (err, token) => {
           res.json({
-            token,
-            user: {
-              admin: false
-            }
+            token
           });
         }
       );

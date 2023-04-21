@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const path = require('path');
 const config = require('config');
+const bodyParser = require('body-parser');
 
 const authRoutes = require('./routes/authRoute');
 const itemRoutes = require('./routes/itemRoute');
@@ -21,6 +22,7 @@ app.use(
     credentials: true
   })
 );
+app.use(bodyParser.urlencoded({ extended: true }));
 // parses incoming JSON payload to the request object
 app.use(express.json());
 // opens API routes
