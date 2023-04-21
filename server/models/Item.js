@@ -1,25 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const ItemCategorySchema = new Schema({
-  category_name: {
-    type: String,
-    required: true
-  }
-});
-
-const SizeSchema = new Schema({
-  size: {
-    type: String,
-    enum: ['small', 'medium', 'large', 'extra_large'],
-    required: true
-  },
-  inventory: {
-    type: Number,
-    default: 0,
-    required: true
-  }
-});
+const ItemCategory = require('./ItemCategory');
 
 const ItemSchema = new Schema({
   label: {
@@ -31,8 +13,8 @@ const ItemSchema = new Schema({
     required: true
   },
   category: {
-    type: String,
-    required: true
+    type: Schema.Types.ObjectId,
+    ref: 'itemCategory'
   },
   sizes: [
     {
@@ -54,8 +36,4 @@ const ItemSchema = new Schema({
   }
 });
 
-const Size = mongoose.model('size', SizeSchema);
-const ItemCategory = mongoose.model('itemCategory', ItemCategorySchema);
-const Item = mongoose.model('item', ItemSchema);
-
-module.exports = { Item, ItemCategory };
+module.exports = Item = mongoose.model('item', ItemSchema);
