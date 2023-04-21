@@ -7,7 +7,7 @@ import '../css/adminproductpost.css';
 
 const AdminProductPost = (props) => {
   const [fileUrl, setFileUrl] = useState(null);
-
+  console.log(`try`);
   const handleFileChange = (e) => {
     if (e.target.files[0] && e.target.files[0].type.startsWith('image/')) {
       const url = URL.createObjectURL(e.target.files[0]);
@@ -19,7 +19,6 @@ const AdminProductPost = (props) => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-
     const formData = new FormData();
     const sizes = [
       {
@@ -48,7 +47,6 @@ const AdminProductPost = (props) => {
 
     props.addItem(formData);
   };
-  console.log(useSelector((state) => state.item.items));
 
   return (
     <details className="admin-product-post">

@@ -1,10 +1,23 @@
+import { useEffect } from 'react';
+import { connect, useSelector } from 'react-redux';
+
 import AdminProductPost from './AdminProductPost';
+
+import { getItems } from '../actions/itemActions';
 
 import hamburgerMenu from '../assets/hamburger-menu.png';
 
 import '../css/adminproduct.css';
 
-const AdminProduct = () => {
+const AdminProduct = (props) => {
+  const items = useSelector((item) => item.items);
+  const token = sessionStorage.getItem('token');
+
+  useEffect(() => {
+    props.getItems(token);
+    console.log(`called`);
+  }, []);
+
   const toggleNav = (e) => {
     const nav = document.querySelector(`nav`);
 
@@ -72,4 +85,6 @@ const AdminProduct = () => {
   );
 };
 
-export default AdminProduct;
+const mapDispatchToProps = { getItems };
+
+export default connect(null, mapDispatchToProps)(AdminProduct);
