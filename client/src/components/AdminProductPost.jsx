@@ -1,8 +1,11 @@
 import { useState } from 'react';
+import { connect, useSelector } from 'react-redux';
+
+import { addItem } from '../actions/itemActions';
 
 import '../css/adminproductpost.css';
 
-const AdminProductPost = () => {
+const AdminProductPost = (props) => {
   const [fileUrl, setFileUrl] = useState(null);
 
   const handleFileChange = (e) => {
@@ -18,30 +21,34 @@ const AdminProductPost = () => {
     e.preventDefault();
 
     const formData = new FormData();
+    const sizes = [
+      {
+        size: 'small',
+        inventory: Number(e.target.elements[3].value)
+      },
+      {
+        size: 'medium',
+        inventory: Number(e.target.elements[4].value)
+      },
+      {
+        size: 'large',
+        inventory: Number(e.target.elements[5].value)
+      },
+      {
+        size: 'extra_large',
+        inventory: Number(e.target.elements[6].value)
+      }
+    ];
 
     formData.append('label', e.target.elements[0].value);
     formData.append('price', e.target.elements[1].value);
     formData.append('category', e.target.elements[2].value);
-    formData.append('sizes', [
-      {
-        size: 'small',
-        inventory: e.target.elements[3].value
-      },
-      {
-        size: 'medium',
-        inventory: e.target.elements[4].value
-      },
-      {
-        size: 'large',
-        inventory: e.target.elements[5].value
-      },
-      {
-        size: 'extra_large',
-        inventory: e.target.elements[6].value
-      }
-    ]);
+    formData.append('sizes', JSON.stringify(sizes));
     formData.append('image', e.target.elements.image.files[0]);
+
+    props.addItem(formData);
   };
+  console.log(useSelector((state) => state.item.items));
 
   return (
     <details className="admin-product-post">
@@ -86,4 +93,6 @@ const AdminProductPost = () => {
   );
 };
 
-export default AdminProductPost;
+const mapDispatchToProps = { addItem };
+
+export default connect(null, mapDispatchToProps)(AdminProductPost);
