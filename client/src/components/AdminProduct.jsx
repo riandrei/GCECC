@@ -15,6 +15,8 @@ const AdminProduct = (props) => {
   const categories = useSelector((state) => state.category.categories);
   const token = sessionStorage.getItem('token');
 
+  console.log(items);
+
   useEffect(() => {
     props.getCategories(token);
     props.getItems(token);
@@ -47,41 +49,44 @@ const AdminProduct = (props) => {
               <h3>{category.category_name}</h3>
             </div>
             <div className="admin-product-category-contents">
-              {items.map((item) => (
-                <div key={item._id} className="admin-product">
-                  <h4>{item.label}</h4>
-                  <div className="admin-product-toggle">
-                    <div className="toggle">
-                      S
-                      <label className="switch">
-                        <input type="checkbox" />
-                        <span className="slider"></span>
-                      </label>
+              {items.map(
+                (item) =>
+                  category._id == item.category && (
+                    <div key={item._id} className="admin-product">
+                      <h4>{item.label}</h4>
+                      <div className="admin-product-toggle">
+                        <div className="toggle">
+                          S
+                          <label className="switch">
+                            <input type="checkbox" />
+                            <span className="slider"></span>
+                          </label>
+                        </div>
+                        <div className="toggle">
+                          M
+                          <label className="switch">
+                            <input type="checkbox" />
+                            <span className="slider"></span>
+                          </label>
+                        </div>
+                        <div className="toggle">
+                          L
+                          <label className="switch">
+                            <input type="checkbox" />
+                            <span className="slider"></span>
+                          </label>
+                        </div>
+                        <div className="toggle">
+                          XL
+                          <label className="switch">
+                            <input type="checkbox" />
+                            <span className="slider"></span>
+                          </label>
+                        </div>
+                      </div>
                     </div>
-                    <div className="toggle">
-                      M
-                      <label className="switch">
-                        <input type="checkbox" />
-                        <span className="slider"></span>
-                      </label>
-                    </div>
-                    <div className="toggle">
-                      L
-                      <label className="switch">
-                        <input type="checkbox" />
-                        <span className="slider"></span>
-                      </label>
-                    </div>
-                    <div className="toggle">
-                      XL
-                      <label className="switch">
-                        <input type="checkbox" />
-                        <span className="slider"></span>
-                      </label>
-                    </div>
-                  </div>
-                </div>
-              ))}
+                  )
+              )}
             </div>
           </div>
         ))}
