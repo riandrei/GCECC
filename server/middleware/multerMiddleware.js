@@ -4,8 +4,7 @@ const multerMiddleware = (req, res, next) => {
   const storage = multer.diskStorage({
     destination: '../temp',
     filename: function (req, file, callback) {
-      const ext = file.originalname.split('.').pop();
-      callback(null, `tempfile.${ext}`);
+      callback(null, `tempfile.jpg`);
     }
   });
 

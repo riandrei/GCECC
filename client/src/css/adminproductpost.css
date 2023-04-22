@@ -103,6 +103,14 @@
   appearance: none;
   margin: 0;
 }
+#admin-product-choices {
+  height: 10%;
+}
+#admin-product-choices select,
+#admin-product-choices select option {
+  outline: none;
+  font-size: 1.5rem;
+}
 
 .admin-post-button {
   background-color: #ff7f50;

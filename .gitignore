@@ -1,5 +1,5 @@
 node_modules
-server/temp/*.jpg
+temp/
 
 # Logs
 logs

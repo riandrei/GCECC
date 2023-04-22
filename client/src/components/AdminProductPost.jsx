@@ -7,6 +7,7 @@ import '../css/adminproductpost.css';
 
 const AdminProductPost = (props) => {
   const [fileUrl, setFileUrl] = useState(null);
+  const categories = useSelector((state) => state.category.categories);
 
   const handleFileChange = (e) => {
     if (e.target.files[0] && e.target.files[0].type.startsWith('image/')) {
@@ -21,6 +22,10 @@ const AdminProductPost = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData();
+
+    const categorySelect = e.target.elements[2];
+    const selectedOption = categorySelect.options[categorySelect.selectedIndex];
+    const selectedCategoryId = selectedOption.dataset.id;
     const sizes = [
       {
         size: 'small',
@@ -42,7 +47,7 @@ const AdminProductPost = (props) => {
 
     formData.append('label', e.target.elements[0].value);
     formData.append('price', e.target.elements[1].value);
-    formData.append('category', e.target.elements[2].value);
+    formData.append('category', selectedCategoryId);
     formData.append('sizes', JSON.stringify(sizes));
     formData.append('image', e.target.elements.image.files[0]);
 
@@ -63,15 +68,16 @@ const AdminProductPost = (props) => {
           Product Price:
           <input type="number" placeholder="Enter your desire price here..." min="1" />
         </label>
-        <label htmlFor="browser" id="admin-product-contact">
-          Product Category:
-          <input list="browsers" name="browser" />
+        <label id="admin-product-choices" className="admin-product-choices">
+          Product Category: &nbsp;
+          <select id="categoryList">
+            {categories.map((category) => (
+              <option key={category._id} data-id={category._id} value={category.category_name}>
+                {category.category_name}
+              </option>
+            ))}
+          </select>
         </label>
-        <datalist id="browsers">
-          <option value="Uniform" />
-          <option value="ID Lace" />
-          <option value="Sportsfest Shirt" />
-        </datalist>
         <label htmlFor="sizes" className="post-size">
           Sizes: &nbsp; S <input type="number" name="" min="0" placeholder="0" />
           M<input type="number" name="" min="0" placeholder="0" />
