@@ -25,7 +25,6 @@ export const addItem = (formData) => (dispatch) => {
 };
 
 export const getItems = (token) => (dispatch) => {
-  console.log(token);
   fetch('http://localhost:4000/api/items', {
     method: 'GET',
     headers: {

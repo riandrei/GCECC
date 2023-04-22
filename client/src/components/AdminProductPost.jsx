@@ -2,12 +2,14 @@ import { useState } from 'react';
 import { connect, useSelector } from 'react-redux';
 
 import { addItem } from '../actions/itemActions';
+import { addCategory } from '../actions/categoryActions';
 
 import '../css/adminproductpost.css';
 
 const AdminProductPost = (props) => {
   const [fileUrl, setFileUrl] = useState(null);
   const categories = useSelector((state) => state.category.categories);
+  const token = sessionStorage.getItem('token');
 
   const handleFileChange = (e) => {
     if (e.target.files[0] && e.target.files[0].type.startsWith('image/')) {
@@ -19,7 +21,14 @@ const AdminProductPost = (props) => {
     setFileUrl(url);
   };
 
-  const handleSubmit = (e) => {
+  const handleCategorySubmit = (e) => {
+    e.preventDefault();
+    const formData = e.target.elements[0].value;
+
+    props.addCategory({ token, formData });
+  };
+
+  const handleItemSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData();
 
@@ -55,49 +64,68 @@ const AdminProductPost = (props) => {
   };
 
   return (
-    <details className="admin-product-post">
-      <summary className="product-post-header">
-        <h2>Post a product</h2>
-      </summary>
-      <form className="post-form" onSubmit={handleSubmit}>
-        <label id="admin-product-name">
-          Product Name:
-          <input type="text" placeholder="Enter your product name here..." />
-        </label>
-        <label id="admin-product-price">
-          Product Price:
-          <input type="number" placeholder="Enter your desire price here..." min="1" />
-        </label>
-        <label id="admin-product-choices" className="admin-product-choices">
-          Product Category: &nbsp;
-          <select id="categoryList">
-            {categories.map((category) => (
-              <option key={category._id} data-id={category._id} value={category.category_name}>
-                {category.category_name}
-              </option>
-            ))}
-          </select>
-        </label>
-        <label htmlFor="sizes" className="post-size">
-          Sizes: &nbsp; S <input type="number" name="" min="0" placeholder="0" />
-          M<input type="number" name="" min="0" placeholder="0" />
-          L<input type="number" name="" min="0" placeholder="0" />
-          XL
-          <input type="number" name="" min="0" placeholder="0" />
-        </label>
-        <label htmlFor="imageInput" id="admin-product-upload">
-          Upload Image
-          <input name="image" id="imageInput" type="file" onChange={handleFileChange} />
-        </label>
-        <div className="image-preview">{fileUrl && <img src={fileUrl} alt="Selected file" />}</div>
-        <button className="admin-post-button" type="submit">
-          Post Item
-        </button>
-      </form>
-    </details>
+    <div className="header-post-container">
+      <details className="admin-product-post">
+        <summary className="product-post-header">
+          <h2>Post a product</h2>
+        </summary>
+        <form className="post-form" onSubmit={handleItemSubmit}>
+          <label id="admin-product-name">
+            Product Name:
+            <input type="text" placeholder="Enter your product name here..." />
+          </label>
+          <label id="admin-product-price">
+            Product Price:
+            <input type="number" placeholder="Enter your desire price here..." min="1" />
+          </label>
+          <label id="admin-product-choices" className="admin-product-choices">
+            Product Category: &nbsp;
+            <select id="categoryList">
+              {categories.map((category) => (
+                <option key={category._id} data-id={category._id} value={category.category_name}>
+                  {category.category_name}
+                </option>
+              ))}
+            </select>
+          </label>
+          <label htmlFor="sizes" className="post-size">
+            Sizes: &nbsp;
+            <div>
+              S <input type="number" name="" min="0" placeholder="0" />
+              M<input type="number" name="" min="0" placeholder="0" />
+              L<input type="number" name="" min="0" placeholder="0" />
+              XL
+              <input type="number" name="" min="0" placeholder="0" />
+            </div>
+          </label>
+          <label htmlFor="imageInput" id="admin-product-upload">
+            Upload Image
+            <input name="image" id="imageInput" type="file" onChange={handleFileChange} />
+          </label>
+          <div className="image-preview">{fileUrl && <img src={fileUrl} alt="Selected file" />}</div>
+          <button className="admin-post-button" type="submit">
+            Post Item
+          </button>
+        </form>
+      </details>
+      <details className="admin-category-post">
+        <summary className="product-post-header">
+          <h2>Add a Category</h2>
+        </summary>
+        <form className="post-form" onSubmit={handleCategorySubmit}>
+          <label id="admin-category-name">
+            Category Name:
+            <input type="text" placeholder="Enter your category name here..." />
+          </label>
+          <button className="admin-post-button" type="submit">
+            Add Category
+          </button>
+        </form>
+      </details>
+    </div>
   );
 };
 
-const mapDispatchToProps = { addItem };
+const mapDispatchToProps = { addItem, addCategory };
 
 export default connect(null, mapDispatchToProps)(AdminProductPost);
