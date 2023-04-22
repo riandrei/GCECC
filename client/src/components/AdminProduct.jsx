@@ -4,6 +4,7 @@ import { connect, useSelector } from 'react-redux';
 import AdminProductPost from './AdminProductPost';
 
 import { getItems } from '../actions/itemActions';
+import { getCategories } from '../actions/categoryActions';
 
 import hamburgerMenu from '../assets/hamburger-menu.png';
 
@@ -11,13 +12,15 @@ import '../css/adminproduct.css';
 
 const AdminProduct = (props) => {
   const items = useSelector((item) => item.items);
+  const categories = useSelector((category) => category.categories);
   const token = sessionStorage.getItem('token');
 
   useEffect(() => {
+    props.getCategories(token);
     props.getItems(token);
-    console.log(`called`);
   }, []);
 
+  console.log(categories);
   const toggleNav = (e) => {
     const nav = document.querySelector(`nav`);
 
@@ -85,6 +88,6 @@ const AdminProduct = (props) => {
   );
 };
 
-const mapDispatchToProps = { getItems };
+const mapDispatchToProps = { getItems, getCategories };
 
 export default connect(null, mapDispatchToProps)(AdminProduct);

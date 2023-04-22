@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const ItemCategory = require('./ItemCategory');
+const Category = require('./Category');
 
 const ItemSchema = new Schema({
   label: {
@@ -14,7 +14,7 @@ const ItemSchema = new Schema({
   },
   category: {
     type: Schema.Types.ObjectId,
-    ref: 'itemCategory'
+    ref: 'category'
   },
   sizes: [
     {

@@ -1,4 +1,4 @@
-const { Item } = require('../models/Item');
+const Item = require('../models/Item');
 const cloudinary = require('cloudinary').v2;
 
 module.exports.getItems = (req, res) => {

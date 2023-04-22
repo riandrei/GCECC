@@ -10,6 +10,7 @@ const bodyParser = require('body-parser');
 
 const authRoutes = require('./routes/authRoute');
 const itemRoutes = require('./routes/itemRoute');
+const categoryRoutes = require('./routes/categoryRoute');
 const cartRoutes = require('./routes/cartRoute');
 const orderRoutes = require('./routes/orderRoute');
 
@@ -28,6 +29,7 @@ app.use(express.json());
 // opens API routes
 app.use('/api', authRoutes);
 app.use('/api', itemRoutes);
+app.use('/api', categoryRoutes);
 app.use('/api', cartRoutes);
 app.use('/api', orderRoutes);
 
