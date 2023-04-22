@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 import { getUser, retrieveSessionStorage } from '../actions/authActions.js';
+import { getItems } from '../actions/itemActions.js';
+import { getCategories } from '../actions/categoryActions.js';
 
 import Nav from './Nav';
 import Store from './Store';
@@ -33,6 +35,8 @@ const User = (props) => {
 
   useEffect(() => {
     props.getUser(token);
+    props.getCategories(token);
+    props.getItems(token);
   }, [token]);
   return (
     <>
@@ -47,6 +51,6 @@ const User = (props) => {
     </>
   );
 };
-const mapDispatchToProps = { retrieveSessionStorage, getUser };
+const mapDispatchToProps = { retrieveSessionStorage, getUser, getItems, getCategories };
 
 export default connect(null, mapDispatchToProps)(User);

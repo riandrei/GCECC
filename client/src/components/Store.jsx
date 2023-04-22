@@ -12,6 +12,9 @@ import '../css/store.css';
 
 const Store = () => {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const categories = useSelector((state) => state.category.categories);
+  const items = useSelector((state) => state.item.items);
+  console.log(items);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -32,202 +35,52 @@ const Store = () => {
 
   return (
     <div className="store-main-container" onClick={toggleNav}>
-      <div className="store-category">
-        <button onClick={toggleNav} className="store-menu" id="burger">
-          <img className="hamburger-icon" src={hamburgerMenu} alt="" />
-        </button>
-        <div className="store-category-title">
-          <h1>School Uniforms</h1>
-          <img src={uniformIcon} alt="uniform-icon" />
+      <button onClick={toggleNav} className="store-menu" id="burger">
+        <img className="hamburger-icon" src={hamburgerMenu} alt="" />
+      </button>
+      {categories.map((category) => (
+        <div key={category._id} className="store-category">
+          <div className="store-category-title">
+            <h1>{category.category_name}</h1>
+          </div>
+
+          <div className="store-category-contents">
+            {items.map(
+              (item) =>
+                category._id == item.category && (
+                  <Link key={item._id} to={`/user/store/${item._id}`} className="product-contents">
+                    <div className="box-up">
+                      {/* PULL FROM THE DATABASE */}
+                      <img src={item.img_url} height="300px" className="img" alt="" />
+                      <div className="img-info">
+                        <div className="info-inner">
+                          <span className="p-name">Male Polo</span>
+                          <span className="p-company">Gordon College</span>
+                        </div>
+                        <div className="a-size">
+                          Sizes : <span className="size">S , M , L , XL</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="box-down">
+                      <div className="h-bg">
+                        <div className="h-bg-inner"></div>
+                      </div>
+
+                      <p className="cart" href="#">
+                        <span className="price">₱600.00</span>
+                        <span className="add-to-cart">
+                          <span className="txt">Add in cart</span>
+                        </span>
+                      </p>
+                    </div>
+                  </Link>
+                )
+            )}
+          </div>
         </div>
-        <div className="store-category-contents">
-          <Link to="/user/store/1234" className="product-contents">
-            <div className="box-up">
-              {/* PULL FROM THE DATABASE */}
-              <img src={femaleBlouse} height="300px" className="img" alt="" />
-              <div className="img-info">
-                <div className="info-inner">
-                  <span className="p-name">Male Polo</span>
-                  <span className="p-company">Gordon College</span>
-                </div>
-                <div className="a-size">
-                  Sizes : <span className="size">S , M , L , XL</span>
-                </div>
-              </div>
-            </div>
-
-            <div className="box-down">
-              <div className="h-bg">
-                <div className="h-bg-inner"></div>
-              </div>
-
-              <p className="cart" href="#">
-                <span className="price">₱600.00</span>
-                <span className="add-to-cart">
-                  <span className="txt">Add in cart</span>
-                </span>
-              </p>
-            </div>
-          </Link>
-          <a className="product-contents" href="gcecc-products/GC-Uniform-Polo.html">
-            <div className="box-up">
-              {/* PULL FROM THE DATABASE */}
-              <img src={femaleBlouse} height="300px" className="img" alt="" />
-              <div className="img-info">
-                <div className="info-inner">
-                  <span className="p-name">Male Polo</span>
-                  <span className="p-company">Gordon College</span>
-                </div>
-                <div className="a-size">
-                  Sizes : <span className="size">S , M , L , XL</span>
-                </div>
-              </div>
-            </div>
-
-            <div className="box-down">
-              <div className="h-bg">
-                <div className="h-bg-inner"></div>
-              </div>
-
-              <p className="cart" href="#">
-                <span className="price">₱600.00</span>
-                <span className="add-to-cart">
-                  <span className="txt">Add in cart</span>
-                </span>
-              </p>
-            </div>
-          </a>
-          <a className="product-contents" href="gcecc-products/GC-Uniform-Polo.html">
-            <div className="box-up">
-              {/* PULL FROM THE DATABASE */}
-              <img src={femaleBlouse} height="300px" className="img" alt="" />
-              <div className="img-info">
-                <div className="info-inner">
-                  <span className="p-name">Male Polo</span>
-                  <span className="p-company">Gordon College</span>
-                </div>
-                <div className="a-size">
-                  Sizes : <span className="size">S , M , L , XL</span>
-                </div>
-              </div>
-            </div>
-
-            <div className="box-down">
-              <div className="h-bg">
-                <div className="h-bg-inner"></div>
-              </div>
-
-              <p className="cart" href="#">
-                <span className="price">₱600.00</span>
-                <span className="add-to-cart">
-                  <span className="txt">Add in cart</span>
-                </span>
-              </p>
-            </div>
-          </a>
-        </div>
-      </div>
-
-      <div className="store-category">
-        <div className="store-category-title">
-          <h1>ID Laces</h1>
-          <img src={uniformIcon} alt="uniform-icon" />
-        </div>
-        <div className="store-category-contents">
-          <a className="product-contents" href="gcecc-products/GC-Uniform-Polo.html">
-            <div className="box-up">
-              {/* PULL FROM THE DATABASE */}
-              <img src={femaleBlouse} height="300px" className="img" alt="" />
-              <div className="img-info">
-                <div className="info-inner">
-                  <span className="p-name">Male Polo</span>
-                  <span className="p-company">Gordon College</span>
-                </div>
-                <div className="a-size">
-                  Sizes : <span className="size">S , M , L , XL</span>
-                </div>
-              </div>
-            </div>
-
-            <div className="box-down">
-              <div className="h-bg">
-                <div className="h-bg-inner"></div>
-              </div>
-
-              <p className="cart" href="#">
-                <span className="price">₱600.00</span>
-                <span className="add-to-cart">
-                  <span className="txt">Add in cart</span>
-                </span>
-              </p>
-            </div>
-          </a>
-          <a className="product-contents" href="gcecc-products/GC-Uniform-Polo.html">
-            <div className="box-up">
-              {/* PULL FROM THE DATABASE */}
-              <img src={femaleBlouse} height="300px" className="img" alt="" />
-              <div className="img-info">
-                <div className="info-inner">
-                  <span className="p-name">Male Polo</span>
-                  <span className="p-company">Gordon College</span>
-                </div>
-                <div className="a-size">
-                  Sizes : <span className="size">S , M , L , XL</span>
-                </div>
-              </div>
-            </div>
-
-            <div className="box-down">
-              <div className="h-bg">
-                <div className="h-bg-inner"></div>
-              </div>
-
-              <p className="cart" href="#">
-                <span className="price">₱600.00</span>
-                <span className="add-to-cart">
-                  <span className="txt">Add in cart</span>
-                </span>
-              </p>
-            </div>
-          </a>
-          <a className="product-contents" href="gcecc-products/GC-Uniform-Polo.html">
-            <div className="box-up">
-              {/* PULL FROM THE DATABASE */}
-              <img src={femaleBlouse} height="300px" className="img" alt="" />
-              <div className="img-info">
-                <div className="info-inner">
-                  <span className="p-name">Male Polo</span>
-                  <span className="p-company">Gordon College</span>
-                </div>
-                <div className="a-size">
-                  Sizes : <span className="size">S , M , L , XL</span>
-                </div>
-              </div>
-            </div>
-
-            <div className="box-down">
-              <div className="h-bg">
-                <div className="h-bg-inner"></div>
-              </div>
-
-              <p className="cart" href="#">
-                <span className="price">₱600.00</span>
-                <span className="add-to-cart">
-                  <span className="txt">Add in cart</span>
-                </span>
-              </p>
-            </div>
-          </a>
-        </div>
-      </div>
-
-      <div className="store-category">
-        <div className="store-category-title">
-          <h1>Sportfest Shirts</h1>
-          <img src={uniformIcon} alt="uniform-icon" />
-        </div>
-        <div className="store-category-contents"></div>
-      </div>
+      ))}
     </div>
   );
 };

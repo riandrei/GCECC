@@ -2,7 +2,7 @@ import { Link, useLocation } from 'react-router-dom';
 
 import '../css/breadcrumb.css';
 
-const Breadcrumb = () => {
+const Breadcrumb = ({ label }) => {
   const location = useLocation();
 
   let pathnames = location.pathname.split('/').filter((x) => x);
@@ -14,7 +14,7 @@ const Breadcrumb = () => {
     const isLast = index === pathnames.length - 1;
 
     return isLast ? (
-      <span key={name}>Polo</span>
+      <span key={name}>{`${label.charAt(0)}${label.slice(1, label.length).toLowerCase(``)}`}</span>
     ) : (
       <Link key={name} to={routeTo}>
         {`${name.charAt(0).toUpperCase(``)}${name.slice(1, name.length)} / `}

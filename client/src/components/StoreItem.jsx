@@ -1,4 +1,6 @@
 import Breadcrumb from './Breadcrumb';
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
 import hamburgerMenu from '../assets/hamburger-menu.png';
@@ -11,7 +13,23 @@ import '../css/storeItem.css';
 
 const StoreItem = () => {
   const { itemId } = useParams();
+  const items = useSelector((state) => state.item.items);
+  const foundItem = items.find((item) => itemId === item._id);
 
+  const [stock, setStock] = useState('');
+  const [selectedValue, setSelectedValue] = useState('small');
+
+  const handleRadioChange = (e) => {
+    const sizes = foundItem.sizes;
+
+    setSelectedValue(e.target.value);
+
+    sizes.forEach((size) => {
+      if (size.size == e.target.value) {
+        setStock(size.inventory);
+      }
+    });
+  };
   const toggleNav = (e) => {
     const nav = document.querySelector(`nav`);
 
@@ -22,6 +40,10 @@ const StoreItem = () => {
     nav.className = `hide-nav`;
   };
 
+  if (!foundItem) {
+    return <p>No Item Found</p>;
+  }
+
   return (
     <div className="store-item-main-container" onClick={toggleNav}>
       <button onClick={toggleNav} className="admin-product-menu">
@@ -29,7 +51,7 @@ const StoreItem = () => {
       </button>
       <div className="store-item-contents">
         <div className="store-item-image">
-          <img src={sampleShirt} className="store-item-image-main" />
+          <img src={foundItem.img_url} className="store-item-image-main" />
           <div className="store-item-image-slider">
             <img src={sampleShirt} alt="" className="store-image-slider" />
             <img src={sampleBag} alt="" className="store-image-slider" />
@@ -38,17 +60,17 @@ const StoreItem = () => {
           </div>
         </div>
         <div className="store-item-info">
-          <Breadcrumb />
-          <div class="store-product">
-            <div class="product-title">
-              <h2>GC Polo Men</h2>
+          <Breadcrumb label={foundItem.label} />
+          <div className="store-product">
+            <div className="product-title">
+              <h2>{foundItem.label}</h2>
             </div>
 
-            <div class="product-price">
-              <span class="offer-price">₱600.00</span>
+            <div className="product-price">
+              <span className="offer-price">{`₱${foundItem.price}`}</span>
             </div>
 
-            <div class="product-details">
+            <div className="product-details">
               <h3>Description</h3>
               <p>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos est magnam quibusdam maiores sit
@@ -56,48 +78,75 @@ const StoreItem = () => {
                 commodi tempore.
               </p>
             </div>
-            <div class="product-size">
+            <div className="product-size">
               <h4>Size</h4>
-              <div class="size-layout">
-                <input type="radio" name="size" value="S" id="1" class="size-input" />
-                <label for="1" class="size">
+              <div className="size-layout">
+                <input
+                  type="radio"
+                  name="size"
+                  value="small"
+                  id="1"
+                  className="size-input"
+                  onChange={handleRadioChange}
+                  checked={selectedValue === 'small'}
+                />
+                <label htmlFor="1" className="size">
                   S
                 </label>
 
-                <input type="radio" name="size" value="M" id="2" class="size-input" />
-                <label for="2" class="size">
+                <input
+                  type="radio"
+                  name="size"
+                  value="medium"
+                  id="2"
+                  className="size-input"
+                  onChange={handleRadioChange}
+                  checked={selectedValue === 'medium'}
+                />
+                <label htmlFor="2" className="size">
                   M
                 </label>
 
-                <input type="radio" name="size" value="L" id="3" class="size-input" />
-                <label for="3" class="size">
+                <input
+                  type="radio"
+                  name="size"
+                  value="large"
+                  id="3"
+                  className="size-input"
+                  onChange={handleRadioChange}
+                  checked={selectedValue === 'large'}
+                />
+                <label htmlFor="3" className="size">
                   L
                 </label>
 
-                <input type="radio" name="size" value="XL" id="4" class="size-input" />
-                <label for="4" class="size">
+                <input
+                  type="radio"
+                  name="size"
+                  value="extra-large"
+                  id="4"
+                  className="size-input"
+                  onChange={handleRadioChange}
+                  checked={selectedValue === 'extra-large'}
+                />
+                <label htmlFor="4" className="size">
                   XL
-                </label>
-
-                <input type="radio" name="size" value="XXL" id="5" class="size-input" />
-                <label for="5" class="size">
-                  XXL
                 </label>
               </div>
             </div>
-            <div class="product-stocks">
+            <div className="product-stocks">
               <h4>Stocks</h4>
-              <p>10 items left</p>
+              <p>{stock || foundItem.sizes[0].inventory} items left</p>
             </div>
           </div>
-          <span class="divider"></span>
+          <span className="divider"></span>
 
-          <div class="product-btn-group">
-            <div class="button add-cart">
-              <i class="bx bxs-cart"></i> Add to Cart
+          <div className="product-btn-group">
+            <div className="button add-cart">
+              <i className="bx bxs-cart"></i> Add to Cart
             </div>
-            <div class="button buy-now">
-              <i class="bx bxs-zap"></i> Buy Now
+            <div className="button buy-now">
+              <i className="bx bxs-zap"></i> Buy Now
             </div>
           </div>
         </div>

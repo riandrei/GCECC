@@ -4,6 +4,7 @@
   margin: 50px 0 0 220px;
   gap: 5rem;
   animation: main-container-ani 2500ms 1 ease;
+  width: 100%;
 }
 .store-menu {
   display: none;
@@ -25,10 +26,13 @@
 }
 @media (max-width: 810px) {
   .store-main-container {
+    gap: 1rem;
     margin: 2rem;
   }
 
   .store-menu {
+    background-color: transparent;
+    width: 15%;
     display: block;
   }
 }
