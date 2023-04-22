@@ -32,33 +32,40 @@ const AdminProductPost = (props) => {
     e.preventDefault();
     const formData = new FormData();
 
-    const categorySelect = e.target.elements[2];
+    const categorySelect = e.target.elements[3];
     const selectedOption = categorySelect.options[categorySelect.selectedIndex];
     const selectedCategoryId = selectedOption.dataset.id;
     const sizes = [
       {
         size: 'small',
-        inventory: Number(e.target.elements[3].value)
-      },
-      {
-        size: 'medium',
         inventory: Number(e.target.elements[4].value)
       },
       {
-        size: 'large',
+        size: 'medium',
         inventory: Number(e.target.elements[5].value)
       },
       {
-        size: 'extra_large',
+        size: 'large',
         inventory: Number(e.target.elements[6].value)
+      },
+      {
+        size: 'extra_large',
+        inventory: Number(e.target.elements[7].value)
       }
     ];
 
     formData.append('label', e.target.elements[0].value);
-    formData.append('price', e.target.elements[1].value);
+    formData.append('description', e.target.elements[1].value);
+    formData.append('price', e.target.elements[2].value);
     formData.append('category', selectedCategoryId);
     formData.append('sizes', JSON.stringify(sizes));
-    formData.append('image', e.target.elements.image.files[0]);
+
+    for (let i = 0; i < e.target.elements.image.files.length; i++) {
+      formData.append('images', e.target.elements.image.files[i]);
+    }
+
+    e.target.reset();
+    setFileUrl('');
 
     props.addItem(formData);
   };
@@ -73,6 +80,10 @@ const AdminProductPost = (props) => {
           <label id="admin-product-name">
             Product Name:
             <input type="text" placeholder="Enter your product name here..." />
+          </label>
+          <label id="admin-product-description">
+            Product Description:
+            <input type="text" placeholder="Enter your product description here..." />
           </label>
           <label id="admin-product-price">
             Product Price:
@@ -100,7 +111,7 @@ const AdminProductPost = (props) => {
           </label>
           <label htmlFor="imageInput" id="admin-product-upload">
             Upload Image
-            <input name="image" id="imageInput" type="file" onChange={handleFileChange} />
+            <input name="image" id="imageInput" type="file" onChange={handleFileChange} multiple />
           </label>
           <div className="image-preview">{fileUrl && <img src={fileUrl} alt="Selected file" />}</div>
           <button className="admin-post-button" type="submit">

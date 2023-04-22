@@ -12,6 +12,10 @@ const ItemSchema = new Schema({
     type: Number,
     required: true
   },
+  description: {
+    type: String,
+    required: true
+  },
   category: {
     type: Schema.Types.ObjectId,
     ref: 'category'
@@ -30,10 +34,12 @@ const ItemSchema = new Schema({
       }
     }
   ],
-  img_url: {
-    type: String,
-    required: true
-  }
+  img_url: [
+    {
+      type: String,
+      required: true
+    }
+  ]
 });
 
 module.exports = Item = mongoose.model('item', ItemSchema);

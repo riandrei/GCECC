@@ -1,5 +1,7 @@
 const Item = require('../models/Item');
 const cloudinary = require('cloudinary').v2;
+const fs = require('fs');
+const path = require('path');
 
 module.exports.getItems = (req, res) => {
   Item.find()
@@ -7,29 +9,26 @@ module.exports.getItems = (req, res) => {
     .then((items) => res.json(items));
 };
 
-module.exports.addItem = (req, res) => {
-  const { label, price, category } = req.body;
+module.exports.addItem = async (req, res) => {
+  const { label, description, price, category } = req.body;
   const sizes = JSON.parse(req.body.sizes);
-  cloudinary.uploader
-    .upload('../temp/tempfile.jpg', {
-      unique_filename: true
-    })
-    .then((data) => {
-      const img_url = data.secure_url;
+  const images = req.files;
 
-      const newItem = new Item({
-        label,
-        price,
-        category,
-        sizes,
-        img_url
-      });
-
-      newItem.save().then((item) => res.json(item));
-    })
-    .catch((err) => {
-      console.log(err);
+  const promises = images.map(async (image) => {
+    const file = await cloudinary.uploader.upload(image.path, {
+      unique_filename: true,
+      folder: 'GCECC'
     });
+
+    fs.unlinkSync(image.path);
+    return file.secure_url;
+  });
+
+  const img_url = await Promise.all(promises);
+
+  const newItem = new Item({ label, description, price, category, sizes, img_url });
+
+  newItem.save().then((item) => res.json(item));
 };
 
 module.exports.updateItem = (req, res) => {

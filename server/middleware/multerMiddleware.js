@@ -1,24 +1,25 @@
 const multer = require('multer');
 
+const storage = multer.diskStorage({
+  destination: '../temp',
+  filename: function (req, file, cb) {
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e5);
+    cb(null, 'image-' + uniqueSuffix + '.png');
+  }
+});
+
+const upload = multer({ storage });
+
 const multerMiddleware = (req, res, next) => {
-  const storage = multer.diskStorage({
-    destination: '../temp',
-    filename: function (req, file, callback) {
-      callback(null, `tempfile.jpg`);
-    }
-  });
+  const uploadMiddleware = upload.array('images', 4);
 
-  const upload = multer({ storage }).fields([
-    { name: 'image', maxCount: 1 },
-    { name: 'text', maxCount: 1 }
-  ]);
-
-  upload(req, res, (err) => {
-    if (err) {
-      console.error(err);
-      return res.status(400).json({ error: 'Bad request' });
+  uploadMiddleware(req, res, function (err) {
+    if (err instanceof multer.MulterError) {
+      return res.status(400).json({ message: 'File upload error' });
+    } else if (err) {
+      return res.status(500).json({ message: 'Server error' });
     }
-    return next();
+    next();
   });
 };
 
