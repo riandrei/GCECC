@@ -11,8 +11,8 @@ import hamburgerMenu from '../assets/hamburger-menu.png';
 import '../css/adminproduct.css';
 
 const AdminProduct = (props) => {
-  const items = useSelector((item) => item.items);
-  const categories = useSelector((category) => category.categories);
+  const items = useSelector((state) => state.item.items);
+  const categories = useSelector((state) => state.category.categories);
   const token = sessionStorage.getItem('token');
 
   useEffect(() => {
@@ -20,7 +20,6 @@ const AdminProduct = (props) => {
     props.getItems(token);
   }, []);
 
-  console.log(categories);
   const toggleNav = (e) => {
     const nav = document.querySelector(`nav`);
 
@@ -42,47 +41,50 @@ const AdminProduct = (props) => {
           <h1 className="admin-product-title">Admin Dashboard</h1>
           <AdminProductPost />
         </div>
-
-        <div className="admin-product-category">
-          <div className="admin-product-category-header">
-            <h3>Uniforms</h3>
-          </div>
-          <div className="admin-product-category-contents">
-            <div className="admin-product">
-              <h4>Female Blouse</h4>
-              <div className="admin-product-toggle">
-                <div className="toggle">
-                  S
-                  <label className="switch">
-                    <input type="checkbox" />
-                    <span className="slider"></span>
-                  </label>
+        {categories.map((category) => (
+          <div key={category._id} className="admin-product-category">
+            <div className="admin-product-category-header">
+              <h3>{category.category_name}</h3>
+            </div>
+            <div className="admin-product-category-contents">
+              {items.map((item) => (
+                <div key={item._id} className="admin-product">
+                  <h4>{item.label}</h4>
+                  <div className="admin-product-toggle">
+                    <div className="toggle">
+                      S
+                      <label className="switch">
+                        <input type="checkbox" />
+                        <span className="slider"></span>
+                      </label>
+                    </div>
+                    <div className="toggle">
+                      M
+                      <label className="switch">
+                        <input type="checkbox" />
+                        <span className="slider"></span>
+                      </label>
+                    </div>
+                    <div className="toggle">
+                      L
+                      <label className="switch">
+                        <input type="checkbox" />
+                        <span className="slider"></span>
+                      </label>
+                    </div>
+                    <div className="toggle">
+                      XL
+                      <label className="switch">
+                        <input type="checkbox" />
+                        <span className="slider"></span>
+                      </label>
+                    </div>
+                  </div>
                 </div>
-                <div className="toggle">
-                  M
-                  <label className="switch">
-                    <input type="checkbox" />
-                    <span className="slider"></span>
-                  </label>
-                </div>
-                <div className="toggle">
-                  L
-                  <label className="switch">
-                    <input type="checkbox" />
-                    <span className="slider"></span>
-                  </label>
-                </div>
-                <div className="toggle">
-                  XL
-                  <label className="switch">
-                    <input type="checkbox" />
-                    <span className="slider"></span>
-                  </label>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
-        </div>
+        ))}
       </div>
     </>
   );
