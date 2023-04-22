@@ -17,8 +17,12 @@ const StoreItem = () => {
   const foundItem = items.find((item) => itemId === item._id);
 
   const [stock, setStock] = useState('');
+  const [mainImage, setMainImage] = useState(foundItem.img_url[0]);
   const [selectedValue, setSelectedValue] = useState('small');
 
+  const changeImage = (e) => {
+    setMainImage(e.target.src);
+  };
   const handleRadioChange = (e) => {
     const sizes = foundItem.sizes;
 
@@ -51,12 +55,11 @@ const StoreItem = () => {
       </button>
       <div className="store-item-contents">
         <div className="store-item-image">
-          <img src={foundItem.img_url} className="store-item-image-main" />
+          <img src={mainImage} className="store-item-image-main" />
           <div className="store-item-image-slider">
-            <img src={sampleShirt} alt="" className="store-image-slider" />
-            <img src={sampleBag} alt="" className="store-image-slider" />
-            <img src={sampleSportfest} alt="" className="store-image-slider" />
-            <img src={sampleMerch} alt="" className="store-image-slider" />
+            {foundItem.img_url.map((imgUrl) => (
+              <img src={imgUrl} alt="" className="store-image-slider" onClick={changeImage} />
+            ))}
           </div>
         </div>
         <div className="store-item-info">
@@ -72,11 +75,7 @@ const StoreItem = () => {
 
             <div className="product-details">
               <h3>Description</h3>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos est magnam quibusdam maiores sit
-                perferendis minima cupiditate iusto earum repudiandae maxime vitae nostrum, ea cumque iste ipsa hic
-                commodi tempore.
-              </p>
+              <p>{foundItem.description}</p>
             </div>
             <div className="product-size">
               <h4>Size</h4>

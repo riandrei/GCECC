@@ -7,6 +7,7 @@ import femaleBlouse from '../assets/products/uniform/female-blouse.png';
 import sampleLace from '../assets/products/ID/ID-BSEMC.png';
 import sampleShirt from '../assets/products/sportsfest-shirt-sample.png';
 import hamburgerMenu from '../assets/hamburger-menu.png';
+import noImg from '../assets/no-image.jpg';
 
 import '../css/store.css';
 
@@ -14,7 +15,6 @@ const Store = () => {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const categories = useSelector((state) => state.category.categories);
   const items = useSelector((state) => state.item.items);
-  console.log(items);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -51,10 +51,10 @@ const Store = () => {
                   <Link key={item._id} to={`/user/store/${item._id}`} className="product-contents">
                     <div className="box-up">
                       {/* PULL FROM THE DATABASE */}
-                      <img src={item.img_url} height="300px" className="img" alt="" />
+                      <img src={item.img_url[0] ? item.img_url[0] : noImg} height="300px" className="img" alt="" />
                       <div className="img-info">
                         <div className="info-inner">
-                          <span className="p-name">Male Polo</span>
+                          <span className="p-name">{item.label}</span>
                           <span className="p-company">Gordon College</span>
                         </div>
                         <div className="a-size">
@@ -69,7 +69,7 @@ const Store = () => {
                       </div>
 
                       <p className="cart" href="#">
-                        <span className="price">₱600.00</span>
+                        <span className="price">{`₱${item.price}`}</span>
                         <span className="add-to-cart">
                           <span className="txt">Add in cart</span>
                         </span>
