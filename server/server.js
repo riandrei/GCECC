@@ -50,7 +50,7 @@ mongoose
   .catch((err) => console.log(err));
 
 cloudinary.config({
-  cloud_name: 'drcynbces',
-  api_key: '546869599516849',
-  api_secret: 'QzS1NuP_0G7okNUrKdzCrefzA2U'
+  cloud_name: process.env.CLOUDINARY_NAME,
+  api_key: process.env.CLOUDINARY_KEY,
+  api_secret: process.env.CLOUDINARY_SECRET
 });
