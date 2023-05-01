@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { getUser, retrieveSessionStorage } from '../actions/authActions.js';
 import { getItems } from '../actions/itemActions.js';
 import { getCategories } from '../actions/categoryActions.js';
+import { getCart } from '../actions/cartActions.js';
 
 import Nav from './Nav';
 import Store from './Store';
@@ -19,16 +20,16 @@ const User = (props) => {
   const user = useSelector((state) => state.auth.user);
   const token = useSelector((state) => state.auth.token);
   const name = user ? user.name : '';
-  const admin = user ? user.admin : false;
+  const userId = user ? user.id : '';
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!isAuthenticated || admin) {
+    if (!isAuthenticated) {
       props.retrieveSessionStorage();
     }
 
-    if (!isAuthenticated || admin) {
+    if (!isAuthenticated) {
       navigate(`/`);
     }
   }, [isAuthenticated, navigate]);
@@ -37,6 +38,7 @@ const User = (props) => {
     props.getUser(token);
     props.getCategories(token);
     props.getItems(token);
+    props.getCart({ token, userId });
   }, [token]);
   return (
     <>
@@ -51,6 +53,6 @@ const User = (props) => {
     </>
   );
 };
-const mapDispatchToProps = { retrieveSessionStorage, getUser, getItems, getCategories };
+const mapDispatchToProps = { retrieveSessionStorage, getUser, getItems, getCategories, getCart };
 
 export default connect(null, mapDispatchToProps)(User);

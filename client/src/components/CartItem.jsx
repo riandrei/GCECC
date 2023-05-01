@@ -1,9 +1,15 @@
-import React from 'react';
+import { useSelector } from 'react-redux';
 
 import '../css/cartItem.css';
 import idSample from '../assets/products/ID/ID-BSEMC.png';
 
 const CartItem = () => {
+  const cartItems = useSelector((state) => state.cart.items);
+  const items = useSelector((state) => state.item.items);
+  const filteredItems = items.filter((item) => cartItems.includes(item._id));
+
+  console.log(cartItems);
+
   return (
     <>
       <div className="item">
