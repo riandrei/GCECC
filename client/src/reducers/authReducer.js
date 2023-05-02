@@ -11,7 +11,9 @@ const initialState = {
   token: sessionStorage.getItem('token'),
   isAuthenticated: null,
   isLoading: false,
-  user: null
+  user: {
+    id: sessionStorage.getItem('id')
+  }
 };
 
 export default function authReducer(state = initialState, action) {
@@ -23,7 +25,7 @@ export default function authReducer(state = initialState, action) {
           ...state.user,
           name: action.payload.name,
           email: action.payload.email,
-          userId: action.payload.userId
+          id: action.payload.id
         },
         isAuthenticated: action.payload.bool
       };
@@ -57,7 +59,7 @@ export default function authReducer(state = initialState, action) {
     case GET_USER:
       sessionStorage.setItem('name', action.payload.name);
       sessionStorage.setItem('email', action.payload.email);
-      sessionStorage.setItem('userId', action.payload._id);
+      sessionStorage.setItem('id', action.payload._id);
       return {
         ...state,
         user: {

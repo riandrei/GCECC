@@ -3,7 +3,6 @@ import { GET_CART, ADD_CART_ITEM } from './types';
 export const getCart =
   ({ token, userId }) =>
   (dispatch) => {
-    console.log(userId);
     fetch(`http://localhost:4000/api/cart/${userId}`, {
       method: 'GET',
       headers: {

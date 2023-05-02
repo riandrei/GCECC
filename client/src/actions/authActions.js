@@ -58,10 +58,10 @@ export const retrieveSessionStorage = () => (dispatch) => {
   const admin = sessionStorage.getItem('admin') === `true`;
   const name = sessionStorage.getItem('name');
   const email = sessionStorage.getItem('email');
-  const userId = sessionStorage.getItem('userId');
+  const id = sessionStorage.getItem('id');
 
   if (isAuthenticated) {
-    dispatch({ type: SET_AUTHENTICATION, payload: { bool: true, name, email, userId } });
+    dispatch({ type: SET_AUTHENTICATION, payload: { bool: true, name, email, id } });
 
     if (admin) {
       dispatch({ type: SET_ADMIN, payload: true });
