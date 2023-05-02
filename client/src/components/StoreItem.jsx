@@ -1,9 +1,10 @@
 import Breadcrumb from './Breadcrumb';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useSelector, connect } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 import hamburgerMenu from '../assets/hamburger-menu.png';
+import noImg from '../assets/no-image.jpg';
 
 import { addCartItem } from '../actions/cartActions';
 
@@ -13,9 +14,19 @@ const StoreItem = (props) => {
   const { itemId } = useParams();
   const items = useSelector((state) => state.item.items);
   const foundItem = items.find((item) => itemId === item._id);
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    console.log(isAuthenticated);
+    if (!isAuthenticated) {
+      navigate(`/`);
+    }
+  }, [isAuthenticated, navigate]);
 
   const [stock, setStock] = useState('');
-  const [mainImage, setMainImage] = useState(foundItem.img_url[0]);
+  const [mainImage, setMainImage] = useState(foundItem ? foundItem.img_url[0] : '');
   const [selectedValue, setSelectedValue] = useState('small');
 
   const changeImage = (e) => {
@@ -64,10 +75,10 @@ const StoreItem = (props) => {
       </button>
       <div className="store-item-contents">
         <div className="store-item-image">
-          <img src={mainImage} className="store-item-image-main" />
+          <img src={mainImage ? mainImage : noImg} className="store-item-image-main" />
           <div className="store-item-image-slider">
-            {foundItem.img_url.map((imgUrl) => (
-              <img src={imgUrl} alt="" className="store-image-slider" onClick={changeImage} />
+            {foundItem.img_url.map((imgUrl, index) => (
+              <img key={index} src={imgUrl} alt="" className="store-image-slider" onClick={changeImage} />
             ))}
           </div>
         </div>
