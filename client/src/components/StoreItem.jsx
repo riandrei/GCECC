@@ -1,17 +1,15 @@
 import Breadcrumb from './Breadcrumb';
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, connect } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
 import hamburgerMenu from '../assets/hamburger-menu.png';
-import sampleShirt from '../assets/products/sample-shirt.png';
-import sampleBag from '../assets/products/smp-sample-product4.png';
-import sampleSportfest from '../assets/products/sportsfest-shirt-sample.png';
-import sampleMerch from '../assets/products/smp-sample-product25png.jpg';
+
+import { addCartItem } from '../actions/cartActions';
 
 import '../css/storeItem.css';
 
-const StoreItem = () => {
+const StoreItem = (props) => {
   const { itemId } = useParams();
   const items = useSelector((state) => state.item.items);
   const foundItem = items.find((item) => itemId === item._id);
@@ -42,6 +40,17 @@ const StoreItem = () => {
       return;
     }
     nav.className = `hide-nav`;
+  };
+  const addToCart = () => {
+    const token = sessionStorage.getItem('token');
+    const userId = sessionStorage.getItem('userId');
+    const cartItem = {
+      itemId: foundItem._id,
+      size: selectedValue,
+      quantity: 1
+    };
+
+    props.addCartItem({ token, userId, cartItem });
   };
 
   if (!foundItem) {
@@ -122,11 +131,11 @@ const StoreItem = () => {
                 <input
                   type="radio"
                   name="size"
-                  value="extra-large"
+                  value="extra_large"
                   id="4"
                   className="size-input"
                   onChange={handleRadioChange}
-                  checked={selectedValue === 'extra-large'}
+                  checked={selectedValue === 'extra_large'}
                 />
                 <label htmlFor="4" className="size">
                   XL
@@ -141,9 +150,9 @@ const StoreItem = () => {
           <span className="divider"></span>
 
           <div className="product-btn-group">
-            <div className="button add-cart">
+            <button onClick={addToCart} className="button add-cart">
               <i className="bx bxs-cart"></i> Add to Cart
-            </div>
+            </button>
             <div className="button buy-now">
               <i className="bx bxs-zap"></i> Buy Now
             </div>
@@ -154,4 +163,6 @@ const StoreItem = () => {
   );
 };
 
-export default StoreItem;
+const mapDispatchToProps = { addCartItem };
+
+export default connect(null, mapDispatchToProps)(StoreItem);
