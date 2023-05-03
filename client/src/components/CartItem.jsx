@@ -6,9 +6,7 @@ import idSample from '../assets/products/ID/ID-BSEMC.png';
 const CartItem = () => {
   const cartItems = useSelector((state) => state.cart.items);
   const items = useSelector((state) => state.item.items);
-  const filteredItems = items.filter((item) => cartItems.includes(item._id));
-
-  console.log(cartItems);
+  const filteredItems = items.filter((item) => cartItems.find((cartItem) => cartItem.itemId === item._id));
 
   return (
     <>

@@ -28,11 +28,8 @@ module.exports.addCartItem = (req, res) => {
     .then((itemPrice) => {
       const newCartItem = { itemId, size, quantity };
 
-      Cart.updateOne({ userId }, { $push: { items: newCartItem }, $inc: { bill: itemPrice * quantity } }).then(
-        (cart) => {
-          console.log(cart);
-          return res.json(cart);
-        }
-      );
+      Cart.updateOne({ userId }, { $push: { items: newCartItem }, $inc: { bill: itemPrice * quantity } }).then(() => {
+        Cart.findOne({ userId }).then((cart) => res.json(cart));
+      });
     });
 };

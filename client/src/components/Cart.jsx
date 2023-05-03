@@ -18,7 +18,7 @@ const Cart = () => {
     if (!isAuthenticated) {
       navigate(`/`);
     }
-  }, [isAuthenticated, navigate]);
+  }, [isAuthenticated]);
 
   const toggleNav = (e) => {
     const nav = document.querySelector(`nav`);
