@@ -1,47 +1,33 @@
 import { useSelector } from 'react-redux';
 
+import noImg from '../assets/no-image.jpg';
+
 import '../css/cartItem.css';
-import idSample from '../assets/products/ID/ID-BSEMC.png';
 
-const CartItem = () => {
-  const cartItems = useSelector((state) => state.cart.items);
-  const items = useSelector((state) => state.item.items);
-  const filteredItems = items.filter((item) => cartItems.find((cartItem) => cartItem.itemId === item._id));
-
-  return (
+const CartItem = ({ newCartItems }) => {
+  console.log(newCartItems);
+  return !newCartItems ? (
+    <></>
+  ) : (
     <>
-      <div className="item">
-        <input className="cart-checkbox" type="checkbox" name="" id="" />
-        <div className="cart-item">
-          <img src={idSample} alt="" />
-          <div className="item-details">
-            <h3 className="item-label">Cardigan</h3>
-            <p>Medium</p>
+      {newCartItems.map((cartItem) => (
+        <div key={cartItem._id} className="item">
+          <input className="cart-checkbox" type="checkbox" name="" id="" />
+          <div className="cart-item">
+            <img src={cartItem.img || noImg} alt="" />
+            <div className="item-details">
+              <h3 className="item-label">{cartItem.label}</h3>
+              <p>{cartItem.size}</p>
+            </div>
           </div>
-        </div>
-        <div className="quantity">
-          <button>&#8854;</button>
-          <input placeholder="1" type="number" />
-          <button>&oplus;</button>
-        </div>
-        <p className="item-price">&#8369;2000</p>
-      </div>
-      <div className="item">
-        <input className="cart-checkbox" type="checkbox" name="" id="" />
-        <div className="cart-item">
-          <img src={idSample} alt="" />
-          <div className="item-details">
-            <h3 className="item-label">Cardigan</h3>
-            <p>Medium</p>
+          <div className="quantity">
+            <button>&#8854;</button>
+            <input placeholder="1" type="number" />
+            <button>&oplus;</button>
           </div>
+          <p className="item-price">{`\u20B1${cartItem.price}`}</p>
         </div>
-        <div className="quantity">
-          <button>&#8854;</button>
-          <input placeholder="1" type="number" />
-          <button>&oplus;</button>
-        </div>
-        <p className="item-price">&#8369;2000</p>
-      </div>
+      ))}
     </>
   );
 };

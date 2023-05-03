@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 import CartItem from './CartItem';
 
@@ -11,8 +11,26 @@ import hamburgerMenu from '../assets/hamburger-menu.png';
 import '../css/cart.css';
 
 const Cart = () => {
-  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const cartItems = useSelector((state) => state.cart.items);
+  const items = useSelector((state) => state.item.items);
+
+  const filteredItems = items?.filter((item) => cartItems?.find((cartItem) => cartItem.itemId === item._id));
+  const newCartItems = cartItems?.map((cartItem, index) => {
+    const filteredItem = filteredItems?.find((filteredItem) => filteredItem._id === cartItem.itemId);
+    const newCartItem = {
+      ...cartItem,
+      label: filteredItem.label,
+      img: filteredItem.img_url[0],
+      price: filteredItem.price
+    };
+
+    return newCartItem;
+  });
+  const totalPrice = newCartItems?.reduce((total, currentCartItem) => total + currentCartItem.price, 0);
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -29,6 +47,10 @@ const Cart = () => {
     }
     nav.className = `hide-nav`;
   };
+
+  const { pathname } = location;
+  sessionStorage.setItem('path', pathname);
+
   return (
     <>
       <div className="cart-main-container" onClick={toggleNav}>
@@ -55,10 +77,10 @@ const Cart = () => {
             <h2>QUANTITY</h2>
             <h2 className="price">PRICE</h2>
           </div>
-          <CartItem />
+          <CartItem newCartItems={newCartItems} />
 
           <div className="cart-footer">
-            <p className="total">$50000</p>
+            <p className="total">{`\u20B1${totalPrice || `test`}`}</p>
           </div>
         </div>
       </div>

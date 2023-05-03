@@ -20,8 +20,9 @@ export const Login = (props) => {
   useEffect(() => {
     const root = document.querySelector(`#root`);
     if (isAuthenticated && pathname) {
-      navigate(`${pathname}`);
+      root.style.overflowY = 'unset';
 
+      navigate(`${pathname}`);
       return;
     }
     if (isAuthenticated && admin) {
