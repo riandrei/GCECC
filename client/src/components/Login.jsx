@@ -13,20 +13,28 @@ export const Login = (props) => {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const user = useSelector((state) => state.auth.user);
   const admin = user ? user.admin : false;
+  const pathname = sessionStorage.getItem('path');
   const navigate = useNavigate();
 
   // redirects the user to the homepage if the user has authenticated
   useEffect(() => {
     const root = document.querySelector(`#root`);
+    if (isAuthenticated && pathname) {
+      navigate(`${pathname}`);
+
+      return;
+    }
     if (isAuthenticated && admin) {
       root.style.overflowY = 'unset';
 
       navigate('/admin/products');
+      return;
     }
     if (isAuthenticated && !admin) {
       root.style.overflowY = 'unset';
 
       navigate('/user/store');
+      return;
     }
   }, [isAuthenticated, navigate, admin]);
 

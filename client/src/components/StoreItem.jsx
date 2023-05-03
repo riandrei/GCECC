@@ -1,48 +1,48 @@
-import Breadcrumb from './Breadcrumb';
 import { useState, useEffect } from 'react';
 import { useSelector, connect } from 'react-redux';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
+
+import Breadcrumb from './Breadcrumb';
+import { addCartItem } from '../actions/cartActions';
 
 import hamburgerMenu from '../assets/hamburger-menu.png';
 import noImg from '../assets/no-image.jpg';
 
-import { addCartItem } from '../actions/cartActions';
-
 import '../css/storeItem.css';
 
 const StoreItem = (props) => {
-  const { itemId } = useParams();
-  const items = useSelector((state) => state.item.items);
-  const foundItem = items.find((item) => itemId === item._id);
-  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-
   const navigate = useNavigate();
-
-  useEffect(() => {
-    console.log(isAuthenticated);
-    if (!isAuthenticated) {
-      navigate(`/`);
-    }
-  }, [isAuthenticated, navigate]);
-
+  const { itemId } = useParams();
+  const location = useLocation();
   const [stock, setStock] = useState('');
-  const [mainImage, setMainImage] = useState(foundItem ? foundItem.img_url[0] : '');
+  const [mainImage, setMainImage] = useState('');
   const [selectedValue, setSelectedValue] = useState('small');
 
-  const changeImage = (e) => {
-    setMainImage(e.target.src);
-  };
+  const items = useSelector((state) => state.item.items);
+  const foundItem = items.find((item) => item._id === itemId);
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      navigate('/');
+    }
+  }, [isAuthenticated]);
+
+  useEffect(() => {
+    if (foundItem) {
+      setMainImage(foundItem.img_url[0]);
+      setSelectedValue(foundItem.sizes[0].size);
+      setStock(foundItem.sizes[0].inventory);
+    }
+  }, [foundItem]);
+
   const handleRadioChange = (e) => {
-    const sizes = foundItem.sizes;
+    const size = foundItem.sizes.find((size) => size.size === e.target.value);
 
     setSelectedValue(e.target.value);
-
-    sizes.forEach((size) => {
-      if (size.size == e.target.value) {
-        setStock(size.inventory);
-      }
-    });
+    setStock(size.inventory);
   };
+
   const toggleNav = (e) => {
     const nav = document.querySelector(`nav`);
 
@@ -52,9 +52,10 @@ const StoreItem = (props) => {
     }
     nav.className = `hide-nav`;
   };
+
   const addToCart = () => {
     const token = sessionStorage.getItem('token');
-    const userId = sessionStorage.getItem('userId');
+    const userId = sessionStorage.getItem('id');
     const cartItem = {
       itemId: foundItem._id,
       size: selectedValue,
@@ -64,21 +65,28 @@ const StoreItem = (props) => {
     props.addCartItem({ token, userId, cartItem });
   };
 
-  if (!foundItem) {
-    return <p>No Item Found</p>;
-  }
+  const { pathname } = location;
+  sessionStorage.setItem('path', pathname);
 
-  return (
+  return !foundItem ? (
+    <p>No Item Found</p>
+  ) : (
     <div className="store-item-main-container" onClick={toggleNav}>
       <button onClick={toggleNav} className="admin-product-menu">
         <img className="hamburger-icon" src={hamburgerMenu} alt="" />
       </button>
       <div className="store-item-contents">
         <div className="store-item-image">
-          <img src={mainImage ? mainImage : noImg} className="store-item-image-main" />
+          <img src={mainImage || noImg} className="store-item-image-main" alt="" />
           <div className="store-item-image-slider">
             {foundItem.img_url.map((imgUrl, index) => (
-              <img key={index} src={imgUrl} alt="" className="store-image-slider" onClick={changeImage} />
+              <img
+                key={index}
+                src={imgUrl}
+                alt=""
+                className="store-image-slider"
+                onClick={() => setMainImage(imgUrl)}
+              />
             ))}
           </div>
         </div>
@@ -88,11 +96,9 @@ const StoreItem = (props) => {
             <div className="product-title">
               <h2>{foundItem.label}</h2>
             </div>
-
             <div className="product-price">
               <span className="offer-price">{`₱${foundItem.price}`}</span>
             </div>
-
             <div className="product-details">
               <h3>Description</h3>
               <p>{foundItem.description}</p>
