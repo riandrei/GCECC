@@ -29,7 +29,11 @@ module.exports.updateCartQuantity = (req, res) => {
       .then((itemPrice) => {
         const objectId = new ObjectId(itemId);
         const currentObject = cart.items.find((item) => objectId.equals(item.itemId));
-        const newQuantity = quantity - currentObject.quantity;
+        let newQuantity = quantity - currentObject.quantity;
+
+        if (req.add) {
+          newQuantity = quantity;
+        }
 
         Cart.updateOne(
           { userId: userId, 'items._id': currentObject._id }, // Find the document with userId and items.itemId
@@ -45,8 +49,9 @@ module.exports.addCartItem = (req, res, next) => {
   const userId = req.params.id;
   const { itemId, size, quantity } = req.body;
 
-  Cart.findOne({ userId: userId, items: { $elemMatch: { itemId: itemId } } }).then((cart) => {
+  Cart.findOne({ userId: userId, items: { $elemMatch: { itemId: itemId, size: size } } }).then((cart) => {
     if (cart) {
+      req.add = true;
       next();
     } else {
       Item.findOne({ _id: itemId })
