@@ -8,31 +8,13 @@ import noImg from '../assets/no-image.jpg';
 import '../css/cartItem.css';
 
 const CartItem = (props) => {
-  const { mainCheckbox } = props;
-  const items = useSelector((state) => state.item.items);
   const userId = useSelector((state) => state.auth.user.id);
   const token = useSelector((state) => state.auth.token);
-  const cartItems = useSelector((state) => state.cart.items);
-  const [itemCheckbox, setItemCheckbox] = useState(mainCheckbox);
-
-  const filteredItems = items?.filter((item) => cartItems?.find((cartItem) => cartItem.itemId === item._id));
-  const newCartItems = cartItems?.map((cartItem, index) => {
-    const filteredItem = filteredItems?.find((filteredItem) => filteredItem._id === cartItem.itemId);
-
-    const newCartItem = {
-      ...cartItem,
-      label: filteredItem.label,
-      img: filteredItem.img_url[0],
-      price: filteredItem.price
-    };
-
-    return newCartItem;
-  });
 
   const handleButtonClick = (cartItem, purpose) => {
     const { itemId, size } = cartItem;
 
-    newCartItems.forEach((cartItem) => {
+    props.newCartItems.forEach((cartItem) => {
       if (cartItem.itemId === itemId && cartItem.size === size) {
         const updatedCartItem = { ...cartItem };
 
@@ -49,27 +31,37 @@ const CartItem = (props) => {
     });
   };
 
-  const handleCheckbox = (e) => {
-    setItemCheckbox(e.target.checked);
+  const handleCheckbox = (e, cartItem) => {
+    const existingItemCheckbox = [...props.checkedItems];
+
+    const cartItemIndex = existingItemCheckbox?.findIndex((existingItem) => existingItem.itemId === cartItem.itemId);
+
+    if (e.target.checked) {
+      if (cartItemIndex < 0) {
+        existingItemCheckbox.push({ itemId: cartItem.itemId });
+      }
+    } else {
+      if (cartItemIndex >= 0) {
+        existingItemCheckbox.splice(cartItemIndex, 1);
+      }
+    }
+
+    props.setCheckedItems(existingItemCheckbox);
   };
 
-  useEffect(() => {
-    setItemCheckbox(mainCheckbox);
-  }, [mainCheckbox]);
-
-  return !newCartItems ? (
+  return !props.newCartItems ? (
     <p>No Items</p>
   ) : (
     <>
-      {newCartItems.map((cartItem) => (
+      {props.newCartItems.map((cartItem) => (
         <div key={cartItem._id} className="item">
           <input
             className="cart-checkbox"
             type="checkbox"
             name=""
-            checked={itemCheckbox}
+            checked={props.checked(cartItem)}
             onChange={(e) => {
-              handleCheckbox(e);
+              handleCheckbox(e, cartItem);
             }}
           />
           <div className="cart-item">

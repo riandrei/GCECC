@@ -14,6 +14,7 @@ const StoreItem = (props) => {
   const navigate = useNavigate();
   const { itemId } = useParams();
   const location = useLocation();
+
   const [stock, setStock] = useState('');
   const [mainImage, setMainImage] = useState('');
   const [selectedValue, setSelectedValue] = useState('small');

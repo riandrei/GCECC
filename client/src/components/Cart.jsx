@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 import CartItem from './CartItem';
+import { deleteCartItems } from '../actions/cartActions.js';
 
 import uniformIcon from '../assets/uniformH1.png';
 import trashIcon from '../assets/trash.svg';
@@ -10,13 +11,33 @@ import hamburgerMenu from '../assets/hamburger-menu.png';
 
 import '../css/cart.css';
 
-const Cart = () => {
+const Cart = (props) => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-  const bill = useSelector((state) => state.cart.bill);
   const [mainCheckbox, setMainCheckbox] = useState(false);
+  const [checkedItems, setCheckedItems] = useState([]);
+
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const userId = useSelector((state) => state.auth.user.id);
+  const token = useSelector((state) => state.auth.token);
+  const bill = useSelector((state) => state.cart.bill);
+  const items = useSelector((state) => state.item.items);
+  const cartItems = useSelector((state) => state.cart.items);
+
+  const filteredItems = items?.filter((item) => cartItems?.find((cartItem) => cartItem.itemId === item._id));
+  const newCartItems = cartItems?.map((cartItem, index) => {
+    const filteredItem = filteredItems?.find((filteredItem) => filteredItem._id === cartItem.itemId);
+
+    const newCartItem = {
+      ...cartItem,
+      label: filteredItem.label,
+      img: filteredItem.img_url[0],
+      price: filteredItem.price
+    };
+
+    return newCartItem;
+  });
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -34,8 +55,30 @@ const Cart = () => {
     nav.className = `hide-nav`;
   };
 
-  const handleCheckbox = (e) => {
-    setMainCheckbox(e.target.checked);
+  const handleMainCheckbox = (e) => {
+    const existingItemCheckbox = [...checkedItems];
+
+    cartItems.forEach((cartItem) => {
+      const cartItemIndex = existingItemCheckbox?.findIndex((existingItem) => existingItem.itemId === cartItem.itemId);
+
+      if (e.target.checked && cartItemIndex < 0) {
+        existingItemCheckbox.push({ itemId: cartItem.itemId });
+      } else {
+        existingItemCheckbox.splice(0, cartItems.length);
+      }
+    });
+    setCheckedItems(existingItemCheckbox);
+  };
+
+  const checked = (cartItem) => {
+    const { itemId } = cartItem;
+    const check = checkedItems?.some((item) => item.itemId === itemId);
+
+    return check;
+  };
+
+  const removeItem = () => {
+    props.deleteCartItems({ token, userId, checkedItems });
   };
 
   const { pathname } = location;
@@ -54,7 +97,7 @@ const Cart = () => {
               <button className="teal">
                 <span>Checkout</span>
               </button>
-              <button className="crimson">
+              <button className="crimson" onClick={removeItem}>
                 <span>Remove</span>
               </button>
             </div>
@@ -68,14 +111,19 @@ const Cart = () => {
               name=""
               id=""
               onChange={(e) => {
-                handleCheckbox(e);
+                handleMainCheckbox(e);
               }}
             />
             <h2>PRODUCT</h2>
             <h2>QUANTITY</h2>
             <h2 className="price">PRICE</h2>
           </div>
-          <CartItem mainCheckbox={mainCheckbox} />
+          <CartItem
+            newCartItems={newCartItems}
+            checked={checked}
+            checkedItems={checkedItems}
+            setCheckedItems={setCheckedItems}
+          />
 
           <div className="cart-footer">
             <p className="total">{`\u20B1${bill || `0`}`}</p>
@@ -86,4 +134,6 @@ const Cart = () => {
   );
 };
 
-export default Cart;
+const mapDispatchToProps = { deleteCartItems };
+
+export default connect(null, mapDispatchToProps)(Cart);

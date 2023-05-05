@@ -23,14 +23,13 @@ module.exports.updateCartQuantity = (req, res) => {
   const userId = req.params.id;
   const { itemId, size, quantity } = req.body;
 
-  console.log(req.body);
-
   Cart.findOne({ userId }).then((cart) => {
     Item.findOne({ _id: itemId })
       .then((item) => item.price)
       .then((itemPrice) => {
         const objectId = new ObjectId(itemId);
         const currentObject = cart.items.find((item) => objectId.equals(item.itemId));
+        console.log(currentObject);
         const newQuantity = quantity - currentObject.quantity;
 
         Cart.updateOne(
@@ -63,5 +62,28 @@ module.exports.addCartItem = (req, res, next) => {
           );
         });
     }
+  });
+};
+
+module.exports.deleteCartItem = (req, res) => {
+  const userId = req.params.id;
+  const checkedItems = req.body;
+
+  Cart.findOne({ userId }).then((cart) => {
+    const currentObjects = cart.items.filter((item) => {
+      console.log(checkedItems[0]);
+      console.log(item.itemId.toString());
+      console.log(checkedItems[0].itemId === item.itemId.toString());
+      if (checkedItems.some((checkedItem) => checkedItem.itemId === item.itemId.toString())) {
+        return item;
+      }
+    });
+    console.log(currentObjects);
+
+    Cart.updateOne({ userId }, { $pull: { items: { _id: { $in: currentObjects.map((obj) => obj._id) } } } }).then(
+      () => {
+        Cart.findOne({ userId }).then((cart) => res.json(cart));
+      }
+    );
   });
 };
