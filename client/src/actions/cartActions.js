@@ -43,3 +43,26 @@ export const addCartItem =
         dispatch({ type: GET_CART, payload: data });
       });
   };
+
+export const updateCartQuantity =
+  ({ token, userId, updatedCartItem }) =>
+  (dispatch) => {
+    fetch(`http://localhost:4000/api/cart/${userId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-auth-token': token
+      },
+      body: JSON.stringify(updatedCartItem)
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error('Failed to add cartItem');
+        }
+      })
+      .then((data) => {
+        dispatch({ type: GET_CART, payload: data });
+      });
+  };

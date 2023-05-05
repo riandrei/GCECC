@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
 
@@ -15,22 +15,8 @@ const Cart = () => {
   const location = useLocation();
 
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-  const cartItems = useSelector((state) => state.cart.items);
-  const items = useSelector((state) => state.item.items);
-
-  const filteredItems = items?.filter((item) => cartItems?.find((cartItem) => cartItem.itemId === item._id));
-  const newCartItems = cartItems?.map((cartItem, index) => {
-    const filteredItem = filteredItems?.find((filteredItem) => filteredItem._id === cartItem.itemId);
-    const newCartItem = {
-      ...cartItem,
-      label: filteredItem.label,
-      img: filteredItem.img_url[0],
-      price: filteredItem.price
-    };
-
-    return newCartItem;
-  });
-  const totalPrice = newCartItems?.reduce((total, currentCartItem) => total + currentCartItem.price, 0);
+  const bill = useSelector((state) => state.cart.bill);
+  const [mainCheckbox, setMainCheckbox] = useState(false);
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -46,6 +32,10 @@ const Cart = () => {
       return;
     }
     nav.className = `hide-nav`;
+  };
+
+  const handleCheckbox = (e) => {
+    setMainCheckbox(e.target.checked);
   };
 
   const { pathname } = location;
@@ -72,15 +62,23 @@ const Cart = () => {
         </div>
         <div className="shopping-cart">
           <div className="cart-label">
-            <input className="cart-checkbox" type="checkbox" name="" id="" />
+            <input
+              className="cart-checkbox"
+              type="checkbox"
+              name=""
+              id=""
+              onChange={(e) => {
+                handleCheckbox(e);
+              }}
+            />
             <h2>PRODUCT</h2>
             <h2>QUANTITY</h2>
             <h2 className="price">PRICE</h2>
           </div>
-          <CartItem newCartItems={newCartItems} />
+          <CartItem mainCheckbox={mainCheckbox} />
 
           <div className="cart-footer">
-            <p className="total">{`\u20B1${totalPrice || `test`}`}</p>
+            <p className="total">{`\u20B1${bill || `0`}`}</p>
           </div>
         </div>
       </div>
