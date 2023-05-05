@@ -29,7 +29,6 @@ module.exports.updateCartQuantity = (req, res) => {
       .then((itemPrice) => {
         const objectId = new ObjectId(itemId);
         const currentObject = cart.items.find((item) => objectId.equals(item.itemId));
-        console.log(currentObject);
         const newQuantity = quantity - currentObject.quantity;
 
         Cart.updateOne(
@@ -71,18 +70,42 @@ module.exports.deleteCartItem = (req, res) => {
 
   Cart.findOne({ userId }).then((cart) => {
     const currentObjects = cart.items.filter((item) => {
-      console.log(checkedItems[0]);
-      console.log(item.itemId.toString());
-      console.log(checkedItems[0].itemId === item.itemId.toString());
       if (checkedItems.some((checkedItem) => checkedItem.itemId === item.itemId.toString())) {
         return item;
       }
     });
-    console.log(currentObjects);
 
     Cart.updateOne({ userId }, { $pull: { items: { _id: { $in: currentObjects.map((obj) => obj._id) } } } }).then(
       () => {
-        Cart.findOne({ userId }).then((cart) => res.json(cart));
+        Cart.findOne({ userId }).then((cart) => {
+          const cartItems = cart.items.map((item) => {
+            const { itemId, quantity, _id } = item;
+
+            return {
+              _id,
+              itemId,
+              quantity
+            };
+          });
+          const itemIds = cartItems.map((item) => item.itemId);
+
+          Item.find({ _id: { $in: itemIds } }).then((items) => {
+            items.forEach((item) => {
+              const itemId = item._id.toString();
+              const itemIndex = cartItems.findIndex((cartItem) => cartItem.itemId.toString() === itemId);
+
+              if (itemIndex >= 0) {
+                cartItems[itemIndex].price = item.price;
+              }
+            });
+
+            const adjustedBill = cartItems.reduce((total, cartItem) => total + cartItem.price * cartItem.quantity, 0);
+
+            Cart.updateOne({ userId }, { $set: { bill: adjustedBill } }).then(() => {
+              Cart.findOne({ userId }).then((cart) => res.json(cart));
+            });
+          });
+        });
       }
     );
   });
