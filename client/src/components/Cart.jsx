@@ -93,7 +93,9 @@ const Cart = (props) => {
   const { pathname } = location;
   sessionStorage.setItem('path', pathname);
 
-  return (
+  return !cartItems ? (
+    <p>Loading...</p>
+  ) : (
     <>
       <div className="cart-main-container" onClick={toggleNav}>
         <div className="cart-category">
