@@ -59,26 +59,35 @@ const Cart = (props) => {
     const existingItemCheckbox = [...checkedItems];
 
     cartItems.forEach((cartItem) => {
-      const cartItemIndex = existingItemCheckbox?.findIndex((existingItem) => existingItem.itemId === cartItem.itemId);
+      const cartItemIndex = existingItemCheckbox?.findIndex((existingItem) => existingItem._id === cartItem._id);
 
-      if (e.target.checked && cartItemIndex < 0) {
-        existingItemCheckbox.push({ itemId: cartItem.itemId });
+      if (e.target.checked) {
+        if (cartItemIndex < 0) {
+          existingItemCheckbox.push({
+            _id: cartItem._id,
+            itemId: cartItem.itemId,
+            quantity: cartItem.quantity,
+            size: cartItem.size
+          });
+        }
       } else {
         existingItemCheckbox.splice(0, cartItems.length);
       }
     });
+
     setCheckedItems(existingItemCheckbox);
   };
 
   const checked = (cartItem) => {
-    const { itemId } = cartItem;
-    const check = checkedItems?.some((item) => item.itemId === itemId);
+    const { _id } = cartItem;
+    const check = checkedItems?.some((item) => item._id === _id);
 
     return check;
   };
 
   const removeItem = () => {
     props.deleteCartItems({ token, userId, checkedItems });
+    checkedItems.splice(0, cartItems.length);
   };
 
   const { pathname } = location;
@@ -110,6 +119,7 @@ const Cart = (props) => {
               type="checkbox"
               name=""
               id=""
+              checked={checkedItems.length === cartItems.length}
               onChange={(e) => {
                 handleMainCheckbox(e);
               }}

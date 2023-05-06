@@ -33,12 +33,16 @@ const CartItem = (props) => {
 
   const handleCheckbox = (e, cartItem) => {
     const existingItemCheckbox = [...props.checkedItems];
-
-    const cartItemIndex = existingItemCheckbox?.findIndex((existingItem) => existingItem.itemId === cartItem.itemId);
+    const cartItemIndex = existingItemCheckbox?.findIndex((existingItem) => existingItem._id === cartItem._id);
 
     if (e.target.checked) {
       if (cartItemIndex < 0) {
-        existingItemCheckbox.push({ itemId: cartItem.itemId });
+        existingItemCheckbox.push({
+          _id: cartItem._id,
+          itemId: cartItem.itemId,
+          quantity: cartItem.quantity,
+          size: cartItem.size
+        });
       }
     } else {
       if (cartItemIndex >= 0) {

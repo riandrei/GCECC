@@ -1,8 +1,6 @@
 const Cart = require('../models/Cart');
 const Item = require('../models/Item');
 
-const { ObjectId } = require('mongodb');
-
 module.exports.getCart = (req, res) => {
   const userId = req.params.id;
   const items = [];
@@ -21,28 +19,33 @@ module.exports.getCart = (req, res) => {
 
 module.exports.updateCartQuantity = (req, res) => {
   const userId = req.params.id;
-  const { itemId, size, quantity } = req.body;
+  const { itemId, _id, quantity } = req.body;
 
-  Cart.findOne({ userId }).then((cart) => {
-    Item.findOne({ _id: itemId })
-      .then((item) => item.price)
-      .then((itemPrice) => {
-        const objectId = new ObjectId(itemId);
-        const currentObject = cart.items.find((item) => objectId.equals(item.itemId));
-        let newQuantity = quantity - currentObject.quantity;
+  Item.findOne({ _id: itemId })
+    .then((item) => item.price)
+    .then((itemPrice) => {
+      Cart.findOne(
+        {
+          $and: [{ userId: userId }, { 'items._id': _id }]
+        },
+        { 'items.quantity.$': 1 }
+      )
+        .then((cartItem) => cartItem.items[0].quantity)
+        .then((currentQuantity) => {
+          let newQuantity = quantity - currentQuantity;
 
-        if (req.add) {
-          newQuantity = quantity;
-        }
+          if (req.add) {
+            newQuantity = quantity;
+          }
 
-        Cart.updateOne(
-          { userId: userId, 'items._id': currentObject._id }, // Find the document with userId and items.itemId
-          { $inc: { 'items.$.quantity': newQuantity, bill: itemPrice * newQuantity } } // Update the matched element in the items array
-        ).then(() => {
-          Cart.findOne({ userId }).then((cart) => res.json(cart));
+          Cart.updateOne(
+            { userId: userId, 'items._id': _id }, // Find the document with userId and items.itemId
+            { $inc: { 'items.$.quantity': newQuantity, bill: itemPrice * newQuantity } } // Update the matched element in the items array
+          ).then(() => {
+            Cart.findOne({ userId }).then((cart) => res.json(cart));
+          });
         });
-      });
-  });
+    });
 };
 
 module.exports.addCartItem = (req, res, next) => {
@@ -73,45 +76,46 @@ module.exports.deleteCartItem = (req, res) => {
   const userId = req.params.id;
   const checkedItems = req.body;
 
-  Cart.findOne({ userId }).then((cart) => {
-    const currentObjects = cart.items.filter((item) => {
-      if (checkedItems.some((checkedItem) => checkedItem.itemId === item.itemId.toString())) {
-        return item;
+  const checkedItemIds = checkedItems.map((checkedItem) => checkedItem.itemId);
+  const checkedCartItemsIds = checkedItems.map((checkedItem) => checkedItem._id);
+
+  Item.find({ _id: { $in: checkedItemIds } }).then((items) => {
+    let itemVariations = [];
+
+    items.forEach((item) => {
+      const itemId = item._id.toString();
+      const price = item.price;
+
+      item.sizes.forEach((item) => {
+        const { size } = item;
+
+        itemVariations.push({ itemId, size, price });
+      });
+    });
+
+    itemVariations.forEach((itemVariation) => {
+      const itemIndex = checkedItems.findIndex(
+        (checkedItem) =>
+          checkedItem.itemId.toString() === itemVariation.itemId && checkedItem.size === itemVariation.size
+      );
+
+      if (itemIndex >= 0) {
+        checkedItems[itemIndex].price = itemVariation.price;
       }
     });
 
-    Cart.updateOne({ userId }, { $pull: { items: { _id: { $in: currentObjects.map((obj) => obj._id) } } } }).then(
-      () => {
-        Cart.findOne({ userId }).then((cart) => {
-          const cartItems = cart.items.map((item) => {
-            const { itemId, quantity, _id } = item;
+    const adjustedBill = checkedItems.reduce((total, checkedItem) => {
+      return checkedItem.price * checkedItem.quantity * -1 + total;
+    }, 0);
 
-            return {
-              _id,
-              itemId,
-              quantity
-            };
-          });
-          const itemIds = cartItems.map((item) => item.itemId);
-
-          Item.find({ _id: { $in: itemIds } }).then((items) => {
-            items.forEach((item) => {
-              const itemId = item._id.toString();
-              const itemIndex = cartItems.findIndex((cartItem) => cartItem.itemId.toString() === itemId);
-
-              if (itemIndex >= 0) {
-                cartItems[itemIndex].price = item.price;
-              }
-            });
-
-            const adjustedBill = cartItems.reduce((total, cartItem) => total + cartItem.price * cartItem.quantity, 0);
-
-            Cart.updateOne({ userId }, { $set: { bill: adjustedBill } }).then(() => {
-              Cart.findOne({ userId }).then((cart) => res.json(cart));
-            });
-          });
-        });
+    Cart.updateOne(
+      { userId },
+      {
+        $pull: { items: { _id: { $in: checkedCartItemsIds } } },
+        $inc: { bill: adjustedBill }
       }
-    );
+    ).then(() => {
+      Cart.findOne({ userId }).then((cart) => res.json(cart));
+    });
   });
 };
