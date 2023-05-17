@@ -70,6 +70,7 @@ export const updateCartQuantity =
 export const deleteCartItems =
   ({ token, userId, checkedItems }) =>
   (dispatch) => {
+    console.log(checkedItems);
     fetch(`http://localhost:4000/api/cart/${userId}`, {
       method: 'DELETE',
       headers: {

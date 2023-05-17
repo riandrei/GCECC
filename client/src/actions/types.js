@@ -18,3 +18,5 @@ export const DELETE_CATEGORY = 'DELETE_CATEGORY';
 export const UPDATE_CATEGORY = 'UPDATE_CATEGORY';
 
 export const GET_CART = 'GET_CART';
+
+export const PLACE_ORDER = 'PLACE_ORDER';

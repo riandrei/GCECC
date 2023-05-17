@@ -66,7 +66,7 @@ const StoreItem = (props) => {
 
     cartItem._id = cartItems.filter(
       (existingCartItem) => existingCartItem.itemId === cartItem.itemId && existingCartItem.size === cartItem.size
-    )[0]._id;
+    )[0]?._id;
 
     props.addCartItem({ token, userId, cartItem });
   };

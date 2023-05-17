@@ -1,19 +1,35 @@
 const mongoose = require(`mongoose`);
 const Schema = mongoose.Schema;
 
+const Item = require('./Item');
+const User = require('./User');
+
 const OrderSchema = new Schema({
-  user_id: {
+  userId: {
+    type: Schema.Types.ObjectId,
+    ref: 'user',
+    required: true
+  },
+  userName: {
     type: String,
-    required: true,
-    ref: 'User'
+    required: true
+  },
+  userDepartment: {
+    type: String,
+    required: true
+  },
+  userDomain: {
+    type: String,
+    required: true
   },
   items: [
     {
-      product_id: {
-        type: String,
+      itemId: {
+        type: Schema.Types.ObjectId,
+        ref: 'item',
         required: true
       },
-      label: {
+      size: {
         type: String,
         required: true
       },
@@ -22,10 +38,6 @@ const OrderSchema = new Schema({
         required: true,
         min: [1, `Quantity cannot be less than 1`],
         default: 1
-      },
-      price: {
-        type: Number,
-        required: true
       }
     }
   ],
@@ -34,9 +46,20 @@ const OrderSchema = new Schema({
     required: true,
     default: 0
   },
-  date_added: {
+  status: {
+    type: String,
+    enum: ['submitted', 'ready', 'received']
+  },
+  dateAdded: {
     type: Date,
     default: Date.now
+  },
+  estimatedDate: {
+    type: Date,
+    default: function () {
+      const now = new Date();
+      return new Date(now.setDate(now.getDate() + 7));
+    }
   }
 });
 

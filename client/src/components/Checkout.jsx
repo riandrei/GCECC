@@ -1,13 +1,27 @@
+import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { connect, useSelector } from 'react-redux';
+
+import { placeOrder } from '../actions/orderActions';
 
 import '../css/checkout.css';
 import hamburgerMenu from '../assets/hamburger-menu.png';
 
-const Checkout = () => {
+const Checkout = (props) => {
   const location = useLocation();
-  const { checkedItems } = location.state;
   const items = useSelector((state) => state.item.items);
+
+  const { checkedItems } = location.state;
+
+  const token = useSelector((state) => state.auth.token);
+  const user = useSelector((state) => state.auth.user);
+  const userId = user.id;
+
+  const [name, setName] = useState(user.name);
+  const [department, setDepartment] = useState('');
+  const [domain, setDomain] = useState(user.email);
+  const [paymentMethod, setPaymentMethod] = useState('');
+  const [validForm, setValidForm] = useState(true);
 
   const checkoutItems = checkedItems?.map((checkedItem, index) => {
     const item = items?.find((item) => item._id === checkedItem.itemId);
@@ -22,7 +36,28 @@ const Checkout = () => {
     return checkoutItem;
   });
 
-  console.log(checkoutItems);
+  const handlePlaceOrder = () => {
+    if (!!name.trim() && !!department.trim() && !!domain.trim() && !!paymentMethod.trim()) {
+      setValidForm(true);
+
+      const userDetails = { userId, name, department, domain, paymentMethod };
+      const itemDetails = checkoutItems.map((checkoutItem) => {
+        const newCheckoutItem = {
+          itemId: checkoutItem.itemId,
+          size: checkoutItem.size,
+          quantity: checkoutItem.quantity,
+          price: checkoutItem.price
+        };
+
+        return newCheckoutItem;
+      });
+
+      props.placeOrder({ token, userDetails, itemDetails });
+
+      return;
+    }
+    setValidForm(false);
+  };
 
   const toggleNav = (e) => {
     const nav = document.querySelector(`nav`);
@@ -46,26 +81,42 @@ const Checkout = () => {
       </div>
       <div className="checkout-contents">
         <form className="checkout-form">
+          {!validForm && <p className="form-error">Please fill in all fields.</p>}
+
           <div className="checkout-form-section">
             <h2>Name</h2>
-            <input type="text" />
+            <input type="text" value={name} onChange={(e) => setName(e.target.value)} required />
           </div>
           <div className="checkout-form-section">
             <h2>Department</h2>
-            <input type="text" />
+            <input type="text" value={department} onChange={(e) => setDepartment(e.target.value)} />
           </div>
           <div className="checkout-form-section">
             <h2>Domain</h2>
-            <input type="text" />
+            <input type="text" value={domain} onChange={(e) => setDomain(e.target.value)} />
           </div>
           <div className="checkout-form-section">
             <h2>Payment Method</h2>
             <div>
-              <input type="radio" name="payment-methods" id="cash" />
+              <input
+                type="radio"
+                name="payment-methods"
+                id="cash"
+                value="cash"
+                checked={paymentMethod === 'cash'}
+                onChange={(e) => setPaymentMethod(e.target.value)}
+              />
               <label className="cash" htmlFor="cash">
                 Cash
               </label>
-              <input type="radio" name="payment-methods" id="gcash" />
+              <input
+                type="radio"
+                name="payment-methods"
+                id="gcash"
+                value="gcash"
+                checked={paymentMethod === 'gcash'}
+                onChange={(e) => setPaymentMethod(e.target.value)}
+              />
               <label className="gcash" htmlFor="gcash">
                 GCash
               </label>
@@ -96,7 +147,7 @@ const Checkout = () => {
           </div>
           <div className="checkout-order-footer">
             <h3>{`Total: \u20B11234`}</h3>
-            <button>Place Order</button>
+            <button onClick={handlePlaceOrder}>Place Order</button>
           </div>
         </div>
       </div>
@@ -104,4 +155,6 @@ const Checkout = () => {
   );
 };
 
-export default Checkout;
+const mapDispatchToProps = { placeOrder };
+
+export default connect(null, mapDispatchToProps)(Checkout);

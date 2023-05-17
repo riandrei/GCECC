@@ -78,6 +78,11 @@
   background-color: black;
   color: white;
 }
+.form-error {
+  color: red;
+  font-weight: 600;
+  font-size: clamp(1.4rem, 1.5vw, 40rem);
+}
 
 .checkout-order {
   justify-content: space-between;
