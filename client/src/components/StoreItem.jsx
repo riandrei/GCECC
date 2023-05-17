@@ -22,6 +22,7 @@ const StoreItem = (props) => {
   const items = useSelector((state) => state.item.items);
   const foundItem = items.find((item) => item._id === itemId);
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const cartItems = useSelector((state) => state.cart.items);
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -62,6 +63,10 @@ const StoreItem = (props) => {
       size: selectedValue,
       quantity: 1
     };
+
+    cartItem._id = cartItems.filter(
+      (existingCartItem) => existingCartItem.itemId === cartItem.itemId && existingCartItem.size === cartItem.size
+    )[0]._id;
 
     props.addCartItem({ token, userId, cartItem });
   };
