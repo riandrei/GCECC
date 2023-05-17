@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { connect, useSelector } from 'react-redux';
 
+import { deleteCartItems } from '../actions/cartActions';
 import { placeOrder } from '../actions/orderActions';
 
 import '../css/checkout.css';
@@ -43,6 +44,7 @@ const Checkout = (props) => {
       const userDetails = { userId, name, department, domain, paymentMethod };
       const itemDetails = checkoutItems.map((checkoutItem) => {
         const newCheckoutItem = {
+          _id: checkoutItem._id,
           itemId: checkoutItem.itemId,
           size: checkoutItem.size,
           quantity: checkoutItem.quantity,
@@ -53,6 +55,7 @@ const Checkout = (props) => {
       });
 
       props.placeOrder({ token, userDetails, itemDetails });
+      props.deleteCartItems({ token, userId, itemDetails });
 
       return;
     }
@@ -155,6 +158,6 @@ const Checkout = (props) => {
   );
 };
 
-const mapDispatchToProps = { placeOrder };
+const mapDispatchToProps = { placeOrder, deleteCartItems };
 
 export default connect(null, mapDispatchToProps)(Checkout);

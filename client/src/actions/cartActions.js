@@ -68,9 +68,12 @@ export const updateCartQuantity =
   };
 
 export const deleteCartItems =
-  ({ token, userId, checkedItems }) =>
+  ({ token, userId, checkedItems, itemDetails }) =>
   (dispatch) => {
-    console.log(checkedItems);
+    if (!checkedItems) {
+      checkedItems = itemDetails;
+    }
+    console.log(itemDetails);
     fetch(`http://localhost:4000/api/cart/${userId}`, {
       method: 'DELETE',
       headers: {

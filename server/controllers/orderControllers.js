@@ -24,7 +24,7 @@ module.exports.placeOrder = (req, res) => {
       userName: userDetails.name,
       userDepartment: userDetails.department,
       userDomain: userDetails.domain,
-      items: itemDetails.map(({ price, ...rest }) => rest),
+      items: itemDetails.map(({ price, _id, ...rest }) => rest),
       bill: itemDetails.reduce((total, { price, quantity }) => total + price * quantity, 0),
       status: 'submitted'
     });
