@@ -1,12 +1,10 @@
 import { useEffect, useState } from 'react';
 import { connect, useSelector } from 'react-redux';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 
 import CartItem from './CartItem';
 import { deleteCartItems } from '../actions/cartActions.js';
 
-import uniformIcon from '../assets/uniformH1.png';
-import trashIcon from '../assets/trash.svg';
 import hamburgerMenu from '../assets/hamburger-menu.png';
 
 import '../css/cart.css';
@@ -86,8 +84,18 @@ const Cart = (props) => {
   };
 
   const removeItem = () => {
+    console.log(checkedItems);
+
     props.deleteCartItems({ token, userId, checkedItems });
+
     checkedItems.splice(0, cartItems.length);
+  };
+
+  const checkoutItems = () => {
+    if (checkedItems.length === 0) {
+      return;
+    }
+    navigate('/user/checkout', { state: { checkedItems } });
   };
 
   const { pathname } = location;
@@ -106,7 +114,7 @@ const Cart = (props) => {
             <h1>Cart</h1>
             <div className="actions-wrapper">
               <button className="teal">
-                <span>Checkout</span>
+                <span onClick={checkoutItems}>Checkout</span>
               </button>
               <button className="crimson" onClick={removeItem}>
                 <span>Remove</span>

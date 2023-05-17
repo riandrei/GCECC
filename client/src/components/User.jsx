@@ -14,6 +14,7 @@ import StudentMarket from './StudentMarket';
 import Cart from './Cart';
 import Seller from './Seller';
 import StoreItem from './StoreItem';
+import Checkout from './Checkout';
 
 const User = (props) => {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
@@ -49,6 +50,7 @@ const User = (props) => {
         <Route path="/cart" element={<Cart />} />
         <Route path="/seller" element={<Seller />} />
         <Route path="/store/:itemId" element={<StoreItem />} />
+        <Route path="/checkout" element={<Checkout />} />
       </Routes>
     </>
   );

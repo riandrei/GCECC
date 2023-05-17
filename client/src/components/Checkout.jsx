@@ -1,7 +1,29 @@
+import { useLocation } from 'react-router-dom';
+import { connect, useSelector } from 'react-redux';
+
 import '../css/checkout.css';
 import hamburgerMenu from '../assets/hamburger-menu.png';
 
 const Checkout = () => {
+  const location = useLocation();
+  const { checkedItems } = location.state;
+  const items = useSelector((state) => state.item.items);
+
+  const checkoutItems = checkedItems?.map((checkedItem, index) => {
+    const item = items?.find((item) => item._id === checkedItem.itemId);
+
+    const checkoutItem = {
+      ...checkedItem,
+      label: item.label,
+      img: item.img_url[0],
+      price: item.price
+    };
+
+    return checkoutItem;
+  });
+
+  console.log(checkoutItems);
+
   const toggleNav = (e) => {
     const nav = document.querySelector(`nav`);
 
@@ -52,66 +74,25 @@ const Checkout = () => {
         </form>
         <div className="checkout-order">
           <div className="checkout-order-items">
-            <div className="checkout-order-item">
-              <img
-                src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.iOGA0WM95DR6mTZl6m4wSwHaE8%26pid%3DApi&f=1&ipt=2bde31797a372cc525ea00a5c8c8d78da132213fb5771c9617086f8c5ca1b9b1&ipo=images"
-                alt=""
-              />
-              <div className="checkout-item-label">
-                <h4>Testing</h4>
-                <p>extra_large</p>
+            {checkoutItems.map((checkoutItem) => (
+              <div key={checkoutItem._id} className="checkout-order-item">
+                <img src={checkoutItem.img} alt="item-picture" />
+                <div className="checkout-item-label">
+                  <h4>{checkoutItem.label}</h4>
+                  <p>{checkoutItem.size}</p>
+                </div>
+                <div className="checkout-item-quantity">
+                  <p>
+                    <span>Quantity :</span>
+                    <span>{checkoutItem.quantity}</span>
+                  </p>
+                  <p>
+                    <span>Price :</span>
+                    <span>{`\u20B1${checkoutItem.price}`}</span>
+                  </p>
+                </div>
               </div>
-              <div className="checkout-item-quantity">
-                <p>
-                  <span>Quantity :</span>
-                  <span>{`4`}</span>
-                </p>
-                <p>
-                  <span>Price :</span>
-                  <span>{`\u20B11234`}</span>
-                </p>
-              </div>
-            </div>
-            <div className="checkout-order-item">
-              <img
-                src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.iOGA0WM95DR6mTZl6m4wSwHaE8%26pid%3DApi&f=1&ipt=2bde31797a372cc525ea00a5c8c8d78da132213fb5771c9617086f8c5ca1b9b1&ipo=images"
-                alt=""
-              />
-              <div className="checkout-item-label">
-                <h4>Testing</h4>
-                <p>extra_large</p>
-              </div>
-              <div className="checkout-item-quantity">
-                <p>
-                  <span>Quantity :</span>
-                  <span>{`4`}</span>
-                </p>
-                <p>
-                  <span>Price :</span>
-                  <span>{`\u20B11234`}</span>
-                </p>
-              </div>
-            </div>
-            <div className="checkout-order-item">
-              <img
-                src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.iOGA0WM95DR6mTZl6m4wSwHaE8%26pid%3DApi&f=1&ipt=2bde31797a372cc525ea00a5c8c8d78da132213fb5771c9617086f8c5ca1b9b1&ipo=images"
-                alt=""
-              />
-              <div className="checkout-item-label">
-                <h4>Testing</h4>
-                <p>extra_large</p>
-              </div>
-              <div className="checkout-item-quantity">
-                <p>
-                  <span>Quantity :</span>
-                  <span>{`4`}</span>
-                </p>
-                <p>
-                  <span>Price :</span>
-                  <span>{`\u20B11234`}</span>
-                </p>
-              </div>
-            </div>
+            ))}
           </div>
           <div className="checkout-order-footer">
             <h3>{`Total: \u20B11234`}</h3>
