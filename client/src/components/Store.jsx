@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 
 import uniformIcon from '../assets/uniformH1.png';
 import femaleBlouse from '../assets/products/uniform/female-blouse.png';
@@ -12,10 +12,12 @@ import noImg from '../assets/no-image.jpg';
 import '../css/store.css';
 
 const Store = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const categories = useSelector((state) => state.category.categories);
   const items = useSelector((state) => state.item.items);
-  const navigate = useNavigate();
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -32,6 +34,9 @@ const Store = () => {
     }
     nav.className = `hide-nav`;
   };
+
+  const { pathname } = location;
+  sessionStorage.setItem('path', pathname);
 
   return (
     <div className="store-main-container" onClick={toggleNav}>

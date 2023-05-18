@@ -29,9 +29,9 @@ const Cart = (props) => {
 
     const newCartItem = {
       ...cartItem,
-      label: filteredItem.label,
-      img: filteredItem.img_url[0],
-      price: filteredItem.price
+      label: filteredItem?.label,
+      img: filteredItem?.img_url[0],
+      price: filteredItem?.price
     };
 
     return newCartItem;
@@ -84,8 +84,6 @@ const Cart = (props) => {
   };
 
   const removeItem = () => {
-    console.log(checkedItems);
-
     props.deleteCartItems({ token, userId, checkedItems });
 
     checkedItems.splice(0, cartItems.length);

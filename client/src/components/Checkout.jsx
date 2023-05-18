@@ -29,9 +29,9 @@ const Checkout = (props) => {
 
     const checkoutItem = {
       ...checkedItem,
-      label: item.label,
-      img: item.img_url[0],
-      price: item.price
+      label: item?.label,
+      img: item?.img_url[0],
+      price: item?.price
     };
 
     return checkoutItem;
