@@ -44,3 +44,11 @@ module.exports.getUserOrders = (req, res) => {
 module.exports.getOrders = (req, res) => {
   Order.find().then((orders) => res.json(orders));
 };
+
+module.exports.changeOrderStatus = (req, res, next) => {
+  const { _id, status } = req.body;
+
+  Order.updateOne({ _id }, { $set: { status } }).then(() => {
+    next();
+  });
+};

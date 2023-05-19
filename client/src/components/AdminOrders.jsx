@@ -29,7 +29,6 @@ const AdminOrders = () => {
         </div>
         <div className="order-contents">
           <div className="order-label">
-            <input className="order-checkbox" type="checkbox" name="" id="" />
             <h2>ORDER NUMBER</h2>
             <h2>DATE</h2>
             <h2>EMAIL</h2>

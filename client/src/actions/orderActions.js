@@ -45,21 +45,46 @@ export const getUserOrders =
       });
   };
 
-export const getOrders = (token) => (dispatch) => {
-  fetch(`http://localhost:4000/api/orders/`, {
-    method: 'GET',
-    headers: {
-      'x-auth-token': token
-    }
-  })
-    .then((response) => {
-      if (response.ok) {
-        return response.json();
-      } else {
-        throw new Error('Failed to get orders');
+export const getOrders =
+  ({ token }) =>
+  (dispatch) => {
+    fetch(`http://localhost:4000/api/orders/`, {
+      method: 'GET',
+      headers: {
+        'x-auth-token': token
       }
     })
-    .then((data) => {
-      dispatch({ type: GET_ORDER, payload: data });
-    });
-};
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error('Failed to get orders');
+        }
+      })
+      .then((data) => {
+        dispatch({ type: GET_ORDER, payload: data });
+      });
+  };
+
+export const changeOrderStatus =
+  ({ token, modifiedOrder }) =>
+  (dispatch) => {
+    fetch(`http://localhost:4000/api/orders`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-auth-token': token
+      },
+      body: JSON.stringify(modifiedOrder)
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error('Failed to edit order');
+        }
+      })
+      .then((data) => {
+        dispatch({ type: GET_ORDER, payload: data });
+      });
+  };
