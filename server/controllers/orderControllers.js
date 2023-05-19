@@ -40,3 +40,7 @@ module.exports.getUserOrders = (req, res) => {
 
   Order.find({ userId }).then((orders) => res.json(orders));
 };
+
+module.exports.getOrders = (req, res) => {
+  Order.find().then((orders) => res.json(orders));
+};

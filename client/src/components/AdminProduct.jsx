@@ -15,8 +15,6 @@ const AdminProduct = (props) => {
   const categories = useSelector((state) => state.category.categories);
   const token = sessionStorage.getItem('token');
 
-  console.log(items);
-
   useEffect(() => {
     props.getCategories(token);
     props.getItems(token);

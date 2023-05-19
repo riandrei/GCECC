@@ -1,7 +1,10 @@
 .admin-order-item {
   display: grid;
-  grid-template-columns: 0.75fr 1fr 1fr 2fr 1fr 1fr 1fr;
+  grid-template-columns: 0.75fr 1fr 1fr 2fr 1fr 1fr;
   place-items: center;
+  font-size: clamp(1rem, 1.75vw, 8rem);
+}
+.admin-order-item a {
   font-size: clamp(1rem, 1.75vw, 8rem);
 }
 .admin-order-checkbox {

@@ -34,7 +34,6 @@ const AdminOrders = () => {
             <h2>DATE</h2>
             <h2>EMAIL</h2>
             <h2>ORDER STATUS</h2>
-            <h2>PAYMENT STATUS</h2>
             <h2 className="price">BILL</h2>
           </div>
           <AdminOrder />

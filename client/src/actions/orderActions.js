@@ -44,3 +44,22 @@ export const getUserOrders =
         dispatch({ type: GET_ORDER, payload: data });
       });
   };
+
+export const getOrders = (token) => (dispatch) => {
+  fetch(`http://localhost:4000/api/orders/`, {
+    method: 'GET',
+    headers: {
+      'x-auth-token': token
+    }
+  })
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        throw new Error('Failed to get orders');
+      }
+    })
+    .then((data) => {
+      dispatch({ type: GET_ORDER, payload: data });
+    });
+};
