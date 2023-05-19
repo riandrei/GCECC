@@ -36,7 +36,7 @@ const AdminOrder = (props) => {
     <>
       {orders.map((order) => (
         <div key={order._id} className="admin-order-item">
-          <Link to={`/admin/order/${order._id}`}>
+          <Link to={`/admin/orders/${order._id}`}>
             <p className="admin-order-number">{`${order._id.slice(0, 5)}...`}</p>
           </Link>
           <p className="admin-order-date">{order.dateAdded.slice(0, order.dateAdded.indexOf('T'))}</p>

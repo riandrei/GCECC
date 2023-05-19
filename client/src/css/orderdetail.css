@@ -1,0 +1,131 @@
+.order-detail-container {
+  display: flex;
+  flex-direction: column;
+  margin-left: 30vmin;
+  animation: main-container-ani 2500ms ease;
+  gap: 2rem;
+  width: 100vw;
+}
+.order-detail-category {
+  border-bottom: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+.order-detail-header {
+  top: 0;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  height: 10vh;
+  background-color: #fff;
+  box-shadow: 0 5px 5px -5px grey;
+  padding: 0 2rem;
+}
+.time {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.time svg {
+  fill: gray;
+  height: 25px;
+}
+#datetime {
+  color: #949494;
+  font-size: clamp(1rem, 1.5vw, 40rem);
+}
+.order-detail-menu {
+  display: none;
+}
+.order-title {
+  padding: 0 2rem;
+}
+.order-title h1 {
+  font-size: clamp(2.3rem, 3vw, 40rem);
+}
+
+.order-detail-contents {
+  display: flex;
+  flex-direction: column;
+  padding: 0 2rem;
+  gap: 1rem;
+}
+.order-items {
+  display: flex;
+  gap: 1rem;
+  justify-content: first baseline;
+  align-items: center;
+  font-size: clamp(2.3rem, 3vw, 40rem);
+}
+.items-detail {
+  border-radius: 10px 0 0 10px;
+  color: white;
+  padding: 1rem;
+  background-color: #0165b2;
+  width: 100%;
+}
+.items-detail p:first-child {
+  font-size: 1.25em;
+}
+.order-items img {
+  object-fit: cover;
+  width: 15%;
+  height: 100%;
+  border-radius: 10px;
+}
+.user-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  background-color: #0165b2;
+  color: white;
+  font-size: clamp(2.3rem, 3vw, 40rem);
+}
+.user-details div {
+  display: flex;
+  gap: 1rem;
+}
+.user-details svg {
+  fill: white;
+  width: 25px;
+  height: 25px;
+}
+.user-details p {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+@media (max-width: 810px) {
+  .order-detail-container {
+    margin: 0;
+    gap: 2rem;
+  }
+  .order-detail-header {
+    justify-content: space-between;
+  }
+  .order-items {
+    flex-direction: column;
+    gap: 0;
+  }
+  .order-items img {
+    width: 100%;
+    border-radius: 0;
+  }
+  .items-detail {
+    border-radius: 0;
+  }
+  .show-nav {
+    visibility: visible;
+    transform: translate(0%);
+  }
+  .hide-nav {
+    visibility: hidden;
+    transform: translate(-100%);
+  }
+  .order-detail-menu {
+    display: block;
+    background-color: transparent;
+  }
+}
