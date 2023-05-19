@@ -1,4 +1,4 @@
-import { PLACE_ORDER } from './types';
+import { PLACE_ORDER, GET_ORDER } from './types';
 
 export const placeOrder =
   ({ token, itemDetails, userDetails }) =>
@@ -21,5 +21,26 @@ export const placeOrder =
       })
       .then((data) => {
         dispatch({ type: PLACE_ORDER, payload: data });
+      });
+  };
+
+export const getUserOrders =
+  ({ token, userId }) =>
+  (dispatch) => {
+    fetch(`http://localhost:4000/api/orders/${userId}`, {
+      method: 'GET',
+      headers: {
+        'x-auth-token': token
+      }
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error('Failed to get order');
+        }
+      })
+      .then((data) => {
+        dispatch({ type: GET_ORDER, payload: data });
       });
   };

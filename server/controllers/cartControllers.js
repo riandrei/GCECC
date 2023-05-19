@@ -76,8 +76,6 @@ module.exports.deleteCartItem = (req, res) => {
   const userId = req.params.id;
   const checkedItems = req.body;
 
-  console.log(checkedItems);
-
   const checkedItemIds = checkedItems.map((checkedItem) => checkedItem.itemId);
   const checkedCartItemsIds = checkedItems.map((checkedItem) => checkedItem._id);
 

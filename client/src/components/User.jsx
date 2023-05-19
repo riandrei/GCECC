@@ -7,12 +7,13 @@ import { getUser, retrieveSessionStorage } from '../actions/authActions.js';
 import { getItems } from '../actions/itemActions.js';
 import { getCategories } from '../actions/categoryActions.js';
 import { getCart } from '../actions/cartActions.js';
+import { getUserOrders } from '../actions/orderActions.js';
 
 import Nav from './Nav';
 import Store from './Store';
 import StudentMarket from './StudentMarket';
 import Cart from './Cart';
-import Seller from './Seller';
+import Orders from './Orders';
 import StoreItem from './StoreItem';
 import Checkout from './Checkout';
 
@@ -40,6 +41,7 @@ const User = (props) => {
     props.getCategories(token);
     props.getItems(token);
     props.getCart({ token, userId });
+    props.getUserOrders({ token, userId });
   }, [token]);
   return (
     <>
@@ -48,13 +50,13 @@ const User = (props) => {
         <Route path="/store" element={<Store />} />
         <Route path="/market" element={<StudentMarket />} />
         <Route path="/cart" element={<Cart />} />
-        <Route path="/seller" element={<Seller />} />
+        <Route path="/orders" element={<Orders />} />
         <Route path="/store/:itemId" element={<StoreItem />} />
         <Route path="/checkout" element={<Checkout />} />
       </Routes>
     </>
   );
 };
-const mapDispatchToProps = { retrieveSessionStorage, getUser, getItems, getCategories, getCart };
+const mapDispatchToProps = { retrieveSessionStorage, getUser, getItems, getCategories, getCart, getUserOrders };
 
 export default connect(null, mapDispatchToProps)(User);

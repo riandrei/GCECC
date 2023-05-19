@@ -1,0 +1,19 @@
+.user-order-item {
+  display: grid;
+  grid-template-columns: 1fr 1fr 2fr 1fr 1fr;
+  place-items: center;
+  font-size: clamp(1rem, 1.75vw, 8rem);
+}
+.user-order-item a {
+  font-size: clamp(1rem, 1.75vw, 8rem);
+}
+.user-order-checkbox {
+  width: 1.3vw;
+}
+
+@media (max-width: 810px) {
+  .user-order-checkbox {
+    width: 1.8vw;
+    aspect-ratio: 1/1;
+  }
+}

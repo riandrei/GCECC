@@ -34,3 +34,9 @@ module.exports.placeOrder = (req, res) => {
     });
   });
 };
+
+module.exports.getUserOrders = (req, res) => {
+  const userId = req.params.id;
+
+  Order.find({ userId }).then((orders) => res.json(orders));
+};

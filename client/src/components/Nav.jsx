@@ -62,7 +62,7 @@ const Nav = ({ name }) => {
               backgroundPosition: 'left center'
             }}
           >
-            <Link to="/user/seller">Be A Seller</Link>
+            <Link to="/user/orders">Orders</Link>
           </li>
         </ul>
         <hr />

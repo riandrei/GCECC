@@ -1,4 +1,4 @@
-import { PLACE_ORDER } from '../actions/types';
+import { PLACE_ORDER, GET_ORDER } from '../actions/types';
 
 const initialState = {
   orders: []
@@ -10,6 +10,11 @@ export default function orderReducer(state = initialState, action) {
       return {
         ...state,
         orders: [action.payload, ...state.orders]
+      };
+    case GET_ORDER:
+      return {
+        ...state,
+        orders: action.payload
       };
 
     default:
