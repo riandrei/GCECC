@@ -41,3 +41,25 @@ export const getItems = (token) => (dispatch) => {
       dispatch({ type: GET_ITEMS, payload: data });
     });
 };
+
+export const deleteItem =
+  ({ itemId, token }) =>
+  (dispatch) => {
+    fetch(`http://localhost:4000/api/items/${itemId}`, {
+      method: 'DELETE',
+      headers: {
+        'x-auth-token': token
+      },
+      credentials: 'include'
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error('Failed to delete item');
+        }
+      })
+      .then((data) => {
+        dispatch({ type: GET_ITEMS, payload: data });
+      });
+  };

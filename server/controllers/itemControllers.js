@@ -32,15 +32,13 @@ module.exports.addItem = async (req, res) => {
 };
 
 module.exports.updateItem = (req, res) => {
-  Item.findByIdAndUpdate({ _id: req.params.id }, req.body).then(function (item) {
-    Item.findOne({ _id: req.params.id }).then(function (item) {
-      res.json(item);
-    });
+  Item.findByIdAndUpdate({ _id: req.params.id }, req.body).then(() => {
+    Item.findOne({ _id: req.params.id }).then((item) => res.json(item));
   });
 };
 
 module.exports.deleteItem = (req, res) => {
-  Item.findByIdAndDelete({ _id: req.params.id }).then(function (item) {
-    res.json({ success: true });
+  Item.findByIdAndDelete({ _id: req.params.id }).then(() => {
+    Item.find().then((item) => res.json(item));
   });
 };
