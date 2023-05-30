@@ -17,4 +17,8 @@ module.exports.addCategory = (req, res) => {
 
 module.exports.updateCategory = (req, res) => {};
 
-module.exports.deleteCategory = (req, res) => {};
+module.exports.deleteCategory = (req, res) => {
+  Category.findByIdAndDelete({ _id: req.params.id }).then(() => {
+    Category.find().then((categories) => res.json(categories));
+  });
+};

@@ -41,3 +41,25 @@ export const addCategory =
         dispatch({ type: ADD_CATEGORY, payload: data });
       });
   };
+
+export const deleteCategory =
+  ({ categoryId, token }) =>
+  (dispatch) => {
+    fetch(`http://localhost:4000/api/category/${categoryId}`, {
+      method: 'DELETE',
+      headers: {
+        'x-auth-token': token
+      },
+      credentials: 'include'
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error('Failed to delete category');
+        }
+      })
+      .then((data) => {
+        dispatch({ type: GET_CATEGORIES, payload: data });
+      });
+  };

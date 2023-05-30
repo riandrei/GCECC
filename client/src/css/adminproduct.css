@@ -23,11 +23,19 @@
 
 .admin-product-category-header {
   background-color: #07909c;
+  display: flex;
+  justify-content: space-between;
   width: 100%;
   font-size: 5rem;
   border-radius: 1rem;
   margin-bottom: 2rem;
   padding: 0.5rem 1rem;
+}
+.admin-product-category-header svg {
+  width: 2rem;
+}
+.admin-product-category-header svg:hover {
+  cursor: pointer;
 }
 .admin-product-category-contents {
   display: flex;
