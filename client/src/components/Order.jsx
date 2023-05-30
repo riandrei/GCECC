@@ -12,7 +12,7 @@ const Order = () => {
     <>
       {orders.map((order) => (
         <div key={order._id} className="user-order-item">
-          <Link to={`/user/order/${order._id}`}>
+          <Link to={`/user/orders/${order._id}`}>
             <p className="user-order-number">{`${order._id.slice(0, 5)}...`}</p>
           </Link>
           <p className="user-order-date">{order.dateAdded.slice(0, order.dateAdded.indexOf('T'))}</p>
