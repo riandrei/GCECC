@@ -1,0 +1,131 @@
+.market-item-main-container {
+  margin: 0vmin 0 0 35vmin;
+  animation: main-container-ani 2500ms ease;
+  gap: 5rem;
+  width: 100vw;
+}
+
+.market-item-contents {
+  display: flex;
+  gap: 5rem;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  height: 100svh;
+}
+.market-item-image {
+  float: left;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 55%;
+}
+.market-item-image-main {
+  width: 26vw;
+  aspect-ratio: 4/5;
+}
+.market-item-image-slider {
+  display: flex;
+  gap: 10px;
+  margin: 10px 0;
+}
+.market-item-image-slider img {
+  width: 8vw;
+  aspect-ratio: 1/1;
+  background: #fff;
+  padding: 6px;
+  cursor: pointer;
+}
+
+.market-item-info {
+  float: right;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 55%;
+}
+.market-item-info .product-title {
+  margin-top: 20px;
+}
+.market-item-info .product-title h2 {
+  font-size: 2.8vw;
+  line-height: 2.4rem;
+  font-weight: 700;
+  letter-spacing: -0.02rem;
+}
+
+.market-item-info .product-price {
+  display: flex;
+  position: relative;
+  align-items: center;
+}
+.market-item-info .product-price .offer-price {
+  font-size: 3.4vw;
+  font-weight: 700;
+}
+.market-item-info .product-details h3 {
+  font-size: 1.5vw;
+  font-weight: 500;
+}
+.market-item-info .product-details p {
+  font-size: 1.3vw;
+  line-height: 2rem;
+}
+.market-item-info .product-stocks h4 {
+  font-size: 1.5vw;
+  font-weight: 500;
+}
+.market-item-info .product-stocks p {
+  font-size: 1.2vw;
+}
+@media (max-width: 810px) {
+  .market-item-main-container {
+    margin: 0;
+    padding: 2rem;
+    gap: 2rem;
+  }
+  .market-item-contents {
+    flex-direction: column;
+    height: unset;
+    gap: 1rem;
+  }
+  .market-item-image,
+  .market-item-info {
+    float: unset;
+    width: 100%;
+  }
+  .market-item-image-main {
+    width: 35rem;
+  }
+  .market-item-image-slider {
+    justify-content: center;
+  }
+  .market-item-image-slider img {
+    width: 8rem;
+  }
+  .market-item-info .product-title h2 {
+    font-size: 3rem;
+  }
+  .market-item-info .offer-price {
+    font-size: 3rem;
+  }
+  .market-item-info .product-details h3 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+  .market-item-info .product-details p {
+    font-size: 1.5rem;
+  }
+  .market-item-info .product-size h4,
+  .market-item-info .product-stocks h4 {
+    font-size: 2.5rem;
+    font-weight: 500;
+  }
+  .market-item-info .product-size .size-layout .size {
+    padding: 7px 20px;
+    font-size: 1.5rem;
+  }
+  .market-item-info .product-stocks p {
+    font-size: 1.3rem;
+  }
+}

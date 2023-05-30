@@ -98,7 +98,7 @@ const StudentMarket = (props) => {
           </form>
           <div className="listings-container">
             {listings.map((listing) => (
-              <Link key={listing._id} className="marketplace-item">
+              <Link key={listing._id} className="marketplace-item" to={`/user/market/${listing._id}`}>
                 <div className="product">
                   <figure>
                     <img
