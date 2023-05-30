@@ -21,3 +21,6 @@ export const GET_CART = 'GET_CART';
 
 export const PLACE_ORDER = 'PLACE_ORDER';
 export const GET_ORDER = 'GET_ORDER';
+
+export const ADD_LISTING = 'ADD_LISTING';
+export const GET_LISTING = 'GET_LISTING';

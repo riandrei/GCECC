@@ -13,6 +13,7 @@ const itemRoutes = require('./routes/itemRoute');
 const categoryRoutes = require('./routes/categoryRoute');
 const cartRoutes = require('./routes/cartRoute');
 const orderRoutes = require('./routes/orderRoute');
+const listingRoutes = require('./routes/listingRoute');
 
 const app = express();
 
@@ -32,6 +33,7 @@ app.use('/api', itemRoutes);
 app.use('/api', categoryRoutes);
 app.use('/api', cartRoutes);
 app.use('/api', orderRoutes);
+app.use('/api', listingRoutes);
 
 // serves the static assets from the client's build folder (useless for now)
 if (process.env.NODE_ENV === 'production') {
