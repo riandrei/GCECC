@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useSelector, connect } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 import { addListing } from '../actions/listingActions';
 
@@ -11,9 +11,11 @@ import hamburgerMenu from '../assets/hamburger-menu.png';
 import '../css/studentmarketplace.css';
 
 const StudentMarket = (props) => {
+  const navigate = useNavigate();
+
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const user = useSelector((state) => state.auth.user);
-  const navigate = useNavigate();
+  const listings = useSelector((state) => state.listing.listings);
   const [fileUrls, setFileUrls] = useState([]);
 
   const handleFileChange = (e) => {
@@ -67,7 +69,7 @@ const StudentMarket = (props) => {
   return (
     <div className="market-main-container" onClick={toggleNav}>
       <div className="market-category">
-        <button onClick={toggleNav} className="store-menu" id="burger">
+        <button onClick={toggleNav} className="market-menu" id="burger">
           <img className="hamburger-icon" src={hamburgerMenu} alt="" />
         </button>
         <div className="market-category-title">
@@ -94,138 +96,36 @@ const StudentMarket = (props) => {
               Post Listing
             </button>
           </form>
-          <a className="marketplace-item" href="#">
-            <div className="product">
-              <figure>
-                <img
-                  src={sampleProductImage}
-                  alt="Product Image"
-                  className="product-image"
-                  width="300px"
-                  height="400px"
-                />
-              </figure>
-              <div className="product-description">
-                <div className="info">
-                  <h1>Sapatos ko</h1>
-                  <p>Bilihin niyo na tapon ko to size 40 need lang pera ASAP</p>
-                  <p>Posted by: Riandrei Casanas</p>
-                </div>
+          <div className="listings-container">
+            {listings.map((listing) => (
+              <Link key={listing._id} className="marketplace-item">
+                <div className="product">
+                  <figure>
+                    <img
+                      src={listing.img_url[0]}
+                      alt="Product Image"
+                      className="product-image"
+                      width="300px"
+                      height="400px"
+                    />
+                  </figure>
+                  <div className="product-description">
+                    <div className="info">
+                      <h1>{listing.title.length > 20 ? `${listing.title.slice(0, 17)}...` : listing.title}</h1>
+                      <p>
+                        {listing.description.length > 30
+                          ? `${listing.description.slice(0, 26)}...`
+                          : listing.description}
+                      </p>
+                      <p>{`Posted by: ${listing.userName}`}</p>
+                    </div>
 
-                <div className="price">₱300</div>
-              </div>
-            </div>
-          </a>
-          <a className="marketplace-item" href="#">
-            <div className="product">
-              <figure>
-                <img
-                  src={sampleProductImage}
-                  alt="Product Image"
-                  className="product-image"
-                  width="300px"
-                  height="400px"
-                />
-              </figure>
-              <div className="product-description">
-                <div className="info">
-                  <h1>Sapatos ko</h1>
-                  <p>Bilihin niyo na tapon ko to size 40 need lang pera ASAP</p>
-                  <p>Posted by: Riandrei Casanas</p>
+                    <div className="price">{`₱${listing.price}`}</div>
+                  </div>
                 </div>
-
-                <div className="price">₱300</div>
-              </div>
-            </div>
-          </a>
-          <a className="marketplace-item" href="#">
-            <div className="product">
-              <figure>
-                <img
-                  src={sampleProductImage}
-                  alt="Product Image"
-                  className="product-image"
-                  width="300px"
-                  height="400px"
-                />
-              </figure>
-              <div className="product-description">
-                <div className="info">
-                  <h1>Sapatos ko</h1>
-                  <p>Bilihin niyo na tapon ko to size 40 need lang pera ASAP</p>
-                  <p>Posted by: Riandrei Casanas</p>
-                </div>
-
-                <div className="price">₱300</div>
-              </div>
-            </div>
-          </a>
-          <a className="marketplace-item" href="#">
-            <div class="product">
-              <figure>
-                <img
-                  src={sampleProductImage}
-                  alt="Product Image"
-                  className="product-image"
-                  width="300px"
-                  height="400px"
-                />
-              </figure>
-              <div className="product-description">
-                <div className="info">
-                  <h1>Sapatos ko</h1>
-                  <p>Bilihin niyo na tapon ko to size 40 need lang pera ASAP</p>
-                  <p>Posted by: Riandrei Casanas</p>
-                </div>
-
-                <div className="price">₱300</div>
-              </div>
-            </div>
-          </a>
-          <a className="marketplace-item" href="#">
-            <div class="product">
-              <figure>
-                <img
-                  src={sampleProductImage}
-                  alt="Product Image"
-                  className="product-image"
-                  width="300px"
-                  height="400px"
-                />
-              </figure>
-              <div className="product-description">
-                <div className="info">
-                  <h1>Sapatos ko</h1>
-                  <p>Bilihin niyo na tapon ko to size 40 need lang pera ASAP</p>
-                  <p>Posted by: Riandrei Casanas</p>
-                </div>
-
-                <div className="price">₱300</div>
-              </div>
-            </div>
-          </a>
-          <a className="marketplace-item" href="#">
-            <div class="product">
-              <figure>
-                <img
-                  src={sampleProductImage}
-                  alt="Product Image"
-                  className="product-image"
-                  width="300px"
-                  height="400px"
-                />
-              </figure>
-              <div className="product-description">
-                <div className="info">
-                  <h1>Sapatos ko</h1>
-                  <p>Bilihin niyo na tapon ko to size 40 need lang pera ASAP</p>
-                  <p>Posted by: Riandrei Casanas</p>
-                </div>
-
-                <div className="price">₱300</div>
-              </div>
-            </div>
-          </a>
+              </Link>
+            ))}
+          </div>
         </div>
       </div>
     </div>
