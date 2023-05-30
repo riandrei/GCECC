@@ -16,8 +16,6 @@ const StudentMarket = (props) => {
   const navigate = useNavigate();
   const [fileUrls, setFileUrls] = useState([]);
 
-  console.log(user);
-
   const handleFileChange = (e) => {
     const selectedFiles = Array.from(e.target.files);
 
@@ -37,12 +35,12 @@ const StudentMarket = (props) => {
     formData.append('title', e.target.elements[0].value);
     formData.append('description', e.target.elements[1].value);
     formData.append('price', e.target.elements[2].value);
-    formData.append('phoneNumber', e.target.elements[2].value);
+    formData.append('phoneNumber', e.target.elements[3].value);
     for (let i = 0; i < e.target.elements.image.files.length; i++) {
       formData.append('images', e.target.elements.image.files[i]);
     }
     formData.append('userName', user.name);
-    formData.append('userDomain', user.domain);
+    formData.append('userDomain', user.email);
     formData.append('userId', user.id);
 
     e.target.reset();

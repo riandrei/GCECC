@@ -8,6 +8,7 @@ import { getItems } from '../actions/itemActions.js';
 import { getCategories } from '../actions/categoryActions.js';
 import { getCart } from '../actions/cartActions.js';
 import { getUserOrders } from '../actions/orderActions.js';
+import { getListings } from '../actions/listingActions.js';
 
 import Nav from './Nav';
 import Store from './Store';
@@ -40,8 +41,10 @@ const User = (props) => {
     props.getUser(token);
     props.getCategories(token);
     props.getItems(token);
+    props.getListings(token);
     props.getCart({ token, userId });
     props.getUserOrders({ token, userId });
+    props.get;
   }, [token]);
   return (
     <>
@@ -57,6 +60,14 @@ const User = (props) => {
     </>
   );
 };
-const mapDispatchToProps = { retrieveSessionStorage, getUser, getItems, getCategories, getCart, getUserOrders };
+const mapDispatchToProps = {
+  retrieveSessionStorage,
+  getUser,
+  getItems,
+  getCategories,
+  getCart,
+  getUserOrders,
+  getListings
+};
 
 export default connect(null, mapDispatchToProps)(User);

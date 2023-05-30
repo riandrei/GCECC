@@ -1,4 +1,4 @@
-import { GET_LISTING, ADD_LISTING } from '../actions/types';
+import { GET_LISTINGS, ADD_LISTING } from '../actions/types';
 
 const initialState = {
   listings: []
@@ -6,7 +6,7 @@ const initialState = {
 
 export default function listingReducer(state = initialState, action) {
   switch (action.type) {
-    case GET_LISTING:
+    case GET_LISTINGS:
       return {
         ...state,
         listings: action.payload

@@ -1,9 +1,10 @@
 const Listing = require('../models/Listing');
+
 const cloudinary = require('cloudinary').v2;
 const fs = require('fs');
 const path = require('path');
 
-module.exports.addItem = async (req, res) => {
+module.exports.addListing = async (req, res) => {
   const { title, description, price, phoneNumber, userId, userDomain, userName } = req.body;
   const images = req.files;
 
@@ -22,4 +23,10 @@ module.exports.addItem = async (req, res) => {
   const newListing = new Listing({ userId, userDomain, userName, title, description, price, phoneNumber, img_url });
 
   newListing.save().then((listing) => res.json(listing));
+};
+
+module.exports.getListings = (req, res) => {
+  Listing.find()
+    .sort({ date: -1 })
+    .then((listings) => res.json(listings));
 };
