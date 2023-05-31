@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { connect, useSelector } from 'react-redux';
 
 import AdminProductPost from './AdminProductPost';
+import Header from './Header';
 
 import { getItems, deleteItem } from '../actions/itemActions';
 import { getCategories, deleteCategory } from '../actions/categoryActions';
@@ -40,9 +41,7 @@ const AdminProduct = (props) => {
   return (
     <>
       <div className="admin-product-main-container" onClick={toggleNav}>
-        <button onClick={toggleNav} className="admin-product-menu">
-          <img className="hamburger-icon" src={hamburgerMenu} alt="" />
-        </button>
+        <Header />
 
         <div className="admin-product-header">
           <h1 className="admin-product-title">Admin Dashboard</h1>

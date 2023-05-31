@@ -1,18 +1,20 @@
 .market-main-container {
   display: flex;
   flex-direction: column;
-  margin: 50px 0 0 220px;
+  margin: 0px 0 0 190px;
   gap: 5rem;
   animation: main-container-ani 2500ms 1 ease;
-}
-.market-category {
-  width: 70vw;
+  width: 100vw;
 }
 .market-category-title {
   display: flex;
 }
 .market-category-title h1 {
   font-size: 3.2rem;
+}
+.market-category-title,
+.market-category-contents {
+  margin: 0 3rem;
 }
 
 .market-menu {
@@ -165,7 +167,7 @@ main[role='main']:after {
 
 @media (max-width: 810px) {
   .market-main-container {
-    margin: 2rem;
+    margin: 0rem;
   }
   .market-category {
     width: 100%;

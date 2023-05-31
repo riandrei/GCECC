@@ -1,6 +1,7 @@
 import React from 'react';
 
 import AdminOrder from './AdminOrder';
+import Header from './Header';
 
 import hamburgerMenu from '../assets/hamburger-menu.png';
 
@@ -20,9 +21,7 @@ const AdminOrders = () => {
     <>
       <div className="order-main-container" onClick={toggleNav}>
         <div className="order-category">
-          <button onClick={toggleNav} className="order-menu" id="burger">
-            <img className="hamburger-icon" src={hamburgerMenu} alt="" />
-          </button>
+          <Header />
           <div className="order-header">
             <h1>Orders</h1>
           </div>

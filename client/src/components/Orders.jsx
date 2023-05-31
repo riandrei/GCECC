@@ -1,6 +1,7 @@
 import { useLocation } from 'react-router-dom';
 
 import Order from './Order';
+import Header from './Header';
 
 import hamburgerMenu from '../assets/hamburger-menu.png';
 
@@ -26,9 +27,7 @@ const Orders = () => {
     <>
       <div className="user-order-main-container" onClick={toggleNav}>
         <div className="user-order-category">
-          <button onClick={toggleNav} className="user-order-menu" id="burger">
-            <img className="hamburger-icon" src={hamburgerMenu} alt="" />
-          </button>
+          <Header />
           <div className="user-order-header">
             <h1>Orders</h1>
           </div>

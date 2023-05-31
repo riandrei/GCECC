@@ -3,6 +3,7 @@ import { connect, useSelector } from 'react-redux';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 
 import CartItem from './CartItem';
+import Header from './Header';
 import { deleteCartItems } from '../actions/cartActions.js';
 
 import hamburgerMenu from '../assets/hamburger-menu.png';
@@ -86,9 +87,7 @@ const Cart = (props) => {
     <>
       <div className="cart-main-container" onClick={toggleNav}>
         <div className="cart-category">
-          <button onClick={toggleNav} className="cart-menu" id="burger">
-            <img className="hamburger-icon" src={hamburgerMenu} alt="" />
-          </button>
+          <Header />
           <div className="cart-header">
             <h1>Cart</h1>
             <div className="actions-wrapper">

@@ -1,16 +1,17 @@
 .user-order-main-container {
   display: flex;
   flex-direction: column;
-  margin: 10vmin 0 0 30vmin;
+  margin: 0 0 0 190px;
   animation: main-container-ani 2500ms ease;
-  gap: 5rem;
+  gap: 2rem;
   width: 100vw;
-}
-.user-order-category {
-  padding: 0 5vw;
 }
 .user-order-category .user-order-menu {
   display: none;
+}
+.user-order-header,
+.user-order-contents {
+  margin: 0 3rem;
 }
 .user-order-header {
   display: flex;
@@ -22,8 +23,7 @@
 .user-order-contents {
   display: flex;
   flex-direction: column;
-  width: 100%;
-  padding: 0 5vw;
+  width: 93%;
   gap: 1.5rem;
 }
 .user-order-label {
@@ -48,17 +48,12 @@
 @media (max-width: 810px) {
   .user-order-main-container {
     margin: 0;
-    padding: 2rem;
     gap: 2rem;
   }
-  .user-order-category {
-    padding: 0;
-  }
   .user-order-contents {
-    width: 100vw;
-    max-width: 1000px;
-    padding-left: 0;
+    padding: 0;
     text-align: center;
+    width: 88%;
   }
   .show-nav {
     visibility: visible;
@@ -72,11 +67,6 @@
     width: 1.8vw;
     aspect-ratio: 1/1;
   }
-
-  .user-order-contents {
-    padding-right: 4rem;
-  }
-
   .user-order-category .user-order-menu {
     display: block;
     background-color: transparent;

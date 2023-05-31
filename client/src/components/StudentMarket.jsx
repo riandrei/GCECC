@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useSelector, connect } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
 
+import Header from './Header';
 import { addListing } from '../actions/listingActions';
 
 import uniformIcon from '../assets/uniformH1.png';
@@ -69,9 +70,7 @@ const StudentMarket = (props) => {
   return (
     <div className="market-main-container" onClick={toggleNav}>
       <div className="market-category">
-        <button onClick={toggleNav} className="market-menu" id="burger">
-          <img className="hamburger-icon" src={hamburgerMenu} alt="" />
-        </button>
+        <Header />
         <div className="market-category-title">
           <h1>Student Marketplace</h1>
         </div>

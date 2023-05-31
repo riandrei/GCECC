@@ -13,14 +13,15 @@
   gap: 2rem;
 }
 .order-detail-header {
-  top: 0;
+  background-color: #fff;
+  box-shadow: 0 5px 5px -5px grey;
   display: flex;
   justify-content: flex-end;
   align-items: center;
+  top: 0;
   height: 10vh;
-  background-color: #fff;
-  box-shadow: 0 5px 5px -5px grey;
-  padding: 0 2rem;
+  padding: 0 5vmin;
+  margin-bottom: 3rem;
 }
 .time {
   display: flex;

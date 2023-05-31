@@ -1,7 +1,7 @@
 .admin-product-main-container {
   display: flex;
   flex-direction: column;
-  padding: 10vmin 0 0 30vmin;
+  padding: 0 0 0 190px;
   gap: 2rem;
   animation: main-container-ani 1000ms 1 ease;
   -webkit-animation: main-container-ani 2500ms ease;
@@ -13,7 +13,7 @@
 }
 .admin-product-header,
 .admin-product-category {
-  padding: 0 5vw;
+  margin: 0 3rem;
 }
 .admin-product-header {
   display: flex;
@@ -75,7 +75,6 @@
 @media (max-width: 810px) {
   .admin-product-main-container {
     padding: 0;
-    margin: 2rem;
   }
 
   .admin-product-menu {

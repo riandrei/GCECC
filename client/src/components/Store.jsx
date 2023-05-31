@@ -2,6 +2,8 @@ import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 
+import Header from './Header';
+
 import hamburgerMenu from '../assets/hamburger-menu.png';
 import noImg from '../assets/no-image.jpg';
 
@@ -36,9 +38,7 @@ const Store = () => {
 
   return (
     <div className="store-main-container" onClick={toggleNav}>
-      <button onClick={toggleNav} className="store-menu" id="burger">
-        <img className="hamburger-icon" src={hamburgerMenu} alt="" />
-      </button>
+      <Header />
       {categories.map((category) => (
         <div key={category._id} className="store-category">
           <div className="store-category-title">

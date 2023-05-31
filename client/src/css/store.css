@@ -1,10 +1,10 @@
 .store-main-container {
   display: flex;
   flex-direction: column;
-  margin: 50px 0 0 220px;
+  margin: 0 0 0 190px;
   gap: 5rem;
   animation: main-container-ani 2500ms 1 ease;
-  width: 100%;
+  width: 100vw;
 }
 .store-menu {
   display: none;
@@ -27,7 +27,7 @@
 @media (max-width: 810px) {
   .store-main-container {
     gap: 1rem;
-    margin: 2rem;
+    margin: 0;
   }
 
   .store-menu {
