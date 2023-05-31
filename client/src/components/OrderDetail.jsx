@@ -24,14 +24,7 @@ const OrderDetail = () => {
 
   useEffect(() => {
     clickedOrder = orders.find((order) => order._id === orderId);
-    orderItems = clickedOrder.items.map((item) => item);
-
-    orderItems.forEach((item) => {
-      const foundItem = itemList.find((itemEntry) => itemEntry._id === item.itemId);
-      item.imgUrl = foundItem.img_url[0];
-      item.price = foundItem.price;
-      item.label = foundItem.label;
-    });
+    orderItems = clickedOrder?.items.map((item) => item);
 
     setName(`${clickedOrder?.userName}`);
     setDepartment(`${clickedOrder?.userDepartment} Department`);
@@ -93,7 +86,7 @@ const OrderDetail = () => {
       <div className="order-detail-contents">
         {items.map((orderItem) => (
           <div className="order-items">
-            <img src={orderItem.imgUrl || noImg} alt="item-image" />
+            <img src={orderItem.img_url || noImg} alt="item-image" />
             <div className="items-detail">
               <p>{orderItem.label}</p>
               <p>{`${orderItem.size.charAt(0).toUpperCase()}${orderItem.size.slice(1, orderItem.size.length)}`}</p>

@@ -50,7 +50,7 @@ module.exports.updateCartQuantity = (req, res) => {
 
 module.exports.addCartItem = (req, res, next) => {
   const userId = req.params.id;
-  const { itemId, size, quantity } = req.body;
+  const { itemId, size, quantity, label, price, img_url } = req.body;
 
   Cart.findOne({ userId: userId, items: { $elemMatch: { itemId: itemId, size: size } } }).then((cart) => {
     if (cart) {
@@ -60,7 +60,7 @@ module.exports.addCartItem = (req, res, next) => {
       Item.findOne({ _id: itemId })
         .then((item) => item.price)
         .then((itemPrice) => {
-          const newCartItem = { itemId, size, quantity };
+          const newCartItem = { itemId, size, quantity, label, price, img_url };
 
           Cart.updateOne({ userId }, { $push: { items: newCartItem }, $inc: { bill: itemPrice * quantity } }).then(
             () => {

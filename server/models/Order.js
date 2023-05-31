@@ -29,6 +29,17 @@ const OrderSchema = new Schema({
         ref: 'item',
         required: true
       },
+      label: {
+        type: String,
+        required: true
+      },
+      img_url: {
+        type: String
+      },
+      price: {
+        type: Number,
+        required: true
+      },
       size: {
         type: String,
         required: true

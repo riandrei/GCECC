@@ -8,6 +8,8 @@ module.exports.placeOrder = (req, res) => {
 
   const itemIds = itemDetails.map((checkoutItem) => checkoutItem.itemId);
 
+  console.log(itemDetails);
+
   Item.find({ _id: { $in: itemIds } }).then((items) => {
     const isItemsValid = itemDetails.every((checkoutItem) => {
       const foundItem = items.find((item) => item._id.toString() === checkoutItem.itemId);
@@ -24,7 +26,7 @@ module.exports.placeOrder = (req, res) => {
       userName: userDetails.name,
       userDepartment: userDetails.department,
       userDomain: userDetails.domain,
-      items: itemDetails.map(({ price, _id, ...rest }) => rest),
+      items: itemDetails.map(({ _id, ...rest }) => rest),
       bill: itemDetails.reduce((total, { price, quantity }) => total + price * quantity, 0),
       status: 'submitted'
     });
@@ -42,7 +44,9 @@ module.exports.getUserOrders = (req, res) => {
 };
 
 module.exports.getOrders = (req, res) => {
-  Order.find().then((orders) => res.json(orders));
+  Order.find()
+    .sort({ dateAdded: -1 })
+    .then((orders) => res.json(orders));
 };
 
 module.exports.changeOrderStatus = (req, res, next) => {

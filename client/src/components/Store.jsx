@@ -2,10 +2,6 @@ import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 
-import uniformIcon from '../assets/uniformH1.png';
-import femaleBlouse from '../assets/products/uniform/female-blouse.png';
-import sampleLace from '../assets/products/ID/ID-BSEMC.png';
-import sampleShirt from '../assets/products/sportsfest-shirt-sample.png';
 import hamburgerMenu from '../assets/hamburger-menu.png';
 import noImg from '../assets/no-image.jpg';
 

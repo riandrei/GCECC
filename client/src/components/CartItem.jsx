@@ -14,7 +14,7 @@ const CartItem = (props) => {
   const handleButtonClick = (cartItem, purpose) => {
     const { itemId, size } = cartItem;
 
-    props.newCartItems.forEach((cartItem) => {
+    props.cartItems.forEach((cartItem) => {
       if (cartItem.itemId === itemId && cartItem.size === size) {
         const updatedCartItem = { ...cartItem };
 
@@ -37,12 +37,8 @@ const CartItem = (props) => {
 
     if (e.target.checked) {
       if (cartItemIndex < 0) {
-        existingItemCheckbox.push({
-          _id: cartItem._id,
-          itemId: cartItem.itemId,
-          quantity: cartItem.quantity,
-          size: cartItem.size
-        });
+        console.log(cartItem);
+        existingItemCheckbox.push(cartItem);
       }
     } else {
       if (cartItemIndex >= 0) {
@@ -50,14 +46,16 @@ const CartItem = (props) => {
       }
     }
 
+    console.log(existingItemCheckbox);
+
     props.setCheckedItems(existingItemCheckbox);
   };
 
-  return !props.newCartItems ? (
+  return !props.cartItems ? (
     <p>No Items</p>
   ) : (
     <>
-      {props.newCartItems.map((cartItem) => (
+      {props.cartItems.map((cartItem) => (
         <div key={cartItem._id} className="item">
           <input
             className="cart-checkbox"
@@ -69,7 +67,7 @@ const CartItem = (props) => {
             }}
           />
           <div className="cart-item">
-            <img src={cartItem.img || noImg} alt="" />
+            <img src={cartItem.img_url || noImg} alt="" />
             <div className="item-details">
               <h3 className="item-label">{cartItem.label}</h3>
               <p>{cartItem.size}</p>

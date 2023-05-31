@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { connect, useSelector } from 'react-redux';
 
 import { deleteCartItems } from '../actions/cartActions';
@@ -7,9 +7,11 @@ import { placeOrder } from '../actions/orderActions';
 
 import '../css/checkout.css';
 import hamburgerMenu from '../assets/hamburger-menu.png';
+import noImg from '../assets/no-image.jpg';
 
 const Checkout = (props) => {
   const location = useLocation();
+  const navigate = useNavigate();
   const items = useSelector((state) => state.item.items);
 
   const { checkedItems } = location.state;
@@ -24,38 +26,18 @@ const Checkout = (props) => {
   const [paymentMethod, setPaymentMethod] = useState('');
   const [validForm, setValidForm] = useState(true);
 
-  const checkoutItems = checkedItems?.map((checkedItem, index) => {
-    const item = items?.find((item) => item._id === checkedItem.itemId);
-
-    const checkoutItem = {
-      ...checkedItem,
-      label: item?.label,
-      img: item?.img_url[0],
-      price: item?.price
-    };
-
-    return checkoutItem;
-  });
-
   const handlePlaceOrder = () => {
     if (!!name.trim() && !!department.trim() && !!domain.trim() && !!paymentMethod.trim()) {
       setValidForm(true);
 
       const userDetails = { userId, name, department, domain, paymentMethod };
-      const itemDetails = checkoutItems.map((checkoutItem) => {
-        const newCheckoutItem = {
-          _id: checkoutItem._id,
-          itemId: checkoutItem.itemId,
-          size: checkoutItem.size,
-          quantity: checkoutItem.quantity,
-          price: checkoutItem.price
-        };
+      const itemDetails = checkedItems;
 
-        return newCheckoutItem;
-      });
+      console.log(itemDetails);
 
       props.placeOrder({ token, userDetails, itemDetails });
       props.deleteCartItems({ token, userId, itemDetails });
+      navigate('/user/cart');
 
       return;
     }
@@ -128,21 +110,21 @@ const Checkout = (props) => {
         </form>
         <div className="checkout-order">
           <div className="checkout-order-items">
-            {checkoutItems.map((checkoutItem) => (
-              <div key={checkoutItem._id} className="checkout-order-item">
-                <img src={checkoutItem.img} alt="item-picture" />
+            {checkedItems.map((checkedItem) => (
+              <div key={checkedItem._id} className="checkout-order-item">
+                <img src={checkedItem.img || noImg} alt="item-picture" />
                 <div className="checkout-item-label">
-                  <h4>{checkoutItem.label}</h4>
-                  <p>{checkoutItem.size}</p>
+                  <h4>{checkedItem.label}</h4>
+                  <p>{checkedItem.size}</p>
                 </div>
                 <div className="checkout-item-quantity">
                   <p>
                     <span>Quantity :</span>
-                    <span>{checkoutItem.quantity}</span>
+                    <span>{checkedItem.quantity}</span>
                   </p>
                   <p>
                     <span>Price :</span>
-                    <span>{`\u20B1${checkoutItem.price}`}</span>
+                    <span>{`\u20B1${checkedItem.price}`}</span>
                   </p>
                 </div>
               </div>

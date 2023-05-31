@@ -23,20 +23,6 @@ const Cart = (props) => {
   const items = useSelector((state) => state.item.items);
   const cartItems = useSelector((state) => state.cart.items);
 
-  const filteredItems = items?.filter((item) => cartItems?.find((cartItem) => cartItem.itemId === item._id));
-  const newCartItems = cartItems?.map((cartItem, index) => {
-    const filteredItem = filteredItems?.find((filteredItem) => filteredItem._id === cartItem.itemId);
-
-    const newCartItem = {
-      ...cartItem,
-      label: filteredItem?.label,
-      img: filteredItem?.img_url[0],
-      price: filteredItem?.price
-    };
-
-    return newCartItem;
-  });
-
   useEffect(() => {
     if (!isAuthenticated) {
       navigate(`/`);
@@ -61,12 +47,7 @@ const Cart = (props) => {
 
       if (e.target.checked) {
         if (cartItemIndex < 0) {
-          existingItemCheckbox.push({
-            _id: cartItem._id,
-            itemId: cartItem.itemId,
-            quantity: cartItem.quantity,
-            size: cartItem.size
-          });
+          existingItemCheckbox.push(cartItem);
         }
       } else {
         existingItemCheckbox.splice(0, cartItems.length);
@@ -137,7 +118,7 @@ const Cart = (props) => {
             <h2 className="price">PRICE</h2>
           </div>
           <CartItem
-            newCartItems={newCartItems}
+            cartItems={cartItems}
             checked={checked}
             checkedItems={checkedItems}
             setCheckedItems={setCheckedItems}

@@ -60,6 +60,9 @@ const StoreItem = (props) => {
     const userId = sessionStorage.getItem('id');
     const cartItem = {
       itemId: foundItem._id,
+      label: foundItem.label,
+      price: foundItem.price,
+      img_url: foundItem.img_url[0],
       size: selectedValue,
       quantity: 1
     };
